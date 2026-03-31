@@ -27,9 +27,9 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/runtime"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/runtime"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 )
 
@@ -76,7 +76,7 @@ func (g *APIHandler) scanFile(w http.ResponseWriter, r *http.Request) {
 	zap.S().Debugf("MIME header: %+v", handler.Header)
 
 	// Create a temporary file within temp directory
-	tempFileTemplate := fmt.Sprintf("terrascan-*%s", fileExtension)
+	tempFileTemplate := fmt.Sprintf("openterrascan-*%s", fileExtension)
 	tempFile, err := os.CreateTemp("", tempFileTemplate)
 	if err != nil {
 		errMsg := fmt.Sprintf("failed to create temp file. error: '%v'", err)

@@ -19,7 +19,7 @@ package iacprovider
 import (
 	"reflect"
 
-	helmv3 "github.com/tenable/terrascan/pkg/iac-providers/helm/v3"
+	helmv3 "github.com/tenable/openterrascan/pkg/iac-providers/helm/v3"
 )
 
 // terraform specific constants
@@ -29,7 +29,7 @@ const (
 	helmDefaultIacVersion                     = helmV3
 )
 
-// register helm as an IaC provider with terrascan
+// register helm as an IaC provider with openterrascan
 func init() {
 	// register iac provider
 	RegisterIacProvider(helm, helmV3, helmDefaultIacVersion, reflect.TypeOf(helmv3.HelmV3{}))

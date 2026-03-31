@@ -24,11 +24,11 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/downloader"
-	admissionwebhook "github.com/tenable/terrascan/pkg/k8s/admission-webhook"
-	"github.com/tenable/terrascan/pkg/runtime"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/downloader"
+	admissionwebhook "github.com/tenable/openterrascan/pkg/k8s/admission-webhook"
+	"github.com/tenable/openterrascan/pkg/runtime"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 )
 

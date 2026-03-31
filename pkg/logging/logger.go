@@ -23,15 +23,15 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
 
 const (
-	logFileName                   = "terrascan.log"
-	terrascanZapSink              = "terrascan-winfile-sink"
-	terrascanZapSinkWithSeparator = terrascanZapSink + ":///"
+	logFileName                   = "openterrascan.log"
+	openterrascanZapSink              = "openterrascan-winfile-sink"
+	openterrascanZapSinkWithSeparator = openterrascanZapSink + ":///"
 )
 
 var globalLogger *zap.SugaredLogger
@@ -99,8 +99,8 @@ func GetLogger(logLevel, encoding, logDir string, encodingLevel func(zapcore.Lev
 		// currently zap's default file sink do not support handling of windows files
 		// so if we are on windows os register an sink which will handle the opening of file.
 		if utils.IsWindowsPlatform() {
-			zap.RegisterSink(terrascanZapSink, newTerrascanWinFileSink)
-			logDirPath = terrascanZapSinkWithSeparator + logDirPath
+			zap.RegisterSink(openterrascanZapSink, newOpenTerraScanWinFileSink)
+			logDirPath = openterrascanZapSinkWithSeparator + logDirPath
 		}
 		zapConfig.OutputPaths = append(zapConfig.OutputPaths, logDirPath)
 	}
@@ -118,9 +118,9 @@ func GetDefaultLogger() *zap.SugaredLogger {
 	return globalLogger
 }
 
-// newTerrascanWinFileSink custom sink to open file on windows
+// newOpenTerraScanWinFileSink custom sink to open file on windows
 // https://github.com/uber-go/zap/issues/621#issue-350197709 - referred from this issue comment
-func newTerrascanWinFileSink(u *url.URL) (zap.Sink, error) {
+func newOpenTerraScanWinFileSink(u *url.URL) (zap.Sink, error) {
 	// copy pasting this error from default FileSink of zap to keep the standard behaviour across all platforms
 	// newFileSink()
 	if u.User != nil {

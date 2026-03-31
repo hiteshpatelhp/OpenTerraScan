@@ -34,9 +34,9 @@ import (
 	"github.com/onsi/ginkgo"
 	"github.com/onsi/gomega"
 	"github.com/onsi/gomega/gexec"
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/pkg/results"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"gopkg.in/yaml.v3"
 )
 
@@ -84,7 +84,7 @@ var (
 	// classnamePattern is regex for 'package' attribute in junit-xml output
 	classnamePattern = regexp.MustCompile(`classname=["]*(.+)[\\\/](.+)["]*`)
 
-	// versionValuePattern is regex for 'value' attribute in junit-xml output (which is terrascan version)
+	// versionValuePattern is regex for 'value' attribute in junit-xml output (which is openterrascan version)
 	versionValuePattern = regexp.MustCompile(`value="v[0-9][\.]([0-9])+[\.]([0-9])+"`)
 
 	// sourceRegexPattern is regex for 'file/folder' attribute in violations output
@@ -262,15 +262,15 @@ func DoesNotContainsErrorSubString(session *gexec.Session, errSubString string) 
 	gomega.Expect(string(session.Wait().Err.Contents())).ShouldNot(gomega.ContainSubstring(errSubString))
 }
 
-// GetTerrascanBinaryPath returns the terrascan binary path
-func GetTerrascanBinaryPath() string {
-	terrascanBinaryPath := os.Getenv("TERRASCAN_BIN_PATH")
-	ginkgo.Describe("terrascan binary path should be set for executing tests", func() {
-		if terrascanBinaryPath == "" {
-			ginkgo.Fail("ensure that TERRASCAN_BIN_PATH is set")
+// GetOpenTerraScanBinaryPath returns the openterrascan binary path
+func GetOpenTerraScanBinaryPath() string {
+	openterrascanBinaryPath := os.Getenv("OPENTERRASCAN_BIN_PATH")
+	ginkgo.Describe("openterrascan binary path should be set for executing tests", func() {
+		if openterrascanBinaryPath == "" {
+			ginkgo.Fail("ensure that OPENTERRASCAN_BIN_PATH is set")
 		}
 	})
-	return terrascanBinaryPath
+	return openterrascanBinaryPath
 }
 
 // RunCommand will initialise the command to run and return session

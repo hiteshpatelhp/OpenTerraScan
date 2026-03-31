@@ -3,7 +3,7 @@
     "violations": null,
     "skipped_violations": null,
     "scan_summary": {
-      "file/folder": "/Users/suvarna/go/src/github.com/rchanger/terrascan/test/e2e/test_data/iac/terraform_cache_use_in_scan",
+      "file/folder": "/Users/suvarna/go/src/github.com/rchanger/openterrascan/test/e2e/test_data/iac/terraform_cache_use_in_scan",
       "iac_type": "terraform",
       "scanned_at": "2021-07-22 16:06:39.189999 +0000 UTC",
       "policies_validated": 8,

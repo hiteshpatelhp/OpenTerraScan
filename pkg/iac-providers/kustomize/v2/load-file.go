@@ -17,8 +17,8 @@
 package kustomizev2
 
 import (
-	"github.com/tenable/terrascan/pkg/iac-providers/kustomize/commons"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/kustomize/commons"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 )
 
 // LoadIacFile is not supported for kustomize. Only loading directories that have kustomization.y(a)ml file are supported

@@ -3,7 +3,7 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: localhost-validating-webhook
 webhooks:
-  - name: localhost.terrascan.server
+  - name: localhost.openterrascan.server
     rules:
       - apiGroups:
           - ""

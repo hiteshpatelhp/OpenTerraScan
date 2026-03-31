@@ -23,12 +23,12 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/pkg/results"
-	"github.com/tenable/terrascan/pkg/runtime"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/runtime"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 func TestMain(m *testing.M) {
@@ -43,7 +43,7 @@ func setup() {
 	config.LoadGlobalConfig("")
 
 	// to download the policies for Run test
-	// downloads the policies at $HOME/.terrascan
+	// downloads the policies at $HOME/.openterrascan
 	initial(nil, nil, false)
 }
 
@@ -141,7 +141,7 @@ func TestRun(t *testing.T) {
 			},
 		},
 		{
-			// test for https://github.com/tenable/terrascan/issues/718
+			// test for https://github.com/tenable/openterrascan/issues/718
 			// a valid tfplan file is supplied, error is not expected
 			name: "iac type is tfplan and -f option used to specify the tfplan.json",
 			scanOptions: &ScanOptions{
@@ -309,7 +309,7 @@ func TestScanOptionsDownloadRemoteRepository(t *testing.T) {
 			name: "valid input parameters",
 			fields: fields{
 				RemoteType: "git",
-				RemoteURL:  "github.com/tenable/terrascan",
+				RemoteURL:  "github.com/tenable/openterrascan",
 			},
 			tempDir: testTempdir,
 			want:    testTempdir,

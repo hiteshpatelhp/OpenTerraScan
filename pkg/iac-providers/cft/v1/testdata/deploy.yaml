@@ -2,7 +2,7 @@ Resources:
   S3Bucket:
     Type: 'AWS::S3::Bucket'
     Metadata:
-      runterrascan.io/skip: |
+      runopenterrascan.io/skip: |
         [{"rule": "AC_AWS_047", "comment": "reason to skip the rule"}]
     Properties:
       BucketName: DOC-EXAMPLE-BUCKET

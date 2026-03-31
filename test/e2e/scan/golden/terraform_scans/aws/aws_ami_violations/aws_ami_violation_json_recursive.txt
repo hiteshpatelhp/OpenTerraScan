@@ -3,13 +3,13 @@
     "scan_errors": [
       {
         "iac_type": "terraform",
-        "directory": "/Users/pankajpatil/go/src/github.com/patilpankaj212/terrascan/test/e2e/test_data/iac/terraform_recursive",
-        "errMsg": "directory '/Users/pankajpatil/go/src/github.com/patilpankaj212/terrascan/test/e2e/test_data/iac/terraform_recursive' has no terraform config files"
+        "directory": "/Users/pankajpatil/go/src/github.com/patilpankaj212/openterrascan/test/e2e/test_data/iac/terraform_recursive",
+        "errMsg": "directory '/Users/pankajpatil/go/src/github.com/patilpankaj212/openterrascan/test/e2e/test_data/iac/terraform_recursive' has no terraform config files"
       },
       {
         "iac_type": "terraform",
-        "directory": "/Users/pankajpatil/go/src/github.com/patilpankaj212/terrascan/test/e2e/test_data/iac/terraform_recursive/subFolder1",
-        "errMsg": "directory '/Users/pankajpatil/go/src/github.com/patilpankaj212/terrascan/test/e2e/test_data/iac/terraform_recursive/subFolder1' has no terraform config files"
+        "directory": "/Users/pankajpatil/go/src/github.com/patilpankaj212/openterrascan/test/e2e/test_data/iac/terraform_recursive/subFolder1",
+        "errMsg": "directory '/Users/pankajpatil/go/src/github.com/patilpankaj212/openterrascan/test/e2e/test_data/iac/terraform_recursive/subFolder1' has no terraform config files"
       }
     ],
     "violations": [
@@ -29,7 +29,7 @@
     ],
     "skipped_violations": null,
     "scan_summary": {
-      "file/folder": "/Users/pankajpatil/go/src/github.com/patilpankaj212/terrascan/test/e2e/test_data/iac/terraform_recursive",
+      "file/folder": "/Users/pankajpatil/go/src/github.com/patilpankaj212/openterrascan/test/e2e/test_data/iac/terraform_recursive",
       "iac_type": "terraform",
       "scanned_at": "2021-04-18 12:45:51.597994 +0000 UTC",
       "policies_validated": 8,

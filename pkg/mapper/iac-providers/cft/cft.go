@@ -78,11 +78,11 @@ import (
 	"github.com/awslabs/goformation/v7/cloudformation/route53"
 	"github.com/awslabs/goformation/v7/cloudformation/s3"
 	"github.com/awslabs/goformation/v7/cloudformation/ssm"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/mapper/core"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/config"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/store"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/mapper/core"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/config"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/store"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 const errUnsupportedDoc = "unsupported document type"
@@ -95,7 +95,7 @@ func Mapper() core.Mapper {
 	return cftMapper{}
 }
 
-// Map transforms the provider specific template to terrascan native format.
+// Map transforms the provider specific template to openterrascan native format.
 func (m cftMapper) Map(resource interface{}, params ...map[string]interface{}) ([]output.ResourceConfig, error) {
 	// transform each resource and generate config
 	var configs []output.ResourceConfig

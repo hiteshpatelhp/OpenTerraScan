@@ -18,7 +18,7 @@ package config
 
 import (
 	"github.com/awslabs/goformation/v7/cloudformation/cloudformation"
-	fn "github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/functions"
+	fn "github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/functions"
 )
 
 // CloudFormationStackConfig holds config for aws_cloudformation_stack

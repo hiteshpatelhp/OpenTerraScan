@@ -23,7 +23,7 @@ import (
 // map of supported notifier types
 var supportedNotifiers = make(map[supportedNotifierType]reflect.Type)
 
-// RegisterNotifier registers an notifier provider for terrascan
+// RegisterNotifier registers an notifier provider for openterrascan
 func RegisterNotifier(notifierType supportedNotifierType, notifierProvider reflect.Type) {
 	supportedNotifiers[notifierType] = notifierProvider
 }

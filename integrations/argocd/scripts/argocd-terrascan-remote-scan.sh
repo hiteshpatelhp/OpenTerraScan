@@ -17,7 +17,7 @@
 
 set -o errexit
 
-TERRASCAN_SERVER="https://${SERVICE_NAME}"
+OPENTERRASCAN_SERVER="https://${SERVICE_NAME}"
 IAC=${IAC_TYPE:-"k8s"}
 IAC_VERSION=${IAC_VERSION:-"v1"}
 CLOUD_PROVIDER=${CLOUD_PROVIDER:-"all"}
@@ -33,7 +33,7 @@ if [ -z ${REMOTE_URL} ]; then
     exit 1
 fi
 
-SCAN_URL="${TERRASCAN_SERVER}/v1/${IAC}/${IAC_VERSION}/${CLOUD_PROVIDER}/remote/dir/scan"
+SCAN_URL="${OPENTERRASCAN_SERVER}/v1/${IAC}/${IAC_VERSION}/${CLOUD_PROVIDER}/remote/dir/scan"
 
 echo "Connecting to the service: ${SERVICE_NAME} to scan the remote url: ${REMOTE_URL} \
   with configurations { IAC type: ${IAC}, IAC version: ${IAC_VERSION},  remote type: ${REMOTE_TYPE} , cloud provider: ${CLOUD_PROVIDER}}"

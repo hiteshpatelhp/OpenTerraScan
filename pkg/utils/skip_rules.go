@@ -22,17 +22,17 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 	"go.uber.org/zap"
 )
 
 const (
-	// TerrascanSkip key used to detect rules for skipping violations
-	TerrascanSkip = "runterrascan.io/skip"
-	// TerrascanSkipRule key used to detect the rule to be skipped
-	TerrascanSkipRule = "rule"
-	// TerrascanSkipComment key used to detect comment skipping a give rule
-	TerrascanSkipComment = "comment"
+	// OpenTerraScanSkip key used to detect rules for skipping violations
+	OpenTerraScanSkip = "runopenterrascan.io/skip"
+	// OpenTerraScanSkipRule key used to detect the rule to be skipped
+	OpenTerraScanSkipRule = "rule"
+	// OpenTerraScanSkipComment key used to detect comment skipping a give rule
+	OpenTerraScanSkipComment = "comment"
 	// SkipRulesPrefix used to identify and trim the skipping rule patterns
 	SkipRulesPrefix = "#ts:skip="
 	// MetaDataIDRegex pattern to match Rego Metadata ID
@@ -96,7 +96,7 @@ func getSkipRuleObject(s string) *output.SkipRule {
 // metadata:
 //
 //	annotations:
-//	  runterrascan.io/skip: |
+//	  runopenterrascan.io/skip: |
 //	    [{"rule": "accurics.kubernetes.IAM.109", "comment": "reason to skip the rule"}]
 //
 // cft:
@@ -104,7 +104,7 @@ func getSkipRuleObject(s string) *output.SkipRule {
 //
 //	myResource:
 //	  Metadata:
-//	    runterrascan.io/skip: |
+//	    runopenterrascan.io/skip: |
 //	      [{"rule": "AC_AWS_047", "comment": "reason to skip the rule"}]
 //
 // cft json:
@@ -112,7 +112,7 @@ func getSkipRuleObject(s string) *output.SkipRule {
 //	"Resource":{
 //	  "myResource":{
 //	    "Metadata":{
-//	       "runterrascan.io/skip": "[{\"rule\":\"AWS.CloudFormation.Medium.0603\"}]"
+//	       "runopenterrascan.io/skip": "[{\"rule\":\"AWS.CloudFormation.Medium.0603\"}]"
 //	    }
 //	  }
 //	}
@@ -123,8 +123,8 @@ func ReadSkipRulesFromMap(skipRulesMap map[string]interface{}, resourceID string
 
 	var skipRulesFromMap interface{}
 	var ok bool
-	if skipRulesFromMap, ok = skipRulesMap[TerrascanSkip]; !ok {
-		zap.S().Debugf(infileInstructionNotPresentLog, TerrascanSkip, resourceID)
+	if skipRulesFromMap, ok = skipRulesMap[OpenTerraScanSkip]; !ok {
+		zap.S().Debugf(infileInstructionNotPresentLog, OpenTerraScanSkip, resourceID)
 		return nil
 	}
 
@@ -138,6 +138,6 @@ func ReadSkipRulesFromMap(skipRulesMap map[string]interface{}, resourceID string
 		return skipRules
 	}
 
-	zap.S().Debugf("%s must be a string containing an json array like [{rule: ruleID, comment: reason for skipping}]", TerrascanSkip)
+	zap.S().Debugf("%s must be a string containing an json array like [{rule: ruleID, comment: reason for skipping}]", OpenTerraScanSkip)
 	return nil
 }

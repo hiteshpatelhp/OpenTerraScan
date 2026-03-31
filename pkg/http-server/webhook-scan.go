@@ -23,7 +23,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	admissionWebhook "github.com/tenable/terrascan/pkg/k8s/admission-webhook"
+	admissionWebhook "github.com/tenable/openterrascan/pkg/k8s/admission-webhook"
 	"go.uber.org/zap"
 
 	v1 "k8s.io/api/admission/v1"

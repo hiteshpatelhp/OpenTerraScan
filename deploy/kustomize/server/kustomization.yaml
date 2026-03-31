@@ -2,7 +2,7 @@ resources:
   - ../base
   - service.yaml
 
-namespace: <TERRASCAN_NAMESPACE>
+namespace: <OPENTERRASCAN_NAMESPACE>
 
 commonLabels:
-  app: terrascan
+  app: openterrascan

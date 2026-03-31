@@ -25,7 +25,7 @@ import (
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 )
 
 var fileTestDataDir = filepath.Join(testDataDir, "file-test-data")
@@ -40,7 +40,7 @@ var multiStageDockerfileConfig = output.AllResourceConfigs{
 			PlanRoot:    "",
 			Line:        7,
 			Type:        "docker_COPY",
-			Config:      "--from=builder /go/bin/terrascan /go/bin/terrascan",
+			Config:      "--from=builder /go/bin/openterrascan /go/bin/openterrascan",
 			SkipRules:   []output.SkipRule(nil),
 			MaxSeverity: "",
 			MinSeverity: "",

@@ -24,7 +24,7 @@ import (
 	"github.com/hashicorp/hcl/v2"
 	hclConfigs "github.com/hashicorp/terraform/configs"
 	"github.com/spf13/afero"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 	"go.uber.org/zap"
 )
 

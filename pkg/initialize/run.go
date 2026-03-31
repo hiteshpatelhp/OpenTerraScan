@@ -26,7 +26,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/tenable/terrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/config"
 	"go.uber.org/zap"
 	"gopkg.in/src-d/go-git.v4"
 	gitConfig "gopkg.in/src-d/go-git.v4/config"
@@ -37,10 +37,10 @@ var (
 	errNoConnection = fmt.Errorf("could not connect to github.com")
 )
 
-const terrascanReadmeURL string = "https://raw.githubusercontent.com/tenable/terrascan/master/README.md"
+const openterrascanReadmeURL string = "https://raw.githubusercontent.com/tenable/openterrascan/master/README.md"
 const filePermissionBits fs.FileMode = 0755
 
-// Run initializes terrascan if not done already
+// Run initializes openterrascan if not done already
 func Run(isNonInitCmd bool) error {
 	// check if policy paths exist
 	if path, err := os.Stat(config.GetPolicyRepoPath()); err == nil && path.IsDir() {
@@ -49,7 +49,7 @@ func Run(isNonInitCmd bool) error {
 		}
 	}
 
-	zap.S().Debug("initializing terrascan")
+	zap.S().Debug("initializing openterrascan")
 
 	// download policies
 	if err := DownloadPolicies(); err != nil {
@@ -215,7 +215,7 @@ func ensureDir(path string) error {
 }
 
 func downloadDefaultPolicies(policyBasePath string) error {
-	if !connected(terrascanReadmeURL) {
+	if !connected(openterrascanReadmeURL) {
 		return errNoConnection
 	}
 
@@ -225,7 +225,7 @@ func downloadDefaultPolicies(policyBasePath string) error {
 	zap.S().Debugf("policy directory path : %s", repoURL)
 	zap.S().Debugf("policy repo url : %s", repoURL)
 	zap.S().Debugf("policy repo git branch : %s", branch)
-	zap.S().Debugf("cloning terrascan repo at %s", policyBasePath)
+	zap.S().Debugf("cloning openterrascan repo at %s", policyBasePath)
 
 	// clone the repo
 	r, err := git.PlainClone(policyBasePath, false, &git.CloneOptions{

@@ -20,12 +20,12 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/mapper/core"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/arm/config"
-	fn "github.com/tenable/terrascan/pkg/mapper/iac-providers/arm/functions"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/arm/types"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/mapper/core"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/arm/config"
+	fn "github.com/tenable/openterrascan/pkg/mapper/iac-providers/arm/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/arm/types"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 type armMapper struct{}
@@ -35,7 +35,7 @@ func Mapper() core.Mapper {
 	return armMapper{}
 }
 
-// Map transforms the provider specific template to terrascan native format.
+// Map transforms the provider specific template to openterrascan native format.
 func (m armMapper) Map(resource interface{}, params ...map[string]interface{}) ([]output.ResourceConfig, error) {
 	r, ok := resource.(types.Resource)
 	if !ok {

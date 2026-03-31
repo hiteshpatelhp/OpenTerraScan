@@ -17,8 +17,8 @@
 package kustomizev4
 
 import (
-	"github.com/tenable/terrascan/pkg/iac-providers/kustomize/commons"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/kustomize/commons"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 )
 
 const (

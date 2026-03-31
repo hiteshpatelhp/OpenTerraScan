@@ -15,16 +15,16 @@
 #    limitations under the License.
 ###
 
-TERRASCAN_SERVER=192.168.1.55
-TERRASCAN_PORT=9010
+OPENTERRASCAN_SERVER=192.168.1.55
+OPENTERRASCAN_PORT=9010
 IGNORE_LOW_SEVERITY=false
 IAC=terraform
 IAC_VERSION=v14
 CLOUD_PROVIDER=aws
 
-SCAN_URL="${TERRASCAN_SERVER}:$TERRASCAN_PORT/v1/${IAC}/${IAC_VERSION}/${CLOUD_PROVIDER}/local/file/scan"
-ALLSCANS=$(mktemp terrascan_outputs.XXXX)
-CURRENTSCAN=$(mktemp terrascan_output.XXXX)
+SCAN_URL="${OPENTERRASCAN_SERVER}:$OPENTERRASCAN_PORT/v1/${IAC}/${IAC_VERSION}/${CLOUD_PROVIDER}/local/file/scan"
+ALLSCANS=$(mktemp openterrascan_outputs.XXXX)
+CURRENTSCAN=$(mktemp openterrascan_output.XXXX)
 
 for f in `find . -name *.tf`; do
     curl --silent -F "file=@$f" --output $CURRENTSCAN $SCAN_URL
@@ -41,7 +41,7 @@ fi
 if [ -n $SEVERITIES ]; then
     SCAN_RESULTS=1
     echo
-    echo '- Terrascan identified IAC policy violations:'
+    echo '- OpenTerraScan identified IAC policy violations:'
     echo
     echo 'Scan Results:'
     cat $ALLSCANS

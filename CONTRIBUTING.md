@@ -12,7 +12,7 @@ You can contribute in many ways:
 
 ### Report Bugs
 
-Report bugs at [https://github.com/tenable/terrascan/issues](https://github.com/tenable/terrascan/issues).
+Report bugs at [https://github.com/tenable/openterrascan/issues](https://github.com/tenable/openterrascan/issues).
 
 If you are reporting a bug, please include:
 
@@ -32,13 +32,13 @@ and "help wanted" is open to whoever wants to implement it.
 
 ### Write Documentation
 
-Terrascan could always use more documentation, whether as part of the
-official Terrascan docs, or even on the web in blog posts,
-articles, videos, and such. Documentation for Terrascan is located in [tenable/runterrascan.io](https://github.com/tenable/runterrascan.io) and accessible through [runterrascan.io](www.runterrascan.io). Any PRs with changes in functionality or the CLIs user interface should include a corresponding PR for documentation updates.
+OpenTerraScan could always use more documentation, whether as part of the
+official OpenTerraScan docs, or even on the web in blog posts,
+articles, videos, and such. Documentation for OpenTerraScan is located in [tenable/runopenterrascan.io](https://github.com/tenable/runopenterrascan.io) and accessible through [runopenterrascan.io](www.runopenterrascan.io). Any PRs with changes in functionality or the CLIs user interface should include a corresponding PR for documentation updates.
 
 ### Submit Feedback
 
-The best way to send feedback is to file an issue at [https://github.com/tenable/terrascan/issues](https://github.com/tenable/terrascan/issues).
+The best way to send feedback is to file an issue at [https://github.com/tenable/openterrascan/issues](https://github.com/tenable/openterrascan/issues).
 
 If you are proposing a feature:
 
@@ -49,12 +49,12 @@ If you are proposing a feature:
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up `terrascan` for local development.
+Ready to contribute? Here's how to set up `openterrascan` for local development.
 
-1. Fork the `terrascan` repo on GitHub.
+1. Fork the `openterrascan` repo on GitHub.
 2. Clone your fork locally:
 ```
-    $ git clone git@github.com:your_name_here/terrascan.git
+    $ git clone git@github.com:your_name_here/openterrascan.git
 ```
 3. Create a branch for local development:
 ```
@@ -62,7 +62,7 @@ Ready to contribute? Here's how to set up `terrascan` for local development.
 ```
    Now you can make your changes locally.
 
-4. When you're done making changes, check that your changes pass linting and tests. The following commands will simulate locally all checks executed as part of Terrascan's CI pipeline:
+4. When you're done making changes, check that your changes pass linting and tests. The following commands will simulate locally all checks executed as part of OpenTerraScan's CI pipeline:
 ```
     $ make cicd
 ```

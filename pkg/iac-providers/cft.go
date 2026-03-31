@@ -19,7 +19,7 @@ package iacprovider
 import (
 	"reflect"
 
-	cftv1 "github.com/tenable/terrascan/pkg/iac-providers/cft/v1"
+	cftv1 "github.com/tenable/openterrascan/pkg/iac-providers/cft/v1"
 )
 
 // terraform specific constants
@@ -29,7 +29,7 @@ const (
 	cftDefaultIacVersion                     = cftV1
 )
 
-// register cft as an IaC provider with terrascan
+// register cft as an IaC provider with openterrascan
 func init() {
 	// register iac provider
 	RegisterIacProvider(cft, cftV1, cftDefaultIacVersion, reflect.TypeOf(cftv1.CFTV1{}))

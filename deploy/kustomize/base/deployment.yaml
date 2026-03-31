@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: terrascan
+  name: openterrascan
 spec:
   replicas: 1
   template:
@@ -13,14 +13,14 @@ spec:
             - clone
             - --single-branch
             - --branch=master
-            - https://github.com/tenable/terrascan.git
+            - https://github.com/tenable/openterrascan.git
             - /data
           volumeMounts:
             - mountPath: /data
-              name: terrascan-data-sync
+              name: openterrascan-data-sync
       containers:
-      - name: terrascan-server
-        image: tenable/terrascan:1.16.0
+      - name: openterrascan-server
+        image: tenable/openterrascan:1.16.0
         imagePullPolicy: IfNotPresent
         resources:
           limits:
@@ -37,19 +37,19 @@ spec:
             port: 9010
             scheme: http
         volumeMounts:
-        - name: terrascan-data-sync
-          mountPath: /home/terrascan/.terrascan
+        - name: openterrascan-data-sync
+          mountPath: /home/openterrascan/.openterrascan
         - mountPath: /data/config
-          name: terrascan-config
+          name: openterrascan-config
           readOnly: true
         command: ["/bin/sh", "-c"]
         args:
         - >
-          terrascan server -l debug -c /data/config/config.toml
+          openterrascan server -l debug -c /data/config/config.toml
       volumes:
-        #add a configmap for the terrascan config.toml file
-        - name: terrascan-config
+        #add a configmap for the openterrascan config.toml file
+        - name: openterrascan-config
           configMap:
-            name: terrascan-config
-        - name: terrascan-data-sync
+            name: openterrascan-config
+        - name: openterrascan-data-sync
           emptyDir: {}

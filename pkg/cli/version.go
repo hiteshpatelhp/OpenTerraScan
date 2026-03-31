@@ -20,15 +20,15 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/tenable/terrascan/pkg/version"
+	"github.com/tenable/openterrascan/pkg/version"
 )
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Terrascan version",
-	Long: `Terrascan
+	Short: "OpenTerraScan version",
+	Long: `OpenTerraScan
 
-Displays the version of this Terrascan binary
+Displays the version of this OpenTerraScan binary
 `,
 	Run: getVersion,
 }

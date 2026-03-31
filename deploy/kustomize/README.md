@@ -1,20 +1,20 @@
-## Installing terrascan in a Kubernetes cluster using Kustomize
+## Installing openterrascan in a Kubernetes cluster using Kustomize
 
-This guide will help you install terrascan server inside your kubernetes cluster.
+This guide will help you install openterrascan server inside your kubernetes cluster.
 We have covered the following use cases in the sections below.
 
-  - [Deploying Terrascan Server](#deploying-terrascan-server)  
-    Terrascan operating in http server mode.
+  - [Deploying OpenTerraScan Server](#deploying-openterrascan-server)  
+    OpenTerraScan operating in http server mode.
 
-  - [Deploying Terrascan Server in TLS Mode](#deploying-terrascan-server-in-tls-mode)  
-    Terrascan operating in https server mode. This deployment is also a foundation for the terrascan webhook setup.
+  - [Deploying OpenTerraScan Server in TLS Mode](#deploying-openterrascan-server-in-tls-mode)  
+    OpenTerraScan operating in https server mode. This deployment is also a foundation for the openterrascan webhook setup.
 
-  - [Deploying Terrascan Server for Remote Repository Scan](#deploying-terrascan-server-for-private-remote-repository-scan)  
-    Terrascan in https server mode installed with ssh capabilities, to scan ***private*** remote repositories. For remote
-    scanning public repos, deploying `Terrascan Server in TLS Mode` is sufficient.
+  - [Deploying OpenTerraScan Server for Remote Repository Scan](#deploying-openterrascan-server-for-private-remote-repository-scan)  
+    OpenTerraScan in https server mode installed with ssh capabilities, to scan ***private*** remote repositories. For remote
+    scanning public repos, deploying `OpenTerraScan Server in TLS Mode` is sufficient.
     This deployment can be handy for use-cases like an argocd pre-sync hook that sends remote repository scan requests to the server.
 
-  - [Setting Up Terrascan Webhook](#setting-up-terrascan-webhook)  
+  - [Setting Up OpenTerraScan Webhook](#setting-up-openterrascan-webhook)  
     A Kubernetes Validating Webhook, that safeguards your cluster by denying the creation of kubernetes resources that
     can cause potential security violations.
 
@@ -33,44 +33,44 @@ We have covered the following use cases in the sections below.
 
 2. Make sure you have `kubectl`, `kustomize` and `openssh` installed on your local machine.
 
-3. Make sure you replace `<TERRASCAN_NAMESPACE>` placeholder with your target namespace where you to want to deploy the
-terrascan server. The string replacement will be required in the following files:
+3. Make sure you replace `<OPENTERRASCAN_NAMESPACE>` placeholder with your target namespace where you to want to deploy the
+openterrascan server. The string replacement will be required in the following files:
 
   - `base/kustomization.yaml`
   - `server/kustomization.yaml`
   - `server-tls/kustomization.yaml`
   - `server-remote-repo-scan/kustomization.yaml`
-  - `server-tls/certs/domain.cnf` (that is generated in step 1 of `Deploying Terrascan Server in TLS Mode` section)
+  - `server-tls/certs/domain.cnf` (that is generated in step 1 of `Deploying OpenTerraScan Server in TLS Mode` section)
   - `webhook/kustomization.yaml` (only if you're aiming to deploy the webhook as well)
   - `webhook/validating-webhook.yaml` (only if you're aiming to deploy the webhook as well)
 
   *Make sure your pwd is same as this README.md file*
 
-  Let's assume that the desired namespace is 'terrascan'.
+  Let's assume that the desired namespace is 'openterrascan'.
   ```bash
-  sed -i "" "s/<TERRASCAN_NAMESPACE>/terrascan/g" base/kustomization.yaml
-  sed -i "" "s/<TERRASCAN_NAMESPACE>/terrascan/g" server/kustomization.yaml
-  sed -i "" "s/<TERRASCAN_NAMESPACE>/terrascan/g" server-tls/kustomization.yaml
-  sed -i "" "s/<TERRASCAN_NAMESPACE>/terrascan/g" server-remote-repo-scan/kustomization.yaml
-  sed -i "" "s/<TERRASCAN_NAMESPACE>/terrascan/g" server-tls/certs/domain.cnf
-  sed -i "" "s/<TERRASCAN_NAMESPACE>/terrascan/g" webhook/kustomization.yaml
-  sed -i "" "s/<TERRASCAN_NAMESPACE>/terrascan/g" webhook/validating-webhook.yaml
+  sed -i "" "s/<OPENTERRASCAN_NAMESPACE>/openterrascan/g" base/kustomization.yaml
+  sed -i "" "s/<OPENTERRASCAN_NAMESPACE>/openterrascan/g" server/kustomization.yaml
+  sed -i "" "s/<OPENTERRASCAN_NAMESPACE>/openterrascan/g" server-tls/kustomization.yaml
+  sed -i "" "s/<OPENTERRASCAN_NAMESPACE>/openterrascan/g" server-remote-repo-scan/kustomization.yaml
+  sed -i "" "s/<OPENTERRASCAN_NAMESPACE>/openterrascan/g" server-tls/certs/domain.cnf
+  sed -i "" "s/<OPENTERRASCAN_NAMESPACE>/openterrascan/g" webhook/kustomization.yaml
+  sed -i "" "s/<OPENTERRASCAN_NAMESPACE>/openterrascan/g" webhook/validating-webhook.yaml
   ```
 4. Ensure that your desired namespace exist.
 
-  Let's assume that the desired namespace is 'terrascan'.
+  Let's assume that the desired namespace is 'openterrascan'.
   ```bash
-  kubectl create namespace terrascan
+  kubectl create namespace openterrascan
   ```
 
-### Deploying Terrascan Server
+### Deploying OpenTerraScan Server
 
-Deploy terrascan in server mode operating in plain HTTP mode.
+Deploy openterrascan in server mode operating in plain HTTP mode.
 
-1. Place your terrascan `config.toml` in the `base/config/` directory or edit the existing one.
+1. Place your openterrascan `config.toml` in the `base/config/` directory or edit the existing one.
 
-2. Deploy the terrascan server. Skip this step if you're aiming to setup terrascan in tls mode, terrascan webhook or
-   terrascan server for remote repository scan.
+2. Deploy the openterrascan server. Skip this step if you're aiming to setup openterrascan in tls mode, openterrascan webhook or
+   openterrascan server for remote repository scan.
 
    Note: Before running the command, please verify once that the `server/kustomization.yaml` is set with the desired parameters.
 
@@ -78,11 +78,11 @@ Deploy terrascan in server mode operating in plain HTTP mode.
     kustomize build server/ | kubectl apply -f -
     ```
 
-### Deploying Terrascan Server in TLS Mode
+### Deploying OpenTerraScan Server in TLS Mode
 
-Deploy terrascan in server mode operating in HTTPS mode.
+Deploy openterrascan in server mode operating in HTTPS mode.
 
-1. Follow Step 1 from `Deploying Terrascan Server` section
+1. Follow Step 1 from `Deploying OpenTerraScan Server` section
 
 2. Create a domain.cnf file.
 
@@ -102,11 +102,11 @@ Deploy terrascan in server mode operating in HTTPS mode.
     L = <My_Location>
     O = <My_Organization>
     emailAddress = <My_Email>
-    CN = terrascan.<TERRASCAN_NAMESPACE>.svc.cluster.local
+    CN = openterrascan.<OPENTERRASCAN_NAMESPACE>.svc.cluster.local
     [v3_req]
     subjectAltName = @alt_names
     [alt_names]
-    DNS.1 = terrascan.<TERRASCAN_NAMESPACE>.svc.cluster.local
+    DNS.1 = openterrascan.<OPENTERRASCAN_NAMESPACE>.svc.cluster.local
     >EOF
     ```
 
@@ -118,7 +118,7 @@ Deploy terrascan in server mode operating in HTTPS mode.
     openssl req -x509 -sha256 -nodes -newkey rsa:2048 -keyout server-tls/certs/server.key -out server-tls/certs/server.crt -config server-tls/certs/domain.cnf
     ```
 
-4. Deploy the terrascan server. Skip this step if you're aiming to setup terrascan webhook or terrascan server for remote repository scan.
+4. Deploy the openterrascan server. Skip this step if you're aiming to setup openterrascan webhook or openterrascan server for remote repository scan.
 
    **Note:** Before running the command, please verify once that the `server-tls/kustomization.yaml` is set with the desired parameters.
 
@@ -126,12 +126,12 @@ Deploy terrascan in server mode operating in HTTPS mode.
     kustomize build server-tls/ | kubectl apply -f -
     ```
 
-### Deploying Terrascan Server For Private Remote Repository Scan
+### Deploying OpenTerraScan Server For Private Remote Repository Scan
 
-For scanning ***Private*** remote IaC file repositories, Terrascan must be provided with the required SSH keys to connect and clone the
+For scanning ***Private*** remote IaC file repositories, OpenTerraScan must be provided with the required SSH keys to connect and clone the
 repository locally to scan it. The following steps will help in setting up for that.
 
-1. Follow steps 1-3 of the `Deploying TerraScan Server in TLS mode` section.
+1. Follow steps 1-3 of the `Deploying OpenTerraScan Server in TLS mode` section.
 
 2. Generate SSH keys and copy your generated private key to
    `server-remote-repo-scan/.ssh/` directory. Replace `<SSH_KEY_NAME>` with your private ssh key's name in
@@ -170,21 +170,21 @@ repository locally to scan it. The following steps will help in setting up for t
    kustomize build server-remote-repo-scan/ | kubectl apply -f -
     ```
 
-### Setting Up Terrascan Webhook
-If you want to setup a Validating Webhook that scans your incoming kubernetes resources using terrascan,
+### Setting Up OpenTerraScan Webhook
+If you want to setup a Validating Webhook that scans your incoming kubernetes resources using openterrascan,
 follow the steps below.
 
-1. If you aim to use the deployed terrascan server solely by the validating webhook, follow steps 1 to 3 from the
-   `Deploying Terrascan Server in TLS mode` section above.
+1. If you aim to use the deployed openterrascan server solely by the validating webhook, follow steps 1 to 3 from the
+   `Deploying OpenTerraScan Server in TLS mode` section above.
 
    **OR**
 
-   If you aim to use the deployed terrascan server both by the validating webhook and for remote repository scans, follow
-   steps 1 to 2 from the `Deploying Terrascan Server For Remote Repository Scan` section above and
+   If you aim to use the deployed openterrascan server both by the validating webhook and for remote repository scans, follow
+   steps 1 to 2 from the `Deploying OpenTerraScan Server For Remote Repository Scan` section above and
    replace `- ../server-tls` with `- ../server-remote-repo-scan` in the `webhook/kustomization.yaml` file.
 
 2. In `webhook/validating-webhook.yaml` and `webhook/deployment-env.yaml` file, Replace `<WEBHOOK_API_KEY>`with the string that
-   you want your terrascan server key to be.
+   you want your openterrascan server key to be.
 
    **You may also use this shell command:**
 
@@ -196,7 +196,7 @@ follow the steps below.
     ```
 
 3. In `webhook/validating-webhook.yaml`, replace `<CA_BUNDLE>` with the base64 encoded value of the
-   `server/certs/server.crt` that was setup in Step 2 of `Deploying Terrascan Server in TLS Mode` section.
+   `server/certs/server.crt` that was setup in Step 2 of `Deploying OpenTerraScan Server in TLS Mode` section.
 
    *You may also use this shell command:*
 
@@ -216,7 +216,7 @@ follow the steps below.
 
 5. Deploy.
 
-   5.1 Deploy the webhook's backend: terrascan deployment and service.
+   5.1 Deploy the webhook's backend: openterrascan deployment and service.
 
    **Note:** Before running the command, please verify once that the `server/kustomization.yaml` & `webhook/kustomization.yaml`
    are set with the desired parameters.
@@ -225,16 +225,16 @@ follow the steps below.
    kustomize build webhook/ | kubectl apply -f -
    ```
 
-    5.2 Verify that the terrascan server pod is up and ready to server.
+    5.2 Verify that the openterrascan server pod is up and ready to server.
 
     ```bash
-    kubectl -n <TERRASCAN_NAMESPACE> get pods -w
+    kubectl -n <OPENTERRASCAN_NAMESPACE> get pods -w
     ```
 
     When the pod is in running state, verify the logs.
 
     ```bash
-    kubectl -n terrascan logs <pod-name> -f
+    kubectl -n openterrascan logs <pod-name> -f
     ```
 
     When there is a log message that says "server listening at port 9010", proceed to the next step.
@@ -249,7 +249,7 @@ follow the steps below.
 
   Deleting the namespace that you used, will delete all the resources itself.
   ```bash
-  kubectl delete ns <TERRASCAN_NAMESPACE>
+  kubectl delete ns <OPENTERRASCAN_NAMESPACE>
   ```
 
   If for some reason you don't want to delete the namespace, for example, in case you deployed to the `default` namespace

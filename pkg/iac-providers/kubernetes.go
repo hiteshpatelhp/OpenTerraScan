@@ -19,7 +19,7 @@ package iacprovider
 import (
 	"reflect"
 
-	k8sv1 "github.com/tenable/terrascan/pkg/iac-providers/kubernetes/v1"
+	k8sv1 "github.com/tenable/openterrascan/pkg/iac-providers/kubernetes/v1"
 )
 
 // terraform specific constants
@@ -29,7 +29,7 @@ const (
 	kubernetesDefaultIacVersion                     = kubernetesV1
 )
 
-// register kubernetes as an IaC provider with terrascan
+// register kubernetes as an IaC provider with openterrascan
 func init() {
 	// register iac provider
 	RegisterIacProvider(kubernetes, kubernetesV1, kubernetesDefaultIacVersion, reflect.TypeOf(k8sv1.K8sV1{}))

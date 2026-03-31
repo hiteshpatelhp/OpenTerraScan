@@ -17,8 +17,8 @@
 package tfv14
 
 import (
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	commons "github.com/tenable/terrascan/pkg/iac-providers/terraform/commons"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	commons "github.com/tenable/openterrascan/pkg/iac-providers/terraform/commons"
 )
 
 // LoadIacFile parses the given terraform file from the given file path

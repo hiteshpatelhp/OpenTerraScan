@@ -1,14 +1,14 @@
 # Security Policies and Procedures
 
-This document outlines security procedures and general policies for the `Terrascan`
+This document outlines security procedures and general policies for the `OpenTerraScan`
 project.
 
   * [Contributing](../CONTRIBUTING.md)
 
 ## Reporting an Issue
 
-The `Terrascan` team and community take all security issues in `Terrascan` seriously.
-Thank you for improving the security of `Terrascan`. We appreciate your efforts and
+The `OpenTerraScan` team and community take all security issues in `OpenTerraScan` seriously.
+Thank you for improving the security of `OpenTerraScan`. We appreciate your efforts and
 responsible disclosure and will make every effort to acknowledge your
 contributions.
 

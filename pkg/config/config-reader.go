@@ -39,15 +39,15 @@ var (
 	ErrNotPresent = fmt.Errorf("config file not present")
 )
 
-// TerrascanConfigReader holds the terrascan config file name
-type TerrascanConfigReader struct {
-	config TerrascanConfig
+// OpenTerraScanConfigReader holds the openterrascan config file name
+type OpenTerraScanConfigReader struct {
+	config OpenTerraScanConfig
 }
 
-// NewTerrascanConfigReader initialises and returns a config reader
-func NewTerrascanConfigReader(fileName string) (*TerrascanConfigReader, error) {
-	config := TerrascanConfig{}
-	configReader := new(TerrascanConfigReader)
+// NewOpenTerraScanConfigReader initialises and returns a config reader
+func NewOpenTerraScanConfigReader(fileName string) (*OpenTerraScanConfigReader, error) {
+	config := OpenTerraScanConfig{}
+	configReader := new(OpenTerraScanConfigReader)
 	configReader.config = config
 
 	// empty file name check should be done by the caller, this is a safe check
@@ -77,7 +77,7 @@ func NewTerrascanConfigReader(fileName string) (*TerrascanConfigReader, error) {
 	case yamlExtension1, yamlExtension2:
 		err = yaml.Unmarshal(data, &configReader.config)
 	default:
-		err = fmt.Errorf("file format %q not support for terrascan config file",
+		err = fmt.Errorf("file format %q not support for openterrascan config file",
 			filepath.Ext(fileName))
 	}
 	if err != nil {
@@ -87,32 +87,32 @@ func NewTerrascanConfigReader(fileName string) (*TerrascanConfigReader, error) {
 	return configReader, nil
 }
 
-// GetPolicyConfig will return the policy config from the terrascan config file
-func (r TerrascanConfigReader) getPolicyConfig() Policy {
+// GetPolicyConfig will return the policy config from the openterrascan config file
+func (r OpenTerraScanConfigReader) getPolicyConfig() Policy {
 	return r.config.Policy
 }
 
-// GetNotifications will return the notifiers specified in the terrascan config file
-func (r TerrascanConfigReader) getNotifications() map[string]Notifier {
+// GetNotifications will return the notifiers specified in the openterrascan config file
+func (r OpenTerraScanConfigReader) getNotifications() map[string]Notifier {
 	return r.config.Notifications
 }
 
-// GetRules will return the rules specified in the terrascan config file
-func (r TerrascanConfigReader) getRules() Rules {
+// GetRules will return the rules specified in the openterrascan config file
+func (r OpenTerraScanConfigReader) getRules() Rules {
 	return r.config.Rules
 }
 
-// GetCategory will return the category specified in the terrascan config file
-func (r TerrascanConfigReader) getCategory() Category {
+// GetCategory will return the category specified in the openterrascan config file
+func (r OpenTerraScanConfigReader) getCategory() Category {
 	return r.config.Category
 }
 
-// GetSeverity will return the level of severity specified in the terrascan config file
-func (r TerrascanConfigReader) getSeverity() Severity {
+// GetSeverity will return the level of severity specified in the openterrascan config file
+func (r OpenTerraScanConfigReader) getSeverity() Severity {
 	return r.config.Severity
 }
 
-// GetK8sAdmissionControl will return the k8s deny rules specified in the terrascan config file
-func (r TerrascanConfigReader) GetK8sAdmissionControl() K8sAdmissionControl {
+// GetK8sAdmissionControl will return the k8s deny rules specified in the openterrascan config file
+func (r OpenTerraScanConfigReader) GetK8sAdmissionControl() K8sAdmissionControl {
 	return r.config.K8sAdmissionControl
 }

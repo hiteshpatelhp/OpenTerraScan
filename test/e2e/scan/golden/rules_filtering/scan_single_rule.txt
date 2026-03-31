@@ -17,7 +17,7 @@
     ],
     "skipped_violations": null,
     "scan_summary": {
-      "file/folder": "/Users/apple/go/src/github.com/patilpankaj212/terrascan/test/e2e/test_data/iac/aws/aws_db_instance_violation",
+      "file/folder": "/Users/apple/go/src/github.com/patilpankaj212/openterrascan/test/e2e/test_data/iac/aws/aws_db_instance_violation",
       "iac_type": "terraform",
       "scanned_at": "2021-03-02 13:51:32.518205 +0000 UTC",
       "policies_validated": 1,

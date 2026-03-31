@@ -19,10 +19,10 @@ package config
 import (
 	"strings"
 
-	"github.com/tenable/terrascan/pkg/mapper/convert"
-	fn "github.com/tenable/terrascan/pkg/mapper/iac-providers/arm/functions"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/arm/types"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/convert"
+	fn "github.com/tenable/openterrascan/pkg/mapper/iac-providers/arm/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/arm/types"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/functions"
 )
 
 const (

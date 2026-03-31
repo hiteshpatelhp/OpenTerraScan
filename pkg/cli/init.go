@@ -18,16 +18,16 @@ package cli
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/tenable/terrascan/pkg/initialize"
+	"github.com/tenable/openterrascan/pkg/initialize"
 	"go.uber.org/zap"
 )
 
 var initCmd = &cobra.Command{
 	Use:   "init",
-	Short: "Initializes Terrascan and clones policies from the Terrascan GitHub repository.",
-	Long: `Terrascan
+	Short: "Initializes OpenTerraScan and clones policies from the OpenTerraScan GitHub repository.",
+	Long: `OpenTerraScan
 
-Initializes Terrascan and clones policies from the Terrascan GitHub repository.
+Initializes OpenTerraScan and clones policies from the OpenTerraScan GitHub repository.
 `,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		return initial(cmd, args, false)
@@ -37,9 +37,9 @@ Initializes Terrascan and clones policies from the Terrascan GitHub repository.
 }
 
 func initial(cmd *cobra.Command, args []string, nonInitCmd bool) error {
-	// initialize terrascan
+	// initialize openterrascan
 	if err := initialize.Run(nonInitCmd); err != nil {
-		zap.S().Errorf("failed to initialize terrascan. error : %v", err)
+		zap.S().Errorf("failed to initialize openterrascan. error : %v", err)
 		return err
 	}
 	return nil

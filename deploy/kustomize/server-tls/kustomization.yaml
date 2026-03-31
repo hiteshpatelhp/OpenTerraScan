@@ -2,13 +2,13 @@ resources:
   - ../base
   - service.yaml
 
-namespace: <TERRASCAN_NAMESPACE>
+namespace: <OPENTERRASCAN_NAMESPACE>
 
 commonLabels:
-  app: terrascan
+  app: openterrascan
 
 secretGenerator:
-  - name: terrascan-certs-secret
+  - name: openterrascan-certs-secret
     files:
       - server.key=certs/server.key
       - server.crt=certs/server.crt

@@ -16,7 +16,7 @@
       }
     ],
     "scan_summary": {
-      "file/folder": "/Users/suvarna/go/src/github.com/rchanger/terrascan/test/e2e/test_data/iac/resource_skipping/kubernetes",
+      "file/folder": "/Users/suvarna/go/src/github.com/rchanger/openterrascan/test/e2e/test_data/iac/resource_skipping/kubernetes",
       "iac_type": "k8s",
       "scanned_at": "2021-03-02 16:01:16.973652 +0000 UTC",
       "policies_validated": 8,

@@ -19,8 +19,8 @@ package admissionwebhook
 import (
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/results"
 )
 
 func TestDenyRuleMatcher(t *testing.T) {

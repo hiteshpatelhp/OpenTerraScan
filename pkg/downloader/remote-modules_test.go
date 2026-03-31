@@ -49,7 +49,7 @@ func TestIsLocalSourceAddr(t *testing.T) {
 		},
 		{
 			name: "git repo",
-			addr: "git@github.com:tenable/terrascan.git",
+			addr: "git@github.com:tenable/openterrascan.git",
 			want: false,
 		},
 		{

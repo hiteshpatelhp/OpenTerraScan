@@ -20,14 +20,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/tenable/terrascan/pkg/iac-providers/terraform/commons"
+	"github.com/tenable/openterrascan/pkg/iac-providers/terraform/commons"
 	"os"
 	"path/filepath"
 	"reflect"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 var testDataDir = "testdata"

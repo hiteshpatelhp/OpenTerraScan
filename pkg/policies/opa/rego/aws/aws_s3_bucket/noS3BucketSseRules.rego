@@ -24,7 +24,7 @@ package accurics
     retVal := {"Id": bucket.id, "ReplaceType": "add", "CodeType": "resource", "Traverse": traverse, "Attribute": "", "AttributeDataType": "base64", "Expected": base64.encode(resourceWithoutQuotes), "Actual": null}
 }
 
-#For terrascan when used without tfplan
+#For openterrascan when used without tfplan
 {{.prefix}}noS3BucketSseRules[retVal] {
     bucket := input.aws_s3_bucket[_]
     contains(input.aws_s3_bucket_server_side_encryption_configuration[_].config.bucket, "{")

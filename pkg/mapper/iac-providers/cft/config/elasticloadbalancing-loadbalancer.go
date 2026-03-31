@@ -20,7 +20,7 @@ import (
 	"fmt"
 
 	"github.com/awslabs/goformation/v7/cloudformation/elasticloadbalancing"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/functions"
 )
 
 // GetPolicies represents subresource aws_load_balancer_policy for Policies attribute

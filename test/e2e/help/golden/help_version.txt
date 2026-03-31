@@ -1,9 +1,9 @@
-Terrascan
+OpenTerraScan
 
-Displays the version of this Terrascan binary
+Displays the version of this OpenTerraScan binary
 
 Usage:
-  terrascan version [flags]
+  openterrascan version [flags]
 
 Flags:
   -h, --help   help for version

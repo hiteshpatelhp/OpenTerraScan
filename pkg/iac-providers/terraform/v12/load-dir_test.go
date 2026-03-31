@@ -25,10 +25,10 @@ import (
 	"testing"
 
 	"github.com/hashicorp/go-multierror"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/iac-providers/terraform/commons"
-	commons_test "github.com/tenable/terrascan/pkg/iac-providers/terraform/commons/test"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/terraform/commons"
+	commons_test "github.com/tenable/openterrascan/pkg/iac-providers/terraform/commons/test"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 const errStrLoadingConfigDir = `diagnostic errors while loading terraform config dir '%s'. error from terraform:

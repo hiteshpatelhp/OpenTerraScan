@@ -18,15 +18,15 @@ package version
 
 import "fmt"
 
-// Terrascan The Terrascan version
-const Terrascan = "1.20.0"
+// OpenTerraScan The OpenTerraScan version
+const OpenTerraScan = "1.20.0"
 
-// Get returns the terrascan version
+// Get returns the openterrascan version
 func Get() string {
-	return fmt.Sprintf("v%s", Terrascan)
+	return fmt.Sprintf("v%s", OpenTerraScan)
 }
 
-// GetNumeric returns the numeric terrascan version
+// GetNumeric returns the numeric openterrascan version
 func GetNumeric() string {
-	return Terrascan
+	return OpenTerraScan
 }

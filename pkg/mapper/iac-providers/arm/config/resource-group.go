@@ -17,9 +17,9 @@
 package config
 
 import (
-	fn "github.com/tenable/terrascan/pkg/mapper/iac-providers/arm/functions"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/arm/types"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/functions"
+	fn "github.com/tenable/openterrascan/pkg/mapper/iac-providers/arm/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/arm/types"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/functions"
 )
 
 // ResourceGroupConfig returns config for azurerm_resource_group

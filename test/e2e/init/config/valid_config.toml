@@ -1,5 +1,5 @@
 [policy]
-repo_url = "https://github.com/tenable/terrascan.git"
+repo_url = "https://github.com/tenable/openterrascan.git"
 branch = "master"
-path = "~/.terrascan-test"
+path = "~/.openterrascan-test"
 rego_subdir = "pkg/policies/opa/rego"

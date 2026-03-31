@@ -28,21 +28,21 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/gexec"
-	"github.com/tenable/terrascan/pkg/utils"
-	serverUtils "github.com/tenable/terrascan/test/e2e/server"
-	"github.com/tenable/terrascan/test/helper"
+	"github.com/tenable/openterrascan/pkg/utils"
+	serverUtils "github.com/tenable/openterrascan/test/e2e/server"
+	"github.com/tenable/openterrascan/test/helper"
 )
 
 const (
 	host                   string = "http://localhost"
 	defaultPort            int    = 9010
-	terrascanConfigEnvName string = "TERRASCAN_CONFIG"
-	terrascanServerPort    string = "TERRASCAN_SERVER_PORT"
+	openterrascanConfigEnvName string = "OPENTERRASCAN_CONFIG"
+	openterrascanServerPort    string = "OPENTERRASCAN_SERVER_PORT"
 	configFileName         string = "configFile.toml"
 )
 
 var (
-	terrascanBinaryPath              string
+	openterrascanBinaryPath              string
 	iacRootRelPath                   = filepath.Join("..", "test_data", "iac")
 	awsIacRelPath                    = filepath.Join(iacRootRelPath, "aws")
 	policyRootRelPath                = filepath.Join("..", "test_data", "policies")
@@ -58,7 +58,7 @@ var (
 var _ = Describe("Server", func() {
 
 	BeforeSuite(func() {
-		terrascanBinaryPath = helper.GetTerrascanBinaryPath()
+		openterrascanBinaryPath = helper.GetOpenTerraScanBinaryPath()
 		createAndSetEnvConfigFile(configFileName)
 	})
 
@@ -78,7 +78,7 @@ var _ = Describe("Server", func() {
 			It("should print help for server and exit with status code 0", func() {
 				outWriter, errWriter := gbytes.NewBuffer(), gbytes.NewBuffer()
 				serverArgs := []string{serverUtils.ServerCommand, "-h"}
-				session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, serverArgs...)
+				session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, serverArgs...)
 				serverUtils.ValidateExitCodeAndOutput(session, helper.ExitCodeZero, filepath.Join("..", "help", "golden", "help_server.txt"), true)
 			})
 		})
@@ -87,7 +87,7 @@ var _ = Describe("Server", func() {
 			It("should print server command suggestion and exit with status code 1", func() {
 				outWriter, errWriter := gbytes.NewBuffer(), gbytes.NewBuffer()
 				serverArgs := []string{"servre"}
-				session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, serverArgs...)
+				session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, serverArgs...)
 				serverUtils.ValidateExitCodeAndOutput(session, helper.ExitCodeOne, filepath.Join("golden", "server_typo_help.txt"), false)
 			})
 		})
@@ -98,10 +98,10 @@ var _ = Describe("Server", func() {
 		var outWriter, errWriter io.Writer = gbytes.NewBuffer(), gbytes.NewBuffer()
 		Context("server is started without any arguments", func() {
 			JustBeforeEach(func() {
-				os.Setenv(terrascanServerPort, "")
+				os.Setenv(openterrascanServerPort, "")
 			})
 			It("should start the api server session", func() {
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, serverUtils.ServerCommand)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, serverUtils.ServerCommand)
 			})
 			Context("by default server is running at port 9010", func() {
 				Context("request with no body on all handlers", func() {
@@ -245,5 +245,5 @@ rego_subdir = "%s"`, policyAbsPath, policyAbsPath)
 		errMessage := fmt.Sprintf("error while writing to config file, err: %v", err)
 		Fail(errMessage)
 	}
-	os.Setenv(terrascanConfigEnvName, configFileName)
+	os.Setenv(openterrascanConfigEnvName, configFileName)
 }

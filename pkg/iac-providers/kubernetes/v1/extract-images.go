@@ -21,8 +21,8 @@ import (
 
 	yamltojson "github.com/ghodss/yaml"
 	"github.com/pkg/errors"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 	k8sappsv1 "k8s.io/api/apps/v1"
 	k8sbatchv1 "k8s.io/api/batch/v1"

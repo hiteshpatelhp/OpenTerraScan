@@ -5,8 +5,8 @@
     {
       "tool": {
         "driver": {
-          "informationUri": "https://github.com/tenable/terrascan",
-          "name": "terrascan",
+          "informationUri": "https://github.com/tenable/openterrascan",
+          "name": "openterrascan",
           "rules": [
             {
               "id": "AC_DOCKER_0001",
@@ -35,7 +35,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///Users/suvarna/go/src/github.com/rchanger/terrascan/test/e2e/test_data/iac/docker/dockerfile_with_platform_flag_violation/Dockerfile"
+                  "uri": "file:///Users/suvarna/go/src/github.com/rchanger/openterrascan/test/e2e/test_data/iac/docker/dockerfile_with_platform_flag_violation/Dockerfile"
                 },
                 "region": {
                   "startLine": 1

@@ -23,6 +23,6 @@ const (
 )
 
 func init() {
-	// Register github as a cloud provider with terrascan
+	// Register github as a cloud provider with openterrascan
 	RegisterCloudProvider(github, defaultGitHubIacType, defaultGitHubIacVersion)
 }

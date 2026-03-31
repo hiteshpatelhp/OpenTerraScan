@@ -1,6 +1,6 @@
-Error: unknown command "servre" for "terrascan"
+Error: unknown command "servre" for "openterrascan"
 
 Did you mean this?
 	server
 
-Run 'terrascan --help' for usage.
+Run 'openterrascan --help' for usage.

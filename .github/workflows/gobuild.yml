@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GO111MODULE: on
-      GOPATH: /home/runner/work/terrascan
-      GOBIN: /home/runner/work/terrascan/bin
+      GOPATH: /home/runner/work/openterrascan
+      GOBIN: /home/runner/work/openterrascan/bin
       GO_VERSION: 1.21
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_TEST }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_TEST }}
@@ -18,7 +18,7 @@ jobs:
       AZURE_AUTH_TEST_SECRET: ${{ secrets.AZURE_AUTH_TEST_KEY }}
       GOOGLE_APPLICATION_CREDENTIALS_TEST_SECRET: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_TEST_KEY }}
     steps:
-      - name: Checkout Terrascan
+      - name: Checkout OpenTerraScan
         uses: actions/checkout@v3
 
       - name: Setup Go
@@ -29,13 +29,13 @@ jobs:
       - name: Install golint
         run: go install golang.org/x/lint/golint@latest
 
-      - name: Build Terrascan docker image
+      - name: Build OpenTerraScan docker image
         run: make docker-build
 
       - name: Go validations
         run: make validate
 
-      - name: Build Terrascan
+      - name: Build OpenTerraScan
         run: make build
 
       - name: Run unit tests

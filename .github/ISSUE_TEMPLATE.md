@@ -1,4 +1,4 @@
-* terrascan version:
+* openterrascan version:
 * Operating System:
 
 ### Description

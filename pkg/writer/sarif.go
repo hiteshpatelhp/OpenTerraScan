@@ -23,9 +23,9 @@ import (
 
 	"github.com/go-errors/errors"
 	"github.com/owenrumney/go-sarif/v2/sarif"
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/pkg/utils"
-	"github.com/tenable/terrascan/pkg/version"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/version"
 	"go.uber.org/zap"
 )
 
@@ -49,7 +49,7 @@ func writeSarif(data interface{}, writers []io.Writer, forGitHub bool) error {
 		return err
 	}
 
-	run := sarif.NewRunWithInformationURI("terrascan", "https://github.com/tenable/terrascan")
+	run := sarif.NewRunWithInformationURI("openterrascan", "https://github.com/tenable/openterrascan")
 	run.Tool.Driver.WithVersion(version.GetNumeric())
 	// add a run to the report
 	report.AddRun(run)

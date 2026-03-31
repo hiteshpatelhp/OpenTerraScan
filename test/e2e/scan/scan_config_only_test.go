@@ -23,8 +23,8 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/gexec"
-	scanUtils "github.com/tenable/terrascan/test/e2e/scan"
-	"github.com/tenable/terrascan/test/helper"
+	scanUtils "github.com/tenable/openterrascan/test/e2e/scan"
+	"github.com/tenable/openterrascan/test/helper"
 )
 
 var _ = Describe("Scan With Config Only Flag", func() {
@@ -54,7 +54,7 @@ var _ = Describe("Scan With Config Only Flag", func() {
 					It("should result in an error and exit with status code 1", func() {
 						errString := "please use yaml or json output format when using --config-only or --config-with-error flags"
 						scanArgs := []string{scanUtils.ScanCommand, "-d", iacDir, "--config-only"}
-						scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+						scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 					})
 				})
 			})
@@ -65,7 +65,7 @@ var _ = Describe("Scan With Config Only Flag", func() {
 				It("should result in an error and exit with status code 1", func() {
 					errString := "please use yaml or json output format when using --config-only or --config-with-error flags"
 					scanArgs := []string{scanUtils.ScanCommand, "-d", iacDir, "--config-only", "-o", "xml"}
-					scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+					scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 				})
 			})
 		})
@@ -75,7 +75,7 @@ var _ = Describe("Scan With Config Only Flag", func() {
 				It("should result in an error and exit with status code 1", func() {
 					errString := "please use yaml or json output format when using --config-only or --config-with-error flags"
 					scanArgs := []string{scanUtils.ScanCommand, "-d", iacDir, "--config-only", "-o", "junit-xml"}
-					scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+					scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 				})
 			})
 		})
@@ -87,7 +87,7 @@ var _ = Describe("Scan With Config Only Flag", func() {
 				Context("it supports --config-only flag", func() {
 					It("should display config json and exit with status code 0", func() {
 						scanArgs := []string{scanUtils.ScanCommand, "-d", iacDir, "--config-only", "-o", "json"}
-						session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+						session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 						Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeZero))
 					})
 				})
@@ -97,7 +97,7 @@ var _ = Describe("Scan With Config Only Flag", func() {
 				Context("it supports --config-only flag", func() {
 					It("should display config json and exit with status code 0", func() {
 						scanArgs := []string{scanUtils.ScanCommand, "-d", iacDir, "--config-only", "-o", "yaml"}
-						session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+						session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 						Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeZero))
 					})
 				})
@@ -112,7 +112,7 @@ var _ = Describe("Scan With Config Only Flag", func() {
 				Context("it supports --config-only flag", func() {
 					It("should display config json and exit with status code 0", func() {
 						scanArgs := []string{scanUtils.ScanCommand, "-d", iacDir, "--config-only", "-o", "json", "-i", "k8s"}
-						session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+						session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 						Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeZero))
 					})
 				})
@@ -122,7 +122,7 @@ var _ = Describe("Scan With Config Only Flag", func() {
 				Context("it supports --config-only flag", func() {
 					It("should display config json and exit with status code 0", func() {
 						scanArgs := []string{scanUtils.ScanCommand, "-d", iacDir, "--config-only", "-o", "yaml", "-i", "k8s"}
-						session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+						session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 						Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeZero))
 					})
 				})

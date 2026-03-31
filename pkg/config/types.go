@@ -17,10 +17,10 @@
 package config
 
 // Global initializes GlobalConfig struct
-var global *TerrascanConfig
+var global *OpenTerraScanConfig
 
-// TerrascanConfig struct defines global variables/configurations across terrascan
-type TerrascanConfig struct {
+// OpenTerraScanConfig struct defines global variables/configurations across openterrascan
+type OpenTerraScanConfig struct {
 	Policy              `toml:"policy,omitempty" yaml:"policy,omitempty"`
 	Notifications       map[string]Notifier `toml:"notifications,omitempty" yaml:"notifications,omitempty"`
 	Rules               `toml:"rules,omitempty" yaml:"rules,omitempty"`
@@ -55,19 +55,19 @@ type Policy struct {
 	AccessToken string `toml:"access_token,omitempty" yaml:"access_token,omitempty"`
 }
 
-// Notifier represent a single notification in the terrascan config file
+// Notifier represent a single notification in the openterrascan config file
 type Notifier struct {
 	NotifierType   string      `toml:"type" yaml:"type"`
 	NotifierConfig interface{} `toml:"config" yaml:"config"`
 }
 
-// Rules represents scan and skip rules in the terrascan config file
+// Rules represents scan and skip rules in the openterrascan config file
 type Rules struct {
 	ScanRules []string `toml:"scan-rules,omitempty" yaml:"scan-rules,omitempty"`
 	SkipRules []string `toml:"skip-rules,omitempty" yaml:"skip-rules,omitempty"`
 }
 
-// K8sAdmissionControl deny rules in the terrascan config file
+// K8sAdmissionControl deny rules in the openterrascan config file
 type K8sAdmissionControl struct {
 	Dashboard      bool     `toml:"dashboard,omitempty" yaml:"dashboard,omitempty"`
 	DeniedSeverity string   `toml:"denied-severity,omitempty" yaml:"denied-severity,omitempty"`

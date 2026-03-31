@@ -21,9 +21,9 @@ import (
 	"os"
 	"strings"
 
-	IacProvider "github.com/tenable/terrascan/pkg/iac-providers"
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/pkg/utils"
+	IacProvider "github.com/tenable/openterrascan/pkg/iac-providers"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 )
 
@@ -47,7 +47,7 @@ func (e *Executor) ValidateInputs() error {
 	var fi os.FileInfo
 	var mode os.FileMode
 
-	// terrascan can accept either a file or a directory
+	// openterrascan can accept either a file or a directory
 	if e.filePath == "" && e.dirPath == "" {
 		zap.S().Errorf("no IaC path specified; use '-f' for file or '-d' for directory")
 		return errEmptyIacPath

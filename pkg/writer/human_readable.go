@@ -22,7 +22,7 @@ import (
 	"io"
 	"text/template"
 
-	"github.com/tenable/terrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/results"
 	"go.uber.org/zap"
 )
 

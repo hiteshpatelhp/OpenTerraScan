@@ -25,12 +25,12 @@ import (
 	"strings"
 
 	"github.com/pelletier/go-toml"
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
-// CreateTerrascanConfigFile creates a config file with test policy path
-func CreateTerrascanConfigFile(configFileName, policyRootRelPath string, terrascanConfig *config.TerrascanConfig) error {
+// CreateOpenTerraScanConfigFile creates a config file with test policy path
+func CreateOpenTerraScanConfigFile(configFileName, policyRootRelPath string, openterrascanConfig *config.OpenTerraScanConfig) error {
 	policyAbsPath, err := filepath.Abs(policyRootRelPath)
 	if err != nil {
 		return err
@@ -40,12 +40,12 @@ func CreateTerrascanConfigFile(configFileName, policyRootRelPath string, terrasc
 		policyAbsPath = strings.ReplaceAll(policyAbsPath, "\\", "\\\\")
 	}
 
-	if terrascanConfig == nil {
-		terrascanConfig = &config.TerrascanConfig{}
+	if openterrascanConfig == nil {
+		openterrascanConfig = &config.OpenTerraScanConfig{}
 	}
 
-	terrascanConfig.BasePath = policyAbsPath
-	terrascanConfig.RepoPath = policyAbsPath
+	openterrascanConfig.BasePath = policyAbsPath
+	openterrascanConfig.RepoPath = policyAbsPath
 
 	// create config file in work directory
 	file, err := os.Create(configFileName)
@@ -53,7 +53,7 @@ func CreateTerrascanConfigFile(configFileName, policyRootRelPath string, terrasc
 		return fmt.Errorf("config file creation failed, err: %v", err)
 	}
 
-	contentBytes, err := toml.Marshal(terrascanConfig)
+	contentBytes, err := toml.Marshal(openterrascanConfig)
 	if err != nil {
 		return err
 	}

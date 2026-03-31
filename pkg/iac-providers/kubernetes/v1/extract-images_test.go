@@ -20,9 +20,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/iac-providers/kubernetes/v1/testdata"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/kubernetes/v1/testdata"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 func TestK8sV1ExtractContainerImages(t *testing.T) {
@@ -93,7 +93,7 @@ func TestK8sV1ExtractContainerImages(t *testing.T) {
 				},
 				kind: "Job",
 			},
-			wantContainerImageList:     []output.ContainerDetails{{Name: "c", Image: "gcr.io/terrascan/job-wq-1"}},
+			wantContainerImageList:     []output.ContainerDetails{{Name: "c", Image: "gcr.io/openterrascan/job-wq-1"}},
 			wantInitContainerImageList: []output.ContainerDetails{},
 		},
 		{

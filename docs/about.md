@@ -1,6 +1,6 @@
-# About Terrascan
+# About OpenTerraScan
 
-Terrascan is a security analyzer for infrastructure as code. Originally developed in 2017, Terrascan has evolved from a Python application specifically focused on scanning of security issues for Terraform into a Golang application with pluggable support for multiple IaC tools and technologies. The project is maintained by [Tenable](https://www.tenable.com)
+OpenTerraScan is a security analyzer for infrastructure as code. Originally developed in 2017, OpenTerraScan has evolved from a Python application specifically focused on scanning of security issues for Terraform into a Golang application with pluggable support for multiple IaC tools and technologies. The project is maintained by [Tenable](https://www.tenable.com)
 
 ## About Tenable
 

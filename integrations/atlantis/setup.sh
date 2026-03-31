@@ -15,17 +15,17 @@
 #!/bin/bash
 set -ex
 
-if [[ -z "${TERRASCAN_VERSION}" ]]; then
-  TERRASCAN_VERSION=${DEFAULT_TERRASCAN_VERSION}
+if [[ -z "${OPENTERRASCAN_VERSION}" ]]; then
+  OPENTERRASCAN_VERSION=${DEFAULT_OPENTERRASCAN_VERSION}
 fi
 
-VERSION=${TERRASCAN_VERSION}
+VERSION=${OPENTERRASCAN_VERSION}
 
-curl -LOs https://github.com/tenable/terrascan/releases/download/v${VERSION}/terrascan_${VERSION}_Linux_x86_64.tar.gz
-mkdir /usr/local/bin/terrascan_${VERSION}
-tar -C  /usr/local/bin/terrascan_${VERSION} -xzf terrascan_${VERSION}_Linux_x86_64.tar.gz
+curl -LOs https://github.com/tenable/openterrascan/releases/download/v${VERSION}/openterrascan_${VERSION}_Linux_x86_64.tar.gz
+mkdir /usr/local/bin/openterrascan_${VERSION}
+tar -C  /usr/local/bin/openterrascan_${VERSION} -xzf openterrascan_${VERSION}_Linux_x86_64.tar.gz
 
-mv /usr/local/bin/terrascan_${VERSION}/terrascan /usr/local/bin/terrascan
+mv /usr/local/bin/openterrascan_${VERSION}/openterrascan /usr/local/bin/openterrascan
 
-rm terrascan_${VERSION}_Linux_x86_64.tar.gz
-rm -rf /usr/local/bin/terrascan_${VERSION}/
+rm openterrascan_${VERSION}_Linux_x86_64.tar.gz
+rm -rf /usr/local/bin/openterrascan_${VERSION}/

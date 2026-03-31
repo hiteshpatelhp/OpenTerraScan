@@ -19,7 +19,7 @@ package iacprovider
 import (
 	"reflect"
 
-	tfplanv1 "github.com/tenable/terrascan/pkg/iac-providers/tfplan/v1"
+	tfplanv1 "github.com/tenable/openterrascan/pkg/iac-providers/tfplan/v1"
 )
 
 // tfplan specific constants
@@ -29,7 +29,7 @@ const (
 	tfplanDefaultIacVersion                     = tfplanV1
 )
 
-// register tfplan as an IaC provider with terrascan
+// register tfplan as an IaC provider with openterrascan
 func init() {
 	// register iac provider
 	RegisterIacProvider(tfplan, tfplanV1, tfplanDefaultIacVersion, reflect.TypeOf(tfplanv1.TFPlan{}))

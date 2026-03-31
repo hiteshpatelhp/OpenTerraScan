@@ -12,7 +12,7 @@ Violation Details -
 
 Scan Summary -
 
-	File/Folder         :	/Users/suvarna/go/src/github.com/rchanger/terrascan/test/e2e/test_data/iac/docker/dockerfile_with_platform_flag_violation
+	File/Folder         :	/Users/suvarna/go/src/github.com/rchanger/openterrascan/test/e2e/test_data/iac/docker/dockerfile_with_platform_flag_violation
 	IaC Type            :	docker
 	Scanned At          :	2021-08-06 14:15:03.202473 +0000 UTC
 	Policies Validated  :	9

@@ -23,6 +23,6 @@ const (
 )
 
 func init() {
-	// Register gcp as a cloud provider with terrascan
+	// Register gcp as a cloud provider with openterrascan
 	RegisterCloudProvider(gcp, defaultGCPIacType, defaultGCPIacVersion)
 }

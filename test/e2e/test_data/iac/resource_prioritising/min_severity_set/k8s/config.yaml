@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: allowed-external-ip
   annotations:
-    runterrascan.io/minseverity: High
+    runopenterrascan.io/minseverity: High
 spec:
   type: ClusterIP
   selector:

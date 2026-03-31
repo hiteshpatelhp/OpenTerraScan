@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"net/http"
 
-	iacProvider "github.com/tenable/terrascan/pkg/iac-providers"
+	iacProvider "github.com/tenable/openterrascan/pkg/iac-providers"
 	"go.uber.org/zap"
 )
 

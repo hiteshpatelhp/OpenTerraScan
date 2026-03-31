@@ -1,2 +1,2 @@
-Error: unknown command "test" for "terrascan"
-Run 'terrascan --help' for usage.
+Error: unknown command "test" for "openterrascan"
+Run 'openterrascan --help' for usage.

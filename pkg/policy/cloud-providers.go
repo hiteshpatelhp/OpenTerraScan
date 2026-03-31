@@ -20,10 +20,10 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/tenable/terrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/config"
 )
 
-// cloudProviderType data type for supported cloud types in terrascan
+// cloudProviderType data type for supported cloud types in openterrascan
 type cloudProviderType struct {
 	isIndirect bool
 	// policyPaths only populated if isIndirect == false
@@ -32,7 +32,7 @@ type cloudProviderType struct {
 	policyNames func() []string
 }
 
-// supportedCloudType data type for supported cloud types in terrascan
+// supportedCloudType data type for supported cloud types in openterrascan
 type supportedCloudType string
 
 // supportedIacType data type for supported iac types
@@ -67,19 +67,19 @@ func registerActualCloudProvider(cloudType supportedCloudType, iacTypeDefault su
 	defaultIacVersion[cloudType] = iacVersionDefault
 }
 
-// RegisterIndirectCloudProvider registers a cloud provider with terrascan
+// RegisterIndirectCloudProvider registers a cloud provider with openterrascan
 func RegisterIndirectCloudProvider(cloudType supportedCloudType, iacTypeDefault supportedIacType, iacVersionDefault supportedIacVersion, getPolicyNames func() []string) {
 	registerActualCloudProvider(cloudType, iacTypeDefault, iacVersionDefault, true, getPolicyNames)
 }
 
-// RegisterCloudProvider registers a cloud provider with terrascan
+// RegisterCloudProvider registers a cloud provider with openterrascan
 func RegisterCloudProvider(cloudType supportedCloudType, iacTypeDefault supportedIacType, iacVersionDefault supportedIacVersion) {
 	registerActualCloudProvider(cloudType, iacTypeDefault, iacVersionDefault, false, func() []string {
 		return []string{filepath.Join(config.GetPolicyRepoPath(), string(cloudType))}
 	})
 }
 
-// IsCloudProviderSupported returns whether a cloud provider is supported in terrascan
+// IsCloudProviderSupported returns whether a cloud provider is supported in openterrascan
 func IsCloudProviderSupported(cloudType string) bool {
 	_, supported := supportedCloudProvider[supportedCloudType(cloudType)]
 	return supported
@@ -116,7 +116,7 @@ func GetDefaultIacType(cloudType string) string {
 	return string(defaultIacType[supportedCloudType(cloudType)])
 }
 
-// SupportedPolicyTypes returns the list of policies supported in terrascan
+// SupportedPolicyTypes returns the list of policies supported in openterrascan
 func SupportedPolicyTypes(includeIndirect bool) []string {
 	var policyTypes []string
 	for k, v := range supportedCloudProvider {

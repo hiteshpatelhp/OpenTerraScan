@@ -1,6 +1,6 @@
-Error: unknown command "inti" for "terrascan"
+Error: unknown command "inti" for "openterrascan"
 
 Did you mean this?
 	init
 
-Run 'terrascan --help' for usage.
+Run 'openterrascan --help' for usage.

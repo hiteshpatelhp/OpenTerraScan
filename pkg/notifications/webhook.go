@@ -19,7 +19,7 @@ package notifications
 import (
 	"reflect"
 
-	webhookNotifier "github.com/tenable/terrascan/pkg/notifications/webhook"
+	webhookNotifier "github.com/tenable/openterrascan/pkg/notifications/webhook"
 )
 
 // terraform specific constants
@@ -27,7 +27,7 @@ const (
 	terraform supportedNotifierType = "webhook"
 )
 
-// register terraform as an IaC provider with terrascan
+// register terraform as an IaC provider with openterrascan
 func init() {
 
 	// register iac provider

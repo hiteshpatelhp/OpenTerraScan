@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	getter "github.com/hashicorp/go-getter"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 )
 

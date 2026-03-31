@@ -41,11 +41,11 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "terrascan",
+	Use:   "openterrascan",
 	Short: "Detect compliance and security violations across Infrastructure as Code.",
-	Long: `Terrascan
+	Long: `OpenTerraScan
 
 Detect compliance and security violations across Infrastructure as Code to mitigate risk before provisioning cloud native infrastructure.
-For more information, please visit https://runterrascan.io/
+For more information, please visit https://runopenterrascan.io/
 `,
 }
