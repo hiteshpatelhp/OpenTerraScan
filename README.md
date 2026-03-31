@@ -93,7 +93,7 @@ Flags:
   -h, --help                 help for openterrascan
   -l, --log-level string     log level (debug, info, warn, error, panic, fatal) (default "info")
   -x, --log-type string      log output type (console, json) (default "console")
-  -o, --output string        output type (human, json, yaml, xml) (default "human")
+  -o, --output string        output type (human, json, yaml, xml) (default "Human")
 
 Use "openterrascan [command] --help" for more information about a command.
 ```
