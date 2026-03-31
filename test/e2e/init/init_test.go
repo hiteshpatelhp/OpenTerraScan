@@ -27,21 +27,21 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/gexec"
-	"github.com/tenable/terrascan/pkg/utils"
-	initUtil "github.com/tenable/terrascan/test/e2e/init"
-	"github.com/tenable/terrascan/test/helper"
+	"github.com/tenable/openterrascan/pkg/utils"
+	initUtil "github.com/tenable/openterrascan/test/e2e/init"
+	"github.com/tenable/openterrascan/test/helper"
 	"gopkg.in/src-d/go-git.v4"
 )
 
 var (
 	initCommand            = "init"
-	defaultPolicyRepoPath  = filepath.Join(utils.GetHomeDir(), ".terrascan")
-	terrascanGitURL        = "https://github.com/tenable/terrascan.git"
-	terrascanDefaultBranch = "master"
-	terrascanConfigEnvName = "TERRASCAN_CONFIG"
+	defaultPolicyRepoPath  = filepath.Join(utils.GetHomeDir(), ".openterrascan")
+	openterrascanGitURL        = "https://github.com/tenable/openterrascan.git"
+	openterrascanDefaultBranch = "master"
+	openterrascanConfigEnvName = "OPENTERRASCAN_CONFIG"
 	kaiMoneyGitURL         = "https://github.com/tenable/KaiMonkey.git"
 
-	testPolicyRepoPath = filepath.Join(utils.GetHomeDir(), ".terrascan-test")
+	testPolicyRepoPath = filepath.Join(utils.GetHomeDir(), ".openterrascan-test")
 	testRegoSubDirPath = filepath.Join(testPolicyRepoPath, "pkg", "policies", "opa", "rego")
 	warnNoBasePath     = fmt.Sprintf("policy rego_subdir specified in configfile '%s', but base path not specified. applying default base path value", filepath.Join("config", "relative_rego_subdir.toml"))
 	warnNoSubDirPath   = fmt.Sprintf("policy base path specified in configfile '%s', but rego_subdir path not specified. applying default rego_subdir value", filepath.Join("config", "home_prefixed_path.toml"))
@@ -49,13 +49,13 @@ var (
 
 var _ = Describe("Init", func() {
 	var session *gexec.Session
-	var terrascanBinaryPath string
+	var openterrascanBinaryPath string
 
 	var outWriter, errWriter io.Writer
 
 	BeforeSuite(func() {
 		os.RemoveAll(defaultPolicyRepoPath)
-		terrascanBinaryPath = helper.GetTerrascanBinaryPath()
+		openterrascanBinaryPath = helper.GetOpenTerraScanBinaryPath()
 	})
 
 	BeforeEach(func() {
@@ -68,15 +68,15 @@ var _ = Describe("Init", func() {
 		errWriter = nil
 	})
 
-	Describe("terrascan init is run", func() {
+	Describe("openterrascan init is run", func() {
 		When("without any flags", func() {
 
 			It("should download policies and exit with status code 0", func() {
-				session = initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
+				session = initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
 				Expect(outWriter).Should(gbytes.Say(""))
 			})
 
-			It("should download policies at TERRASCAN's base location", func() {
+			It("should download policies at OPENTERRASCAN's base location", func() {
 				BeADirectory().Match(defaultPolicyRepoPath)
 			})
 
@@ -86,51 +86,51 @@ var _ = Describe("Init", func() {
 				It("should be a valid git repo", func() {
 					repo = initUtil.OpenGitRepo(defaultPolicyRepoPath)
 				})
-				It("should be terrascan git repo", func() {
-					initUtil.ValidateGitRepo(repo, terrascanGitURL)
+				It("should be openterrascan git repo", func() {
+					initUtil.ValidateGitRepo(repo, openterrascanGitURL)
 				})
 				It("master branch should be present", func() {
-					_, err = repo.Branch(terrascanDefaultBranch)
+					_, err = repo.Branch(openterrascanDefaultBranch)
 					Expect(err).NotTo(HaveOccurred())
 				})
 			})
 		})
 
-		When("terrascan init is run with -h flag", func() {
+		When("openterrascan init is run with -h flag", func() {
 			It("should print help", func() {
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, initCommand, "-h")
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, initCommand, "-h")
 				goldenFileAbsPath, err := filepath.Abs(filepath.Join("..", "help", "golden", "help_init.txt"))
 				Expect(err).NotTo(HaveOccurred())
 				helper.CompareActualWithGolden(session, goldenFileAbsPath, true)
 			})
 
 			It("should exit with status code 0", func() {
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, initCommand, "-h")
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, initCommand, "-h")
 				Eventually(session).Should(gexec.Exit(helper.ExitCodeZero))
 			})
 		})
 
-		When("terrascan init command has typo. eg: inti", func() {
+		When("openterrascan init command has typo. eg: inti", func() {
 			It("should print command suggestion", func() {
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, "inti")
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, "inti")
 				goldenFileAbsPath, err := filepath.Abs(filepath.Join("golden", "init_typo_help.txt"))
 				Expect(err).NotTo(HaveOccurred())
 				helper.CompareActualWithGolden(session, goldenFileAbsPath, false)
 			})
 
 			It("should exit with status code 1", func() {
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, "inti")
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, "inti")
 				Eventually(session, 5).Should(gexec.Exit(helper.ExitCodeOne))
 			})
 		})
 	})
 
-	Describe("terrascan init is run with -c flag", func() {
+	Describe("openterrascan init is run with -c flag", func() {
 
 		Context("config file has valid policy repo and branch data", func() {
 			It("should download policies as per the policy config in the config file", func() {
 				configFile := filepath.Join("config", "valid_repo.toml")
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, "init", "-c", configFile)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, "init", "-c", configFile)
 				helper.ValidateExitCode(session, initUtil.InitCommandTimeout, helper.ExitCodeZero)
 			})
 
@@ -147,13 +147,13 @@ var _ = Describe("Init", func() {
 		Context("config file has valid policy path and rego_subdir data", func() {
 			It("should download policies as per the policy config in the config file", func() {
 				configFile := filepath.Join("config", "valid_paths.toml")
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, "init", "-c", configFile)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, "init", "-c", configFile)
 				helper.ValidateExitCode(session, initUtil.InitCommandTimeout, helper.ExitCodeZero)
 			})
 
-			It("should validate terrascan repo in the policy path", func() {
+			It("should validate openterrascan repo in the policy path", func() {
 				repo := initUtil.OpenGitRepo(testPolicyRepoPath)
-				initUtil.ValidateGitRepo(repo, terrascanGitURL)
+				initUtil.ValidateGitRepo(repo, openterrascanGitURL)
 			})
 
 			os.RemoveAll(testPolicyRepoPath)
@@ -163,14 +163,14 @@ var _ = Describe("Init", func() {
 
 			It("should download policies as per the policy config in the config file", func() {
 				configFile := filepath.Join("config", "valid_config.toml")
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, "init", "-c", configFile)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, "init", "-c", configFile)
 				helper.ValidateExitCode(session, initUtil.InitCommandTimeout, helper.ExitCodeZero)
 			})
 
-			Context("terrascan git repo is downloaded", func() {
-				It("should validate terrascan repo in the policy path", func() {
+			Context("openterrascan git repo is downloaded", func() {
+				It("should validate openterrascan repo in the policy path", func() {
 					repo := initUtil.OpenGitRepo(testPolicyRepoPath)
-					initUtil.ValidateGitRepo(repo, terrascanGitURL)
+					initUtil.ValidateGitRepo(repo, openterrascanGitURL)
 					helper.ValidateDirectoryExists(testRegoSubDirPath)
 				})
 			})
@@ -182,14 +182,14 @@ var _ = Describe("Init", func() {
 
 			It("should download policies as per the policy config in the config file", func() {
 				configFile := filepath.Join("config", "home_prefix_path_config.toml")
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, "init", "-c", configFile)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, "init", "-c", configFile)
 				helper.ValidateExitCode(session, initUtil.InitCommandTimeout, helper.ExitCodeZero)
 			})
 
-			Context("terrascan git repo is downloaded", func() {
-				It("should validate terrascan repo in the policy path", func() {
+			Context("openterrascan git repo is downloaded", func() {
+				It("should validate openterrascan repo in the policy path", func() {
 					repo := initUtil.OpenGitRepo(testPolicyRepoPath)
-					initUtil.ValidateGitRepo(repo, terrascanGitURL)
+					initUtil.ValidateGitRepo(repo, openterrascanGitURL)
 					subpath := testRegoSubDirPath //filepath.Join(path, "pkg/policies/opa/rego")
 					helper.ValidateDirectoryExists(subpath)
 				})
@@ -200,46 +200,46 @@ var _ = Describe("Init", func() {
 
 	})
 
-	Describe("terrascan init is run when TERRASCAN_CONFIG is set", func() {
+	Describe("openterrascan init is run when OPENTERRASCAN_CONFIG is set", func() {
 		When("the config file has invalid repo url", func() {
 			JustBeforeEach(func() {
-				os.Setenv(terrascanConfigEnvName, filepath.Join("config", "invalid_repo.toml"))
+				os.Setenv(openterrascanConfigEnvName, filepath.Join("config", "invalid_repo.toml"))
 			})
 			JustAfterEach(func() {
-				os.Setenv(terrascanConfigEnvName, "")
+				os.Setenv(openterrascanConfigEnvName, "")
 			})
 			It("should error out and exit with status code 1", func() {
-				session = initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeOne)
+				session = initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeOne)
 				helper.ContainsErrorSubString(session, `failed to download policies. error: 'Get "https://repository/url/info/refs?service=git-upload-pack": dial tcp:`)
 			})
 		})
 		When("the config file has invalid branch name", func() {
 			JustBeforeEach(func() {
-				os.Setenv(terrascanConfigEnvName, filepath.Join("config", "invalid_branch.toml"))
+				os.Setenv(openterrascanConfigEnvName, filepath.Join("config", "invalid_branch.toml"))
 			})
 			JustAfterEach(func() {
-				os.Setenv(terrascanConfigEnvName, "")
+				os.Setenv(openterrascanConfigEnvName, "")
 			})
 			It("should error out and exit with status code 1", func() {
-				session = initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeOne)
-				helper.ContainsErrorSubString(session, `failed to initialize terrascan. error : failed to checkout git branch 'invalid-branch'. error: 'reference not found'`)
+				session = initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeOne)
+				helper.ContainsErrorSubString(session, `failed to initialize openterrascan. error : failed to checkout git branch 'invalid-branch'. error: 'reference not found'`)
 			})
 		})
 		When("the config file has relative rego subdir", func() {
 			JustBeforeEach(func() {
-				os.Setenv(terrascanConfigEnvName, filepath.Join("config", "relative_rego_subdir.toml"))
+				os.Setenv(openterrascanConfigEnvName, filepath.Join("config", "relative_rego_subdir.toml"))
 			})
 			JustAfterEach(func() {
-				os.Setenv(terrascanConfigEnvName, "")
+				os.Setenv(openterrascanConfigEnvName, "")
 			})
 
-			// The current behavior of terrascan is that, in case of init command, even if the value of
+			// The current behavior of openterrascan is that, in case of init command, even if the value of
 			// rego_subdir is an invalid/non-existant directory, the init is successful and repoURL will be
 			// cloned at the base path (either default or based on config file)
 			It("should log a warning & download the policies at default base path", func() {
-				session = initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
+				session = initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
 				repo := initUtil.OpenGitRepo(defaultPolicyRepoPath)
-				initUtil.ValidateGitRepo(repo, terrascanGitURL)
+				initUtil.ValidateGitRepo(repo, openterrascanGitURL)
 			})
 
 			It("should log a warning stating no base path specified", func() {
@@ -251,21 +251,21 @@ var _ = Describe("Init", func() {
 			path, err := utils.GetAbsPath("policy/base_path")
 
 			JustBeforeEach(func() {
-				os.Setenv(terrascanConfigEnvName, filepath.Join("config", "relative_path.toml"))
+				os.Setenv(openterrascanConfigEnvName, filepath.Join("config", "relative_path.toml"))
 			})
 			JustAfterEach(func() {
-				os.Setenv(terrascanConfigEnvName, "")
+				os.Setenv(openterrascanConfigEnvName, "")
 			})
 
-			// The current behavior of terrascan is that, when init command is being run with an invalid/
+			// The current behavior of openterrascan is that, when init command is being run with an invalid/
 			// non-existant base path, the specified path gets created and repoURL is cloned at that location
 			It("should work fine and give out exit code zero", func() {
-				session = initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
+				session = initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
 			})
 			It("should download the policy repo at the specified path (relative to the cwd)", func() {
 				Expect(err).ToNot(HaveOccurred())
 				repo := initUtil.OpenGitRepo(path)
-				initUtil.ValidateGitRepo(repo, terrascanGitURL)
+				initUtil.ValidateGitRepo(repo, openterrascanGitURL)
 				os.RemoveAll(path)
 			})
 		})
@@ -274,13 +274,13 @@ var _ = Describe("Init", func() {
 			path, err := utils.GetAbsPath("policy/base_path")
 
 			JustBeforeEach(func() {
-				os.Setenv(terrascanConfigEnvName, filepath.Join("config", "kai_monkey_relative_path.toml"))
+				os.Setenv(openterrascanConfigEnvName, filepath.Join("config", "kai_monkey_relative_path.toml"))
 			})
 			JustAfterEach(func() {
-				os.Setenv(terrascanConfigEnvName, "")
+				os.Setenv(openterrascanConfigEnvName, "")
 			})
 			It("should work fine and give out exit code zero", func() {
-				session = initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
+				session = initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
 			})
 			It("should download the policy repo at the specified path (relative to the cwd)", func() {
 				Expect(err).ToNot(HaveOccurred())
@@ -293,16 +293,16 @@ var _ = Describe("Init", func() {
 
 		When("the config file has a ~ prefixed path and no rego_subdir", func() {
 			JustBeforeEach(func() {
-				os.Setenv(terrascanConfigEnvName, filepath.Join("config", "home_prefixed_path.toml"))
+				os.Setenv(openterrascanConfigEnvName, filepath.Join("config", "home_prefixed_path.toml"))
 			})
 			JustAfterEach(func() {
-				os.Setenv(terrascanConfigEnvName, "")
+				os.Setenv(openterrascanConfigEnvName, "")
 			})
 
 			It("should download the policies at $HOME/<path>", func() {
-				session = initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
+				session = initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
 				repo := initUtil.OpenGitRepo(testPolicyRepoPath)
-				initUtil.ValidateGitRepo(repo, terrascanGitURL)
+				initUtil.ValidateGitRepo(repo, openterrascanGitURL)
 			})
 
 			It("should log a warning stating no rego_subdir specified", func() {
@@ -315,13 +315,13 @@ var _ = Describe("Init", func() {
 		Context("the config file has valid data", func() {
 			When("config file has different git repo and branch", func() {
 				JustBeforeEach(func() {
-					os.Setenv(terrascanConfigEnvName, filepath.Join("config", "valid_repo.toml"))
+					os.Setenv(openterrascanConfigEnvName, filepath.Join("config", "valid_repo.toml"))
 				})
 				JustAfterEach(func() {
-					os.Setenv(terrascanConfigEnvName, "")
+					os.Setenv(openterrascanConfigEnvName, "")
 				})
 				It("init should download the repo provided in the config file", func() {
-					initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
+					initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
 					// Kai Monkey git repo is downloaded
 					// validate Kai Monkey repo in the repo path
 					repo := initUtil.OpenGitRepo(defaultPolicyRepoPath)
@@ -332,19 +332,19 @@ var _ = Describe("Init", func() {
 
 	})
 
-	Describe("terrascan init is run multiple times", func() {
+	Describe("openterrascan init is run multiple times", func() {
 		Context("init clones the git repo to a temp dir, deletes policy path and renames tempdir to policy path", func() {
 			Context("running init the first time", func() {
 				var modifiedTime time.Time
 				It("should download policies at the default policy path", func() {
-					initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
+					initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
 					fi, err := os.Stat(defaultPolicyRepoPath)
 					Expect(err).ToNot(HaveOccurred())
 					modifiedTime = fi.ModTime()
 				})
 				Context("running init the second time", func() {
 					It("should download policies again at the default policy path", func() {
-						initUtil.RunInitCommand(terrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
+						initUtil.RunInitCommand(openterrascanBinaryPath, outWriter, errWriter, helper.ExitCodeZero)
 						fi, err := os.Stat(defaultPolicyRepoPath)
 						Expect(err).ToNot(HaveOccurred())
 						Expect(fi.ModTime()).To(BeTemporally(">", modifiedTime))

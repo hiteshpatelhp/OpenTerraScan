@@ -49,7 +49,7 @@ var (
 	highSeverity = Severity{Level: "high"}
 )
 
-func TestNewTerrascanConfigReader(t *testing.T) {
+func TestNewOpenTerraScanConfigReader(t *testing.T) {
 
 	testPolicy := Policy{
 		RepoPath: "rego-subdir",
@@ -65,7 +65,7 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 	tests := []struct {
 		name          string
 		args          args
-		want          *TerrascanConfigReader
+		want          *OpenTerraScanConfigReader
 		wantErr       bool
 		assertGetters bool
 		Policy
@@ -77,7 +77,7 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 			args: args{
 				fileName: "",
 			},
-			want: &TerrascanConfigReader{},
+			want: &OpenTerraScanConfigReader{},
 		},
 		{
 			name: "nonexistent config file",
@@ -85,7 +85,7 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 				fileName: "test",
 			},
 			wantErr: true,
-			want:    &TerrascanConfigReader{},
+			want:    &OpenTerraScanConfigReader{},
 		},
 		{
 			name: "invalid config file format",
@@ -93,7 +93,7 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 				fileName: "test.invalid",
 			},
 			wantErr: true,
-			want:    &TerrascanConfigReader{},
+			want:    &OpenTerraScanConfigReader{},
 		},
 		{
 			name: "invalid toml config file",
@@ -101,7 +101,7 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 				fileName: filepath.Join(testDataDir, "invalid.toml"),
 			},
 			wantErr: true,
-			want:    &TerrascanConfigReader{},
+			want:    &OpenTerraScanConfigReader{},
 		},
 		{
 			name: "invalid yaml config file",
@@ -109,15 +109,15 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 				fileName: filepath.Join(testDataDir, "invalid.toml"),
 			},
 			wantErr: true,
-			want:    &TerrascanConfigReader{},
+			want:    &OpenTerraScanConfigReader{},
 		},
 		{
 			name: "valid toml config file with partial fields",
 			args: args{
-				fileName: filepath.Join(testDataDir, "terrascan-config.toml"),
+				fileName: filepath.Join(testDataDir, "openterrascan-config.toml"),
 			},
-			want: &TerrascanConfigReader{
-				config: TerrascanConfig{
+			want: &OpenTerraScanConfigReader{
+				config: OpenTerraScanConfig{
 					Policy: testPolicy,
 				},
 			},
@@ -125,10 +125,10 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 		{
 			name: "valid toml config file with all fields",
 			args: args{
-				fileName: filepath.Join(testDataDir, "terrascan-config-all-fields.toml"),
+				fileName: filepath.Join(testDataDir, "openterrascan-config-all-fields.toml"),
 			},
-			want: &TerrascanConfigReader{
-				config: TerrascanConfig{
+			want: &OpenTerraScanConfigReader{
+				config: OpenTerraScanConfig{
 					Policy: testPolicy,
 					Notifications: map[string]Notifier{
 						"webhook1": testNotifier,
@@ -149,10 +149,10 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 		{
 			name: "valid toml config file with all fields and severity defined",
 			args: args{
-				fileName: filepath.Join(testDataDir, "terrascan-config-severity.toml"),
+				fileName: filepath.Join(testDataDir, "openterrascan-config-severity.toml"),
 			},
-			want: &TerrascanConfigReader{
-				config: TerrascanConfig{
+			want: &OpenTerraScanConfigReader{
+				config: OpenTerraScanConfig{
 					Policy: testPolicy,
 					Notifications: map[string]Notifier{
 						"webhook1": testNotifier,
@@ -171,10 +171,10 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 		{
 			name: "valid toml config file with all fields and categories defined",
 			args: args{
-				fileName: filepath.Join(testDataDir, "terrascan-config-category.toml"),
+				fileName: filepath.Join(testDataDir, "openterrascan-config-category.toml"),
 			},
-			want: &TerrascanConfigReader{
-				config: TerrascanConfig{
+			want: &OpenTerraScanConfigReader{
+				config: OpenTerraScanConfig{
 					Policy: testPolicy,
 					Notifications: map[string]Notifier{
 						"webhook1": testNotifier,
@@ -193,10 +193,10 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 		{
 			name: "valid yaml config file with all fields",
 			args: args{
-				fileName: filepath.Join(testDataDir, "terrascan-config-all-fields.yaml"),
+				fileName: filepath.Join(testDataDir, "openterrascan-config-all-fields.yaml"),
 			},
-			want: &TerrascanConfigReader{
-				config: TerrascanConfig{
+			want: &OpenTerraScanConfigReader{
+				config: OpenTerraScanConfig{
 					Policy: testPolicy,
 					Notifications: map[string]Notifier{
 						"webhook1": testNotifier,
@@ -217,10 +217,10 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 		{
 			name: "valid yaml config file with all fields and severity defined",
 			args: args{
-				fileName: filepath.Join(testDataDir, "terrascan-config-severity.yml"),
+				fileName: filepath.Join(testDataDir, "openterrascan-config-severity.yml"),
 			},
-			want: &TerrascanConfigReader{
-				config: TerrascanConfig{
+			want: &OpenTerraScanConfigReader{
+				config: OpenTerraScanConfig{
 					Policy: testPolicy,
 					Notifications: map[string]Notifier{
 						"webhook1": testNotifier,
@@ -239,10 +239,10 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 		{
 			name: "valid yaml config file with all fields and categories defined",
 			args: args{
-				fileName: filepath.Join(testDataDir, "terrascan-config-category.yaml"),
+				fileName: filepath.Join(testDataDir, "openterrascan-config-category.yaml"),
 			},
-			want: &TerrascanConfigReader{
-				config: TerrascanConfig{
+			want: &OpenTerraScanConfigReader{
+				config: OpenTerraScanConfig{
 					Policy: testPolicy,
 					Notifications: map[string]Notifier{
 						"webhook1": testNotifier,
@@ -261,17 +261,17 @@ func TestNewTerrascanConfigReader(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewTerrascanConfigReader(tt.args.fileName)
+			got, err := NewOpenTerraScanConfigReader(tt.args.fileName)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("NewTerrascanConfigReader() got error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("NewOpenTerraScanConfigReader() got error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewTerrascanConfigReader() = got %v, want %v", got, tt.want)
+				t.Errorf("NewOpenTerraScanConfigReader() = got %v, want %v", got, tt.want)
 			}
 			if tt.assertGetters {
 				if !reflect.DeepEqual(got.getPolicyConfig(), tt.Policy) || !reflect.DeepEqual(got.getNotifications(), tt.notifications) || !reflect.DeepEqual(got.getRules(), tt.Rules) {
-					t.Errorf("NewTerrascanConfigReader() = got config: %v, notifications: %v, rules: %v want config: %v, notifications: %v, rules: %v", got.getPolicyConfig(), got.getNotifications(), got.getRules(), tt.Policy, tt.notifications, tt.Rules)
+					t.Errorf("NewOpenTerraScanConfigReader() = got config: %v, notifications: %v, rules: %v want config: %v, notifications: %v, rules: %v", got.getPolicyConfig(), got.getNotifications(), got.getRules(), tt.Policy, tt.notifications, tt.Rules)
 				}
 			}
 		})

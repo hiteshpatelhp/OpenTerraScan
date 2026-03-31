@@ -23,17 +23,17 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/pkg/results"
-	"github.com/tenable/terrascan/pkg/version"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/version"
 )
 
 func TestJUnitXMLWriter(t *testing.T) {
 	testOutput := fmt.Sprintf(`
-<testsuites tests="566" name="TERRASCAN_POLICY_SUITES" failures="1" time="0">
-  <testsuite tests="566" failures="1" time="0" name="TERRASCAN_POLICY_SUITE" package="test">
+<testsuites tests="566" name="OPENTERRASCAN_POLICY_SUITES" failures="1" time="0">
+  <testsuite tests="566" failures="1" time="0" name="OPENTERRASCAN_POLICY_SUITE" package="test">
     <properties>
-      <property name="Terrascan Version" value="%s"></property>
+      <property name="OpenTerraScan Version" value="%s"></property>
     </properties>
     <testcase classname="modules/m1/main.tf" name="[ERROR] resource: &#34;bucket&#34; at line: 20, violates: RULE - AWS.S3Bucket.DS.High.1043" severity="HIGH" category="S3">
       <failure message="Description: S3 bucket Access is allowed to all AWS Account Users., File: modules/m1/main.tf, Line: 20, Severity: HIGH, Rule Name: s3EnforceUserACL, Rule ID: AWS.S3Bucket.DS.High.1043, Resource Name: bucket, Resource Type: aws_s3_bucket, Category: S3" type=""></failure>
@@ -46,20 +46,20 @@ func TestJUnitXMLWriter(t *testing.T) {
   `, version.Get())
 
 	testOutputNoViolations := fmt.Sprintf(`
-<testsuites tests="566" name="TERRASCAN_POLICY_SUITES" failures="1" time="0">
-  <testsuite tests="566" failures="1" time="0" name="TERRASCAN_POLICY_SUITE" package="test">
+<testsuites tests="566" name="OPENTERRASCAN_POLICY_SUITES" failures="1" time="0">
+  <testsuite tests="566" failures="1" time="0" name="OPENTERRASCAN_POLICY_SUITE" package="test">
     <properties>
-      <property name="Terrascan Version" value="%s"></property>
+      <property name="OpenTerraScan Version" value="%s"></property>
     </properties>
   </testsuite>
 </testsuites>
 	`, version.Get())
 
 	testOutputPassedRules := fmt.Sprintf(`
-<testsuites tests="566" name="TERRASCAN_POLICY_SUITES" failures="1" time="0">
-  <testsuite tests="566" failures="1" time="0" name="TERRASCAN_POLICY_SUITE" package="test">
+<testsuites tests="566" name="OPENTERRASCAN_POLICY_SUITES" failures="1" time="0">
+  <testsuite tests="566" failures="1" time="0" name="OPENTERRASCAN_POLICY_SUITE" package="test">
     <properties>
-      <property name="Terrascan Version" value="%s"></property>
+      <property name="OpenTerraScan Version" value="%s"></property>
     </properties>
     <testcase classname="s3EnforceUserACL" name="RULE - AWS.S3Bucket.DS.High.1043, CATEGORY - S3, DESCRIPTION - S3 bucket Access is allowed to all AWS Account Users." severity="HIGH" category="S3"></testcase>
   </testsuite>
@@ -67,10 +67,10 @@ func TestJUnitXMLWriter(t *testing.T) {
 	`, version.Get())
 
 	testOutputRepoURLRepoRef := fmt.Sprintf(`
-<testsuites tests="566" name="TERRASCAN_POLICY_SUITES" failures="1" time="0">
-  <testsuite tests="566" failures="1" time="0" name="TERRASCAN_POLICY_SUITE" package="https://github.com/user/repository.git" branch="main">
+<testsuites tests="566" name="OPENTERRASCAN_POLICY_SUITES" failures="1" time="0">
+  <testsuite tests="566" failures="1" time="0" name="OPENTERRASCAN_POLICY_SUITE" package="https://github.com/user/repository.git" branch="main">
     <properties>
-      <property name="Terrascan Version" value="%s"></property>
+      <property name="OpenTerraScan Version" value="%s"></property>
     </properties>
   </testsuite>
 </testsuites>

@@ -26,7 +26,7 @@ var supportedIacProviders = make(map[supportedIacType]map[supportedIacVersion]re
 // map of default IaC versions for each IaC provider type
 var defaultIacVersions = make(map[supportedIacType]supportedIacVersion)
 
-// RegisterIacProvider registers an IaC provider for terrascan
+// RegisterIacProvider registers an IaC provider for openterrascan
 // if the Iac provider does not have a version, it can be kept empty
 func RegisterIacProvider(iacType supportedIacType, iacVersion, defaultIacVersion supportedIacVersion, iacProvider reflect.Type) {
 

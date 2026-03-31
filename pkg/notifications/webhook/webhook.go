@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"net/http"
 
-	httputils "github.com/tenable/terrascan/pkg/utils/http"
+	httputils "github.com/tenable/openterrascan/pkg/utils/http"
 	"go.uber.org/zap"
 )
 

@@ -20,22 +20,22 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 )
 
 const (
-	defaultPolicyRepoURL     = "https://github.com/tenable/terrascan.git"
+	defaultPolicyRepoURL     = "https://github.com/tenable/openterrascan.git"
 	defaultPolicyBranch      = "master"
 	defaultPolicyEnvironment = "https://cloud.tenable.com"
 )
 
 // ConfigEnvvarName env variable
-const ConfigEnvvarName = "TERRASCAN_CONFIG"
+const ConfigEnvvarName = "OPENTERRASCAN_CONFIG"
 
 var (
 	defaultPolicyRepoPath = filepath.Join("pkg", "policies", "opa", "rego")
-	defaultBasePolicyPath = filepath.Join(utils.GetHomeDir(), ".terrascan")
+	defaultBasePolicyPath = filepath.Join(utils.GetHomeDir(), ".openterrascan")
 )
 
 // LoadGlobalConfig loads policy configuration from specified configFile
@@ -43,7 +43,7 @@ var (
 // in configFile will get default values
 func LoadGlobalConfig(configFile string) error {
 	// Start with the defaults
-	global = &TerrascanConfig{}
+	global = &OpenTerraScanConfig{}
 
 	global.Policy = Policy{
 		BasePath: defaultBasePolicyPath,
@@ -52,10 +52,10 @@ func LoadGlobalConfig(configFile string) error {
 		Branch:   defaultPolicyBranch,
 	}
 
-	var configReader *TerrascanConfigReader
+	var configReader *OpenTerraScanConfigReader
 	var err error
 
-	if configReader, err = NewTerrascanConfigReader(configFile); err != nil {
+	if configReader, err = NewOpenTerraScanConfigReader(configFile); err != nil {
 		return err
 	}
 

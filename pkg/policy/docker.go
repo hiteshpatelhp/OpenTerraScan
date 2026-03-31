@@ -23,6 +23,6 @@ const (
 )
 
 func init() {
-	// Register docker as a cloud provider with terrascan
+	// Register docker as a cloud provider with openterrascan
 	RegisterCloudProvider(docker, defaultDockerIacType, defaultDockerIacVersion)
 }

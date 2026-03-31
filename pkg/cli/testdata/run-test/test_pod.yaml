@@ -7,7 +7,7 @@ metadata:
     test: someupdate
     test2: someupdate3
   annotations:
-    terrascanSkip:
+    openterrascanSkip:
       - rule: accurics.kubernetes.IAM.109
         comment: reason to skip the rule
 spec:
@@ -27,7 +27,7 @@ metadata:
     test: someupdate
     test2: someupdate3
   annotations:
-    terrascanSkip:
+    openterrascanSkip:
       - rule: accurics.kubernetes.IAM.3
         comment: reason to skip the rule
       - rule: accurics.kubernetes.OPS.461

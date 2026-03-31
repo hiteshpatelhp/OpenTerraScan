@@ -9,7 +9,7 @@ from diagrams.onprem import iac
 from diagrams.onprem.compute import Server
 
 
-with Diagram("Terrascan architecture", show=False):
+with Diagram("OpenTerraScan architecture", show=False):
     cli = Bash("CLI")
     server = Server("API server")
     notifier = ConsoleMobileApplication("Notifier (Webhook)")

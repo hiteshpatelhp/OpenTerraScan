@@ -28,11 +28,11 @@ import (
 	"github.com/awslabs/goformation/v7"
 	"github.com/awslabs/goformation/v7/cloudformation"
 	multierr "github.com/hashicorp/go-multierror"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/mapper"
-	cftRes "github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/config"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/store"
-	"github.com/tenable/terrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/mapper"
+	cftRes "github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/config"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/store"
+	"github.com/tenable/openterrascan/pkg/results"
 	"go.uber.org/zap"
 )
 
@@ -108,7 +108,7 @@ func (a *CFTV1) getConfig(absFilePath string, fileData *[]byte, parameters *map[
 		}
 	}
 
-	// map resource to a terrascan type
+	// map resource to a openterrascan type
 	configs, err := a.translateResources(template, absFilePath)
 	if err != nil {
 		zap.S().Debug("unable to normalize data", zap.Error(err), zap.String("file", absFilePath))

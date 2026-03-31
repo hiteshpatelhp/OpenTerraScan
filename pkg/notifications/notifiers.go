@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 )
 
@@ -95,7 +95,7 @@ func NewNotifiers() ([]Notifier, error) {
 }
 
 // IsNotifierSupported returns true/false depending on whether the notifier
-// is supported in terrascan or not
+// is supported in openterrascan or not
 func IsNotifierSupported(notifierType string) bool {
 	if _, supported := supportedNotifiers[supportedNotifierType(notifierType)]; !supported {
 		return false

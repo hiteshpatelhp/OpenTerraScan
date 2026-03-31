@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
- generateName: terrascan-hook-
+ generateName: openterrascan-hook-
  namespace: <YOU APPLICATION NAMESPACE>
  annotations:
    argocd.argoproj.io/hook: PreSync            
@@ -13,7 +13,7 @@ spec:
        seccompProfile:
          type: RuntimeDefault
      containers:
-     - name: terrascan-argocd
+     - name: openterrascan-argocd
        image: <CUSTOM PRESYNC HOOK IMAGE>
        resources:
          requests:
@@ -24,7 +24,7 @@ spec:
            memory: "256Mi"
        env:
          - name: SERVICE_NAME
-           value: <Name of service exposed for terrascan controller pod>
+           value: <Name of service exposed for openterrascan controller pod>
          - name: REMOTE_URL
            value: <YOUR PRIVATE REPOSITORY PATH>
          - name: IAC_TYPE
@@ -37,7 +37,7 @@ spec:
            value: <TYPE OF REMOTE> #If not provided default value is 'git'       
        args:
        - sh
-       - /home/terrascan/bin/terrascan-remote-scan.sh
+       - /home/openterrascan/bin/openterrascan-remote-scan.sh
        securityContext:
          seccompProfile:
            type: RuntimeDefault
@@ -49,14 +49,14 @@ spec:
          exec:
            command:
            - cat
-           - /home/terrascan/bin/terrascan-remote-scan.sh
+           - /home/openterrascan/bin/openterrascan-remote-scan.sh
          periodSeconds: 10
          initialDelaySeconds: 10
        readinessProbe:
          exec:
            command:
            - cat
-           - /home/terrascan/bin/terrascan-remote-scan.sh
+           - /home/openterrascan/bin/openterrascan-remote-scan.sh
          periodSeconds: 10
          initialDelaySeconds: 10
      restartPolicy: Never

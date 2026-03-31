@@ -24,8 +24,8 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/gexec"
-	scanUtils "github.com/tenable/terrascan/test/e2e/scan"
-	"github.com/tenable/terrascan/test/helper"
+	scanUtils "github.com/tenable/openterrascan/test/e2e/scan"
+	"github.com/tenable/openterrascan/test/helper"
 )
 
 var _ = Describe("Scan Command using remote types", func() {
@@ -45,35 +45,35 @@ var _ = Describe("Scan Command using remote types", func() {
 		When("remote type is git", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "git"}
-				scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
+				scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
 			})
 		})
 
 		When("remote type is s3", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "s3"}
-				scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
+				scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
 			})
 		})
 
 		When("remote type is gcs", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "gcs"}
-				scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
+				scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
 			})
 		})
 
 		When("remote type is http", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "http"}
-				scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
+				scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
 			})
 		})
 
 		When("remote type is terraform-registry", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "terraform-registry"}
-				scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
+				scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
 			})
 		})
 	})
@@ -83,7 +83,7 @@ var _ = Describe("Scan Command using remote types", func() {
 		When("remote type is git", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "git", "--remote-url", invalidRemoteURL}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeOne))
 			})
 		})
@@ -98,7 +98,7 @@ var _ = Describe("Scan Command using remote types", func() {
 			})
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "s3", "--remote-url", invalidRemoteURL}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeOne))
 			})
 		})
@@ -106,7 +106,7 @@ var _ = Describe("Scan Command using remote types", func() {
 		When("remote type is gcs", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "gcs", "--remote-url", invalidRemoteURL}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeOne))
 			})
 		})
@@ -114,7 +114,7 @@ var _ = Describe("Scan Command using remote types", func() {
 		When("remote type is http", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "http", "--remote-url", invalidRemoteURL}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeOne))
 			})
 		})
@@ -122,7 +122,7 @@ var _ = Describe("Scan Command using remote types", func() {
 		When("remote type is terraform-registry", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "terraform-registry", "--remote-url", invalidRemoteURL}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeOne))
 			})
 		})
@@ -131,7 +131,7 @@ var _ = Describe("Scan Command using remote types", func() {
 			It("should error out and exit with status code 1", func() {
 				errString := "supplied remote type is not supported"
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "unsupportedType", "--remote-url", invalidRemoteURL}
-				scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
+				scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.RemoteScanTimeout, errString, outWriter, errWriter, scanArgs...)
 			})
 		})
 	})
@@ -141,7 +141,7 @@ var _ = Describe("Scan Command using remote types", func() {
 			remoteURL := "github.com/tenable/kaimonkey/terraform/aws"
 			It("should download the resource and generate scan results", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "git", "--remote-url", remoteURL}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				// exit code is 5 because iac files in directory has violations
 				// and directory scan errors
 				Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeFive))
@@ -150,7 +150,7 @@ var _ = Describe("Scan Command using remote types", func() {
 			It("should download the resource and generate scan results", func() {
 				remoteURL := "https://github.com/tenable/kaimonkey.git//terraform/aws"
 				scanArgs := []string{scanUtils.ScanCommand, "-r", "git", "--remote-url", remoteURL}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				// exit code is 5 because iac files in directory has violations
 				// and directory scan errors
 				Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeFive))
@@ -180,7 +180,7 @@ var _ = Describe("Scan Command using remote types", func() {
 			When("terraform registry URL doesn't have version specified, it downloads the latest available version", func() {
 				It("should download the resource and generate scan results", func() {
 					scanArgs := []string{scanUtils.ScanCommand, "-r", "terraform-registry", "--remote-url", remoteURL}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 					// has a OR condition because we don't know if there would be violations or not
 					// there would be directory scan errors due to all iac type
 					Eventually(session, scanUtils.RemoteScanTimeout).Should(Or(gexec.Exit(helper.ExitCodeFive), gexec.Exit(helper.ExitCodeFour)))
@@ -191,7 +191,7 @@ var _ = Describe("Scan Command using remote types", func() {
 				remoteURL = "terraform-aws-modules/vpc/aws:2.22.0"
 				It("should download the remote registry and generate scan results", func() {
 					scanArgs := []string{scanUtils.ScanCommand, "-r", "terraform-registry", "--remote-url", remoteURL}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 					// has a OR condition because we don't know if there would be violations or not
 					// there would be directory scan errors due to all iac type
 					Eventually(session, scanUtils.RemoteScanTimeout).Should(Or(gexec.Exit(helper.ExitCodeFive), gexec.Exit(helper.ExitCodeFour)))
@@ -203,7 +203,7 @@ var _ = Describe("Scan Command using remote types", func() {
 					remoteURL := "terraform-aws-modules/security-group/aws//modules/http-80"
 					It("should download the remote registry and generate scan results", func() {
 						scanArgs := []string{scanUtils.ScanCommand, "-r", "terraform-registry", "--remote-url", remoteURL, "-i", "terraform", "--non-recursive"}
-						session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+						session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 						// has a OR condition because we don't know if there would be violations or not
 						Eventually(session, scanUtils.RemoteScanTimeout).Should(Or(gexec.Exit(helper.ExitCodeThree), gexec.Exit(helper.ExitCodeZero)))
 					})
@@ -213,7 +213,7 @@ var _ = Describe("Scan Command using remote types", func() {
 					remoteURL := "github.com/terraform-aws-modules/terraform-aws-security-group//modules/http-80"
 					It("should download the remote registry and generate scan results", func() {
 						scanArgs := []string{scanUtils.ScanCommand, "-r", "git", "--remote-url", remoteURL, "-i", "terraform", "--non-recursive"}
-						session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+						session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 						// has a OR condition because we don't know if there would be violations or not
 						Eventually(session, scanUtils.RemoteScanTimeout).Should(Or(gexec.Exit(helper.ExitCodeThree), gexec.Exit(helper.ExitCodeZero)))
 					})
@@ -224,7 +224,7 @@ var _ = Describe("Scan Command using remote types", func() {
 				remoteURL := "terraform-aws-modules/vpc/aws:blah"
 				It("should error out and exit with status code 1", func() {
 					scanArgs := []string{scanUtils.ScanCommand, "-r", "terraform-registry", "--remote-url", remoteURL}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 					Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeOne))
 				})
 			})
@@ -236,17 +236,17 @@ var _ = Describe("Scan Command using remote types", func() {
 			tmpDir, err := filepath.Abs(filepath.Join(iacRootRelPath, "temp_dir"))
 			Expect(err).NotTo(HaveOccurred())
 			JustBeforeEach(func() {
-				err = os.Setenv("TERRASCAN_CUSTOM_TEMP_DIR", tmpDir)
+				err = os.Setenv("OPENTERRASCAN_CUSTOM_TEMP_DIR", tmpDir)
 				Expect(err).NotTo(HaveOccurred())
 			})
 
 			JustAfterEach(func() {
-				err := os.Unsetenv("TERRASCAN_CUSTOM_TEMP_DIR")
+				err := os.Unsetenv("OPENTERRASCAN_CUSTOM_TEMP_DIR")
 				Expect(err).NotTo(HaveOccurred())
 			})
 			It("should download the resource in provided custom temp dir and generate scan results", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-o", "json", "-r", "git", "--remote-url", remoteURL}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				// exit code is 5 because iac files in directory has violations
 				// and directory scan errors
 				Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeFive))
@@ -261,7 +261,7 @@ var _ = Describe("Scan Command using remote types", func() {
 			Expect(err).NotTo(HaveOccurred())
 			It("should download the resource in provided custom temp dir and generate scan results", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-o", "json", "-r", "git", "--remote-url", remoteURL, "--temp-dir", tmpDir}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				// exit code is 5 because iac files in directory has violations
 				// and directory scan errors
 				Eventually(session, scanUtils.RemoteScanTimeout).Should(gexec.Exit(helper.ExitCodeFive))

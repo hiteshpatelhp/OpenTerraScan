@@ -1,12 +1,12 @@
 resources:
   - deployment.yaml
 
-namespace: <TERRASCAN_NAMESPACE>
+namespace: <OPENTERRASCAN_NAMESPACE>
 
 commonLabels:
-  app: terrascan
+  app: openterrascan
 
 configMapGenerator:
-  - name: terrascan-config
+  - name: openterrascan-config
     files:
       - config.toml=config/config.toml

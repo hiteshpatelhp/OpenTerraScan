@@ -1,12 +1,12 @@
-# Helm charts for deploying terrascan
+# Helm charts for deploying openterrascan
 
-This guide deploys terrascan as a server within your kubernetes cluster. Additionally, you can deploy a
-Validating Webhook as well, that'll use the terrascan server as its backend.
+This guide deploys openterrascan as a server within your kubernetes cluster. Additionally, you can deploy a
+Validating Webhook as well, that'll use the openterrascan server as its backend.
 
-In server mode, terrascan will act both as an API server for
+In server mode, openterrascan will act both as an API server for
 performing remote scans of IAC, as well as a validating admission
 webhook for a Kubernetes cluster. Further details can be found in
-the [main documentation](https://runterrascan.io/).
+the [main documentation](https://runopenterrascan.io/).
 
 ## Usage
 ### Set up TLS certificates
@@ -20,19 +20,19 @@ There's a `data/domain.cnf` file available for you to edit and generate key & ce
   openssl req -x509 -sha256 -nodes -newkey rsa:2048 -keyout data/server.key -out data/server.crt -config data/domain.cnf
   ```
 
-In the `data/domain.cnf` file, we have configured DNS names as `terrascan.terrascan.svc`, assuming the defaults that service
-will be named `terrascan` and hosted in `terrascan` namespace. You'll have to manually change that as per your requirements.
+In the `data/domain.cnf` file, we have configured DNS names as `openterrascan.openterrascan.svc`, assuming the defaults that service
+will be named `openterrascan` and hosted in `openterrascan` namespace. You'll have to manually change that as per your requirements.
 
-### Terrascan configuration file
-This chart will look for a [terrascan configuration
-file](https://runterrascan.io/docs/usage/config_options/)
+### OpenTerraScan configuration file
+This chart will look for a [openterrascan configuration
+file](https://runopenterrascan.io/docs/usage/config_options/)
 at `data/config.toml`. If that file exists before running `helm
 install`, it's contents will be loaded into a configMap and provided
-to the terrascan server.
+to the openterrascan server.
 
 ### Set up SSH config for private remote repo scan
 If you're opting to utilise the remote repo scan feature for ***private*** repositories,
-terrascan will require ssh capabilities to do that.
+openterrascan will require ssh capabilities to do that.
 This helm chart expects to find the your ssh private key at `.ssh/private_key`,and .ssh known_hosts file at `.ssh/known_hosts`.
 Your ssh public key must setup at the code repository hosting service, such as github, bitbucket, etc.
 
@@ -47,7 +47,7 @@ gitlab.com,172.65.251.78 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAA
 **Note:** This is an optional feature and not a requirement.
 
 ### Persistent storage
-By default, this chart will deploy terrascan with a `emptyDir`
+By default, this chart will deploy openterrascan with a `emptyDir`
 volume - basically a temporary volume. If you intend to use the
 admission controller functionality, then you may want to store the
 admission controller database on a persistent volume. This chart
@@ -69,9 +69,9 @@ Once your TLS certificate is generated and the values in the
 `values.yaml` configuration file have been reviewed, you can install
 the chart with the following command:
 
-1. Deploying Terrascan Server.
+1. Deploying OpenTerraScan Server.
 
-   For just installing a terrascan server deployment and service,
+   For just installing a openterrascan server deployment and service,
 
     ```
     helm install <release-name> . -n <namespace>
@@ -87,7 +87,7 @@ the chart with the following command:
     ```
    Watch the pod until it attains the `Running` state.
 
-   Verify the logs of the terrascan pod using the following command.
+   Verify the logs of the openterrascan pod using the following command.
     ```
     kubectl -n <namespace> logs <pod-name>
     ```
@@ -95,7 +95,7 @@ the chart with the following command:
 
    ###Deploying Validating Webhook.
 
-   For installing the terrascan deployment and service along the validating webhook,
+   For installing the openterrascan deployment and service along the validating webhook,
 
     ```
     helm install <release-name> . -n <namespace> --set webhook.mode=true

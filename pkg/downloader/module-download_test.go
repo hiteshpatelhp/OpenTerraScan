@@ -29,7 +29,7 @@ import (
 	hclConfigs "github.com/hashicorp/terraform/configs"
 	"github.com/hashicorp/terraform/registry/regsrc"
 	"github.com/hashicorp/terraform/registry/response"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 var (

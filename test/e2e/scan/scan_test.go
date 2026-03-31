@@ -28,16 +28,16 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/gexec"
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/pkg/utils"
-	scanUtils "github.com/tenable/terrascan/test/e2e/scan"
-	"github.com/tenable/terrascan/test/helper"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/utils"
+	scanUtils "github.com/tenable/openterrascan/test/e2e/scan"
+	"github.com/tenable/openterrascan/test/helper"
 )
 
 var (
 	session              *gexec.Session
-	terrascanBinaryPath  string
+	openterrascanBinaryPath  string
 	iacRootRelPath       = filepath.Join("..", "test_data", "iac")
 	awsIacRelPath        = filepath.Join(iacRootRelPath, "aws")
 	k8sIacRelPath        = filepath.Join(iacRootRelPath, "k8s")
@@ -49,7 +49,7 @@ var (
 var _ = Describe("Scan", func() {
 
 	BeforeSuite(func() {
-		terrascanBinaryPath = helper.GetTerrascanBinaryPath()
+		openterrascanBinaryPath = helper.GetOpenTerraScanBinaryPath()
 	})
 
 	BeforeEach(func() {
@@ -65,7 +65,7 @@ var _ = Describe("Scan", func() {
 	Describe("scan command is run with -h flag", func() {
 		It("should print help for scan and exit with status code 0", func() {
 			scanArgs := []string{scanUtils.ScanCommand, "-h"}
-			scanUtils.RunScanAndAssertGoldenOutput(terrascanBinaryPath, filepath.Join("..", "help", "golden", "help_scan.txt"), helper.ExitCodeZero, true, outWriter, errWriter, scanArgs...)
+			scanUtils.RunScanAndAssertGoldenOutput(openterrascanBinaryPath, filepath.Join("..", "help", "golden", "help_scan.txt"), helper.ExitCodeZero, true, outWriter, errWriter, scanArgs...)
 		})
 	})
 
@@ -74,7 +74,7 @@ var _ = Describe("Scan", func() {
 
 		It("should print scan command suggestion and exit with status code 1", func() {
 			scanArgs := []string{scanTypo}
-			session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+			session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 			Eventually(session).Should(gexec.Exit(helper.ExitCodeOne))
 			goldenFileAbsPath, err := filepath.Abs(filepath.Join("golden", "scan_typo_help.txt"))
 			Expect(err).NotTo(HaveOccurred())
@@ -83,11 +83,11 @@ var _ = Describe("Scan", func() {
 	})
 
 	Describe("scan command is run", func() {
-		Context("when no iac type is provided, terrascan scans with all iac providers", func() {
+		Context("when no iac type is provided, openterrascan scans with all iac providers", func() {
 			Context("no tf files are present in the working directory", func() {
 				It("scans the directory with all iac and display results", func() {
 					scanArgs := []string{scanUtils.ScanCommand}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 					helper.ValidateExitCode(session, scanUtils.ScanTimeout, helper.ExitCodeFour)
 				})
 				Context("iac loading errors would be displayed in the output, output type is json", func() {
@@ -96,7 +96,7 @@ var _ = Describe("Scan", func() {
 						// these errors would come from terraform, helm, and kustomize iac providers
 						errString1 := "kustomization.y(a)ml file not found in the directory"
 						errString2 := "no helm charts found in directory"
-						session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+						session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 						helper.ContainsDirScanErrorSubString(session, errString1)
 						helper.ContainsDirScanErrorSubString(session, errString2)
 					})
@@ -107,7 +107,7 @@ var _ = Describe("Scan", func() {
 						// these errors would come from terraform, helm, and kustomize iac providers
 						errString1 := "kustomization.y(a)ml file not found in the directory"
 						errString2 := "no helm charts found in directory"
-						session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+						session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 						helper.ContainsDirScanErrorSubString(session, errString1)
 						helper.ContainsDirScanErrorSubString(session, errString2)
 					})
@@ -115,7 +115,7 @@ var _ = Describe("Scan", func() {
 				When("iac type is terraform and --non-recursive flag is used", func() {
 					It("should error out if no terraform files are present in working directory", func() {
 						scanArgs := []string{scanUtils.ScanCommand, "-i", "terraform", "--non-recursive"}
-						session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+						session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 						Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeOne))
 					})
 				})
@@ -126,12 +126,12 @@ var _ = Describe("Scan", func() {
 					Expect(err).NotTo(HaveOccurred())
 
 					scanArgs := []string{scanUtils.ScanCommand, "-i", "terraform", "--non-recursive"}
-					session = helper.RunCommandDir(terrascanBinaryPath, workDir, outWriter, errWriter, scanArgs...)
+					session = helper.RunCommandDir(openterrascanBinaryPath, workDir, outWriter, errWriter, scanArgs...)
 					Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeThree))
 				})
 
 				When("tf file present in the dir has no violations", func() {
-					Context("when there are no violations, but has dir scan errors, terrascan exits with status code 4", func() {
+					Context("when there are no violations, but has dir scan errors, openterrascan exits with status code 4", func() {
 						It("should scan the directory and exit with status code 0", func() {
 							workDir, err := filepath.Abs(filepath.Join(awsIacRelPath, "aws_db_instance_violation"))
 							Expect(err).NotTo(HaveOccurred())
@@ -141,7 +141,7 @@ var _ = Describe("Scan", func() {
 							Expect(err).NotTo(HaveOccurred())
 
 							scanArgs := []string{scanUtils.ScanCommand, "-p", policyDir}
-							session = helper.RunCommandDir(terrascanBinaryPath, workDir, outWriter, errWriter, scanArgs...)
+							session = helper.RunCommandDir(openterrascanBinaryPath, workDir, outWriter, errWriter, scanArgs...)
 							Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeFour))
 						})
 					})
@@ -150,7 +150,7 @@ var _ = Describe("Scan", func() {
 		})
 	})
 
-	Describe("terrascan scan command is run with -d and -f flag", func() {
+	Describe("openterrascan scan command is run with -d and -f flag", func() {
 		workDir, err := os.Getwd()
 		It("should not get an error", func() {
 			Expect(err).NotTo(HaveOccurred())
@@ -162,7 +162,7 @@ var _ = Describe("Scan", func() {
 				It("should error out and exit with status code 1", func() {
 					errString := fmt.Sprintf("directory '%s' does not exist", filepath.Join(workDir, invalidPath))
 					scanArgs := []string{scanUtils.ScanCommand, "-d", invalidPath}
-					scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+					scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 				})
 			})
 
@@ -170,7 +170,7 @@ var _ = Describe("Scan", func() {
 				It("should error out and exit with status code 1", func() {
 					errString := fmt.Sprintf("file '%s' does not exist", filepath.Join(workDir, invalidPath))
 					scanArgs := []string{scanUtils.ScanCommand, "-f", invalidPath}
-					scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+					scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 				})
 			})
 		})
@@ -182,7 +182,7 @@ var _ = Describe("Scan", func() {
 
 				errString := fmt.Sprintf("input path '%s' is not a valid directory", validAbsFilePath)
 				scanArgs := []string{scanUtils.ScanCommand, "-d", validAbsFilePath}
-				scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+				scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 			})
 		})
 
@@ -193,7 +193,7 @@ var _ = Describe("Scan", func() {
 
 				errString := fmt.Sprintf("input path '%s' is not a valid file", validAbsDirPath)
 				scanArgs := []string{scanUtils.ScanCommand, "-f", validAbsDirPath}
-				scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+				scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 			})
 		})
 	})
@@ -203,7 +203,7 @@ var _ = Describe("Scan", func() {
 		When("-i flag is supplied with unsupported iac type", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-i", "test"}
-				scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+				scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 			})
 		})
 
@@ -211,7 +211,7 @@ var _ = Describe("Scan", func() {
 			Context("default iac type is all and --iac-version would be ignored", func() {
 				It("should error out and exit with status code 4", func() {
 					scanArgs := []string{scanUtils.ScanCommand, "--iac-version", "test"}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 					helper.ValidateExitCode(session, scanUtils.ScanTimeout, helper.ExitCodeFour)
 				})
 			})
@@ -221,21 +221,21 @@ var _ = Describe("Scan", func() {
 			When("iac type is k8s and supplied version is invalid", func() {
 				It("should error out and exit with status code 1", func() {
 					scanArgs := []string{scanUtils.ScanCommand, "-i", "k8s", "--iac-version", "test"}
-					scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+					scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 				})
 			})
 
 			When("iac type is helm and supplied version is invalid", func() {
 				It("should error out and exit with status code 1", func() {
 					scanArgs := []string{scanUtils.ScanCommand, "-i", "helm", "--iac-version", "test"}
-					scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+					scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 				})
 			})
 
 			When("iac type is kustomize and supplied version is invalid", func() {
 				It("should error out and exit with status code 1", func() {
 					scanArgs := []string{scanUtils.ScanCommand, "-i", "kustomize", "--iac-version", "test"}
-					scanUtils.RunScanAndAssertErrorMessage(terrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
+					scanUtils.RunScanAndAssertErrorMessage(openterrascanBinaryPath, helper.ExitCodeOne, scanUtils.ScanTimeout, errString, outWriter, errWriter, scanArgs...)
 				})
 			})
 		})
@@ -254,7 +254,7 @@ var _ = Describe("Scan", func() {
 		When("supplied policy path doesn't exist", func() {
 			It("should error out and exit with status code 1", func() {
 				scanArgs := []string{scanUtils.ScanCommand, "-p", invalidPolicyPath}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeOne))
 				helper.ContainsErrorSubString(session, errString1)
 				helper.ContainsErrorSubString(session, errString2)
@@ -267,7 +267,7 @@ var _ = Describe("Scan", func() {
 					validPolicyPath, err := filepath.Abs(filepath.Join("..", "test_data"))
 					Expect(err).NotTo(HaveOccurred())
 					scanArgs := []string{scanUtils.ScanCommand, "-p", validPolicyPath, "-p", invalidPolicyPath}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 					Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeOne))
 					helper.ContainsErrorSubString(session, errString1)
 					helper.ContainsErrorSubString(session, errString2)
@@ -290,7 +290,7 @@ var _ = Describe("Scan", func() {
 					Context("default iac type is all", func() {
 						It("should scan with the policies and exit with status code 0", func() {
 							scanArgs := []string{scanUtils.ScanCommand, "-p", validPolicyPath1, "-p", validPolicyPath2}
-							session = helper.RunCommandDir(terrascanBinaryPath, workDirPath, outWriter, errWriter, scanArgs...)
+							session = helper.RunCommandDir(openterrascanBinaryPath, workDirPath, outWriter, errWriter, scanArgs...)
 							// exits with status code 4, because there are no iac files for violations but
 							// would contain directory scan errors
 							Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeFour))
@@ -300,7 +300,7 @@ var _ = Describe("Scan", func() {
 					Context("iac type is k8s", func() {
 						It("should scan with the policies and display results", func() {
 							scanArgs := []string{scanUtils.ScanCommand, "-p", validPolicyPath1, "-p", validPolicyPath2, "-i", "k8s"}
-							session = helper.RunCommandDir(terrascanBinaryPath, workDirPath, outWriter, errWriter, scanArgs...)
+							session = helper.RunCommandDir(openterrascanBinaryPath, workDirPath, outWriter, errWriter, scanArgs...)
 							// exits with status code 0, because no violations would be reported,
 							// the work dir has k8s iac file and supplied policies are for tf files
 							Eventually(session, scanUtils.ScanTimeout).Should(gexec.Exit(helper.ExitCodeZero))
@@ -311,7 +311,7 @@ var _ = Describe("Scan", func() {
 		})
 	})
 
-	Describe("terrascan scan command is run with notification webhook and repo detail flags", func() {
+	Describe("openterrascan scan command is run with notification webhook and repo detail flags", func() {
 
 		notificationURL := "https://httpbin.org/post"
 		notificationToken := "token"
@@ -328,7 +328,7 @@ var _ = Describe("Scan", func() {
 		Context("valid --webhook-url and --webhook-token flag is supplied", func() {
 			It("should scan and display violations in human output format and exit with status code 3", func() {
 				scanArgs := []string{"-p", policyDir, "-i", "terraform", "-d", iacDir, "--webhook-url", notificationURL, "--webhook-token", notificationToken}
-				scanUtils.RunScanAndAssertGoldenOutputRegexWithTimeout(terrascanBinaryPath, filepath.Join(tfAwsAmiGoldenRelPath, "aws_ami_violation_human.txt"), helper.ExitCodeThree, false, true, outWriter, errWriter, scanUtils.WebhookScanTimeout, scanArgs...)
+				scanUtils.RunScanAndAssertGoldenOutputRegexWithTimeout(openterrascanBinaryPath, filepath.Join(tfAwsAmiGoldenRelPath, "aws_ami_violation_human.txt"), helper.ExitCodeThree, false, true, outWriter, errWriter, scanUtils.WebhookScanTimeout, scanArgs...)
 
 			})
 		})
@@ -336,15 +336,15 @@ var _ = Describe("Scan", func() {
 		Context("only --webhook-url flag is supplied", func() {
 			It("should scan and display violations in human output format and exit with status code 3", func() {
 				scanArgs := []string{"-p", policyDir, "-i", "terraform", "-d", iacDir, "--webhook-url", notificationURL}
-				scanUtils.RunScanAndAssertGoldenOutputRegexWithTimeout(terrascanBinaryPath, filepath.Join(tfAwsAmiGoldenRelPath, "aws_ami_violation_human.txt"), helper.ExitCodeThree, false, true, outWriter, errWriter, scanUtils.WebhookScanTimeout, scanArgs...)
+				scanUtils.RunScanAndAssertGoldenOutputRegexWithTimeout(openterrascanBinaryPath, filepath.Join(tfAwsAmiGoldenRelPath, "aws_ami_violation_human.txt"), helper.ExitCodeThree, false, true, outWriter, errWriter, scanUtils.WebhookScanTimeout, scanArgs...)
 
 			})
 		})
-		Context("terrascan scan command is run with --repo-url and --repo-ref flag", func() {
+		Context("openterrascan scan command is run with --repo-url and --repo-ref flag", func() {
 			It("should scan and result in json output format and exit with status code 3", func() {
-				scanArgs := []string{"scan", "-p", policyDir, "-i", "terraform", "-d", iacDir, "--repo-url", "https://github.com/tenable/terrascan.git", "--repo-ref", "main", "-o", "json"}
-				// scanUtils.RunScanAndAssertGoldenOutputRegex(terrascanBinaryPath, filepath.Join(tfAwsAmiGoldenRelPath, "aws_ami_violation_human_with_repo_detail.txt"), helper.ExitCodeThree, false, true, outWriter, errWriter, scanArgs...)
-				session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				scanArgs := []string{"scan", "-p", policyDir, "-i", "terraform", "-d", iacDir, "--repo-url", "https://github.com/tenable/openterrascan.git", "--repo-ref", "main", "-o", "json"}
+				// scanUtils.RunScanAndAssertGoldenOutputRegex(openterrascanBinaryPath, filepath.Join(tfAwsAmiGoldenRelPath, "aws_ami_violation_human_with_repo_detail.txt"), helper.ExitCodeThree, false, true, outWriter, errWriter, scanArgs...)
+				session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, 3).Should(gexec.Exit(helper.ExitCodeThree))
 				sessionBytes := session.Wait().Out.Contents()
 				sessionBytes = bytes.TrimSpace(sessionBytes)
@@ -352,13 +352,13 @@ var _ = Describe("Scan", func() {
 
 				err := json.Unmarshal(sessionBytes, &sessionEngineOutput)
 				Expect(err).NotTo(HaveOccurred())
-				Expect(sessionEngineOutput.Summary.ResourcePath).To((Equal("https://github.com/tenable/terrascan.git")))
+				Expect(sessionEngineOutput.Summary.ResourcePath).To((Equal("https://github.com/tenable/openterrascan.git")))
 				Expect(sessionEngineOutput.Summary.Branch).To((Equal("main")))
 			})
 		})
 	})
-	Describe("terrascan scan command run with policy-path", func() {
-		Context("terrascan scan command is run with --p flag", func() {
+	Describe("openterrascan scan command run with policy-path", func() {
+		Context("openterrascan scan command is run with --p flag", func() {
 			It("should scan and should use provided policies without downloading any from default repo", func() {
 				if path, err := os.Stat(config.GetPolicyRepoPath()); err == nil && path.IsDir() {
 					os.RemoveAll(config.GetPolicyRepoPath())
@@ -368,7 +368,7 @@ var _ = Describe("Scan", func() {
 				Expect(err1).NotTo(HaveOccurred())
 				Expect(err2).NotTo(HaveOccurred())
 				scanArgs := []string{"scan", "-p", policyDir, "-i", "terraform", "-d", iacDir}
-				session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, 3).Should(gexec.Exit(helper.ExitCodeThree))
 				_, err := os.Stat(config.GetPolicyRepoPath())
 				Expect(err).To(HaveOccurred())
@@ -376,17 +376,17 @@ var _ = Describe("Scan", func() {
 			})
 		})
 	})
-	Describe("terrascan scan, write logs and results in file", func() {
-		Context("terrascan scan command is run with --log-output-dir flag", func() {
+	Describe("openterrascan scan, write logs and results in file", func() {
+		Context("openterrascan scan command is run with --log-output-dir flag", func() {
 			It("should scan and use the directory path to write the logs and result", func() {
-				logOutputdir := "/tmp/terrascan"
-				logFile := filepath.Join(logOutputdir, "terrascan.log")
+				logOutputdir := "/tmp/openterrascan"
+				logFile := filepath.Join(logOutputdir, "openterrascan.log")
 				resultFile := filepath.Join(logOutputdir, "scan-result.txt")
 
 				iacDir, err1 := filepath.Abs(filepath.Join(awsIacRelPath, "aws_ami_violation"))
 				Expect(err1).NotTo(HaveOccurred())
 				scanArgs := []string{"scan", "-d", iacDir, "--log-output-dir", logOutputdir}
-				session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, 3).Should(gexec.Exit(helper.ExitCodeFive))
 				_, err := os.Stat(logFile)
 				Expect(err).NotTo(HaveOccurred())
@@ -397,14 +397,14 @@ var _ = Describe("Scan", func() {
 				os.RemoveAll(logOutputdir)
 			})
 			It("should scan and use the directory path to write the logs and result in json file", func() {
-				logOutputdir := "/tmp/terrascan"
-				logFile := filepath.Join(logOutputdir, "terrascan.log")
+				logOutputdir := "/tmp/openterrascan"
+				logFile := filepath.Join(logOutputdir, "openterrascan.log")
 				resultFile := filepath.Join(logOutputdir, "scan-result.json")
 
 				iacDir, err1 := filepath.Abs(filepath.Join(awsIacRelPath, "aws_ami_violation"))
 				Expect(err1).NotTo(HaveOccurred())
 				scanArgs := []string{"scan", "-d", iacDir, "--log-output-dir", logOutputdir, "-o", "json"}
-				session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, 3).Should(gexec.Exit(helper.ExitCodeFive))
 				_, err := os.Stat(logFile)
 				Expect(err).NotTo(HaveOccurred())
@@ -415,14 +415,14 @@ var _ = Describe("Scan", func() {
 				os.RemoveAll(logOutputdir)
 			})
 			It("should scan and use the directory path to write the logs and result in yaml file", func() {
-				logOutputdir := "/tmp/terrascan"
-				logFile := filepath.Join(logOutputdir, "terrascan.log")
+				logOutputdir := "/tmp/openterrascan"
+				logFile := filepath.Join(logOutputdir, "openterrascan.log")
 				resultFile := filepath.Join(logOutputdir, "scan-result.yaml")
 
 				iacDir, err1 := filepath.Abs(filepath.Join(awsIacRelPath, "aws_ami_violation"))
 				Expect(err1).NotTo(HaveOccurred())
 				scanArgs := []string{"scan", "-d", iacDir, "--log-output-dir", logOutputdir, "-o", "yaml"}
-				session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, 3).Should(gexec.Exit(helper.ExitCodeFive))
 				_, err := os.Stat(logFile)
 				Expect(err).NotTo(HaveOccurred())
@@ -433,14 +433,14 @@ var _ = Describe("Scan", func() {
 				os.RemoveAll(logOutputdir)
 			})
 			It("should scan and use the directory path to write the logs and result in xml file", func() {
-				logOutputdir := "/tmp/terrascan"
-				logFile := filepath.Join(logOutputdir, "terrascan.log")
+				logOutputdir := "/tmp/openterrascan"
+				logFile := filepath.Join(logOutputdir, "openterrascan.log")
 				resultFile := filepath.Join(logOutputdir, "scan-result.xml")
 
 				iacDir, err1 := filepath.Abs(filepath.Join(awsIacRelPath, "aws_ami_violation"))
 				Expect(err1).NotTo(HaveOccurred())
 				scanArgs := []string{"scan", "-d", iacDir, "--log-output-dir", logOutputdir, "-o", "xml"}
-				session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, 3).Should(gexec.Exit(helper.ExitCodeFive))
 				_, err := os.Stat(logFile)
 				Expect(err).NotTo(HaveOccurred())
@@ -451,14 +451,14 @@ var _ = Describe("Scan", func() {
 				os.RemoveAll(logOutputdir)
 			})
 			It("should scan and use the directory path to write the logs and result in sarif file", func() {
-				logOutputdir := "/tmp/terrascan"
-				logFile := filepath.Join(logOutputdir, "terrascan.log")
+				logOutputdir := "/tmp/openterrascan"
+				logFile := filepath.Join(logOutputdir, "openterrascan.log")
 				resultFile := filepath.Join(logOutputdir, "scan-result.sarif")
 
 				iacDir, err1 := filepath.Abs(filepath.Join(awsIacRelPath, "aws_ami_violation"))
 				Expect(err1).NotTo(HaveOccurred())
 				scanArgs := []string{"scan", "-d", iacDir, "--log-output-dir", logOutputdir, "-o", "sarif"}
-				session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, scanArgs...)
+				session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, scanArgs...)
 				Eventually(session, 3).Should(gexec.Exit(helper.ExitCodeFive))
 				_, err := os.Stat(logFile)
 				Expect(err).NotTo(HaveOccurred())

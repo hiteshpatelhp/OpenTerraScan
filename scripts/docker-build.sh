@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-DOCKER_REPO="docker-terrascan-local.artifactory.eng.tenable.com/terrascan"
+DOCKER_REPO="docker-openterrascan-local.artifactory.eng.tenable.com/openterrascan"
 DOCKERFILE="./build/Dockerfile"
 
 if [ $# -eq 0 ]; then
@@ -38,10 +38,10 @@ else
   OUTPUT_TYPE="--load"
 fi
 
-docker buildx create "${PLATFORM[@]}" --name terrascan-builder --use
+docker buildx create "${PLATFORM[@]}" --name openterrascan-builder --use
 
 docker buildx build --provenance=false "${OUTPUT_TYPE}" "${PLATFORM[@]}" -t "${DOCKER_REPO}:${LABEL}" -f "${DOCKERFILE}" .
 
 echo "${LABEL}" > dockerhub-image-label.txt
 
-docker buildx rm terrascan-builder
+docker buildx rm openterrascan-builder

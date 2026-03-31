@@ -18,7 +18,7 @@ package cli
 
 import (
 	"github.com/spf13/cobra"
-	httpserver "github.com/tenable/terrascan/pkg/http-server"
+	httpserver "github.com/tenable/openterrascan/pkg/http-server"
 )
 
 var (
@@ -34,10 +34,10 @@ var (
 
 var serverCmd = &cobra.Command{
 	Use:   "server",
-	Short: "Run Terrascan as an API server",
-	Long: `Terrascan
+	Short: "Run OpenTerraScan as an API server",
+	Long: `OpenTerraScan
 
-Run Terrascan as an API server that inspects incoming IaC (Infrastructure-as-Code) files and returns the scan results.
+Run OpenTerraScan as an API server that inspects incoming IaC (Infrastructure-as-Code) files and returns the scan results.
 `,
 	PreRun: func(cmd *cobra.Command, args []string) {
 		initial(cmd, args, true)

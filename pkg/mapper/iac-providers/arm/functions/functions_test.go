@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/arm/types"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/arm/types"
 )
 
 func TestLookUp(t *testing.T) {

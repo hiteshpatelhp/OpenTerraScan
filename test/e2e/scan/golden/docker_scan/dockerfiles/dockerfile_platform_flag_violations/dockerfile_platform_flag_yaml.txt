@@ -11,7 +11,7 @@ results:
           line: 1
     skipped_violations: []
     scan_summary:
-        file/folder: /Users/suvarna/go/src/github.com/rchanger/terrascan/test/e2e/test_data/iac/docker/dockerfile_with_platform_flag_violation
+        file/folder: /Users/suvarna/go/src/github.com/rchanger/openterrascan/test/e2e/test_data/iac/docker/dockerfile_with_platform_flag_violation
         iac_type: docker
         scanned_at: 2021-08-06 14:03:08.139109 +0000 UTC
         policies_validated: 9

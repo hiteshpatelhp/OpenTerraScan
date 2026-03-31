@@ -19,9 +19,9 @@ package iacprovider
 import (
 	"reflect"
 
-	kustomizev2 "github.com/tenable/terrascan/pkg/iac-providers/kustomize/v2"
-	kustomizev3 "github.com/tenable/terrascan/pkg/iac-providers/kustomize/v3"
-	kustomizev4 "github.com/tenable/terrascan/pkg/iac-providers/kustomize/v4"
+	kustomizev2 "github.com/tenable/openterrascan/pkg/iac-providers/kustomize/v2"
+	kustomizev3 "github.com/tenable/openterrascan/pkg/iac-providers/kustomize/v3"
+	kustomizev4 "github.com/tenable/openterrascan/pkg/iac-providers/kustomize/v4"
 )
 
 // kustomize specific constants
@@ -33,7 +33,7 @@ const (
 	kustomizeDefaultIacVersion                     = kustomizeV4
 )
 
-// register kustomize as an IaC provider with terrascan
+// register kustomize as an IaC provider with openterrascan
 func init() {
 	// register iac provider
 	RegisterIacProvider(kustomize, kustomizeV4, kustomizeDefaultIacVersion, reflect.TypeOf(kustomizev4.KustomizeV4{}))

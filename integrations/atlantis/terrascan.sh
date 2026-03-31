@@ -14,12 +14,12 @@
 
 #!/bin/bash
 
-terrascan scan -i tfplan --iac-version v1 -f ${PLANFILE}.json -l error > output
+openterrascan scan -i tfplan --iac-version v1 -f ${PLANFILE}.json -l error > output
 exitcode=$?
 
 if [[ ! $exitcode -eq 0 ]]; then
     echo
-    echo '- Terrascan identified IAC policy violations:'
+    echo '- OpenTerraScan identified IAC policy violations:'
     echo
     echo 'Scan Results:'
     cat output

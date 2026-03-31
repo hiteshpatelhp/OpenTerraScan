@@ -27,15 +27,15 @@ import (
 
 	"github.com/onsi/gomega"
 	"github.com/onsi/gomega/gexec"
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/test/helper"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/test/helper"
 )
 
 const (
 	// ServerCommandTimeout is the default time for server command
 	ServerCommandTimeout int = 10
 
-	// ServerCommand is terrascan's server command
+	// ServerCommand is openterrascan's server command
 	ServerCommand string = "server"
 )
 

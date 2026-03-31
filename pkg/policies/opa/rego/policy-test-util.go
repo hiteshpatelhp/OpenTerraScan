@@ -20,7 +20,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/tenable/terrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/policy"
 )
 
 // LoadRegoMetadata reads rego meta data file

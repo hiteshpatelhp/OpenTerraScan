@@ -18,7 +18,7 @@ package config
 
 import (
 	"github.com/awslabs/goformation/v7/cloudformation/ram"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/functions"
 )
 
 // RAMResourceShareConfig holds config for RAMResourceShare

@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/pkg/results"
-	"github.com/tenable/terrascan/pkg/utils"
-	"github.com/tenable/terrascan/pkg/version"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/version"
 )
 
 var abstestpath, _ = getAbsoluteFilePath(violationsInput.Summary.ResourcePath, violationsInput.Violations[0].File)
@@ -24,8 +24,8 @@ const violationTemplate = `{
             {
               "tool": {
                 "driver": {
-                  "informationUri": "https://github.com/tenable/terrascan",
-                  "name": "terrascan",
+                  "informationUri": "https://github.com/tenable/openterrascan",
+                  "name": "openterrascan",
                   "rules": [
                     {
                       "id": "AWS.S3Bucket.DS.High.1043",
@@ -83,8 +83,8 @@ var expectedSarifOutput2 = fmt.Sprintf(`{
             {
               "tool": {
                 "driver": {
-                  "informationUri": "https://github.com/tenable/terrascan",
-                  "name": "terrascan",
+                  "informationUri": "https://github.com/tenable/openterrascan",
+                  "name": "openterrascan",
                   "rules": [],
                   "version": "%s"
                 }
@@ -101,8 +101,8 @@ var expectedSarifOutput3 = fmt.Sprintf(`{
             {
               "tool": {
                 "driver": {
-                  "informationUri": "https://github.com/tenable/terrascan",
-                  "name": "terrascan",
+                  "informationUri": "https://github.com/tenable/openterrascan",
+                  "name": "openterrascan",
                   "rules": [
                     {
                       "id": "AWS.S3Bucket.DS.High.1043",
@@ -131,8 +131,8 @@ var expectedSarifOutput4 = fmt.Sprintf(`{
             {
               "tool": {
                 "driver": {
-                  "informationUri": "https://github.com/tenable/terrascan",
-                  "name": "terrascan",
+                  "informationUri": "https://github.com/tenable/openterrascan",
+                  "name": "openterrascan",
                   "rules": [
                     {
                       "id": "AWS.S3Bucket.DS.High.1043",

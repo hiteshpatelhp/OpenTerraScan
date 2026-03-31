@@ -17,11 +17,11 @@
 package iacprovider
 
 import (
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 )
 
 // IacProvider defines the interface which every IaC provider needs to implement
-// to claim support in terrascan
+// to claim support in openterrascan
 type IacProvider interface {
 	LoadIacFile(string, map[string]interface{}) (output.AllResourceConfigs, error)
 	LoadIacDir(string, map[string]interface{}) (output.AllResourceConfigs, error)

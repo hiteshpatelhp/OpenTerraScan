@@ -21,7 +21,7 @@ import (
 
 	"github.com/onsi/gomega"
 	"github.com/onsi/gomega/gexec"
-	"github.com/tenable/terrascan/test/helper"
+	"github.com/tenable/openterrascan/test/helper"
 	"gopkg.in/src-d/go-git.v4"
 )
 
@@ -29,8 +29,8 @@ import (
 const InitCommandTimeout = 60
 
 // RunInitCommand will execute the init command and verify exit code
-func RunInitCommand(terrascanBinaryPath string, outWriter, errWriter io.Writer, exitCode int) *gexec.Session {
-	session := helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, "init")
+func RunInitCommand(openterrascanBinaryPath string, outWriter, errWriter io.Writer, exitCode int) *gexec.Session {
+	session := helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, "init")
 	gomega.Eventually(session, InitCommandTimeout).Should(gexec.Exit(exitCode))
 	return session
 }

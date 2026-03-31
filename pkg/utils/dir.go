@@ -26,16 +26,16 @@ import (
 
 // customTempDir env variable if set all the repository/module/template
 // download will happen in the provided directory
-const customTempDir = "TERRASCAN_CUSTOM_TEMP_DIR"
+const customTempDir = "OPENTERRASCAN_CUSTOM_TEMP_DIR"
 
 // CustomTempDir store the global flag --temp-dir value which will be used to download repository,module and template.
 var CustomTempDir string
 
 // GetHomeDir returns the home directory path
-func GetHomeDir() (terrascanDir string) {
+func GetHomeDir() (openterrascanDir string) {
 	zap.S().Debug("looking up for the home directory path")
 
-	terrascanDir, err := homedir.Dir()
+	openterrascanDir, err := homedir.Dir()
 
 	if err != nil {
 		zap.S().Warnf("unable to determine the home directory: %v\n", err)

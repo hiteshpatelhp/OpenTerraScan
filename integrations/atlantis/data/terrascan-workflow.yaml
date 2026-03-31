@@ -14,13 +14,13 @@
 
 repos:
 - id: "/.*/"
-  workflow: terrascan
+  workflow: openterrascan
 workflows:
-    terrascan:
+    openterrascan:
      plan:
         steps:
         - run: terraform init -input=false -no-color
         - run: terraform workspace select -no-color $WORKSPACE
         - run: terraform plan -input=false -refresh -no-color -out $PLANFILE
         - run: terraform show -no-color -json $PLANFILE > ${PLANFILE}.json
-        - run: terrascan.sh
+        - run: openterrascan.sh

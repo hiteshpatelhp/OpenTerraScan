@@ -18,7 +18,7 @@ package config
 
 import (
 	"github.com/awslabs/goformation/v7/cloudformation/rds"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/functions"
 )
 
 // DBEventSubscriptionConfig holds config for aws_db_event_subscription resource

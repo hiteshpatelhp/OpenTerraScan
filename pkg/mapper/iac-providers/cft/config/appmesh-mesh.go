@@ -18,7 +18,7 @@ package config
 
 import (
 	"github.com/awslabs/goformation/v7/cloudformation/appmesh"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/functions"
 )
 
 // AppMeshEgressFilterBlock holds config for AppMeshEgressFilter

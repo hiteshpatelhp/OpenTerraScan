@@ -25,11 +25,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/k8s/dblogs"
-	"github.com/tenable/terrascan/pkg/results"
-	"github.com/tenable/terrascan/pkg/runtime"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/k8s/dblogs"
+	"github.com/tenable/openterrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/runtime"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 
 	admissionv1 "k8s.io/api/admission/v1"
@@ -66,8 +66,8 @@ var (
 	// ErrAPIKeyMissing indicates that API key is missing in webhook request
 	ErrAPIKeyMissing = fmt.Errorf("apiKey is missing in validating admission webhook url")
 
-	// ErrAPIKeyEnvNotSet indicates K8S_WEBHOOK_API_KEY is not set in terrascan server env
-	ErrAPIKeyEnvNotSet = fmt.Errorf("variable K8S_WEBHOOK_API_KEY not set in terrascan server environment")
+	// ErrAPIKeyEnvNotSet indicates K8S_WEBHOOK_API_KEY is not set in openterrascan server env
+	ErrAPIKeyEnvNotSet = fmt.Errorf("variable K8S_WEBHOOK_API_KEY not set in openterrascan server environment")
 
 	// ErrUnauthorized means user is not authorized to make this call
 	ErrUnauthorized = fmt.Errorf("invalid API key in validating admission webhook url")
@@ -88,7 +88,7 @@ func (w ValidatingWebhook) Authorize(apiKey string) error {
 		return ErrAPIKeyMissing
 	}
 
-	// API key not set in terrascan env
+	// API key not set in openterrascan env
 	saveAPIKey := os.Getenv("K8S_WEBHOOK_API_KEY")
 	if len(saveAPIKey) < 1 {
 		zap.S().Error(ErrAPIKeyEnvNotSet)
@@ -163,7 +163,7 @@ func (w ValidatingWebhook) ProcessWebhook(review admissionv1.AdmissionReview, se
 	// Run the policy engines
 	output, err = w.scanK8sFile(tempFile.Name())
 	if err != nil {
-		msg := "failed to evaluate terrascan policies"
+		msg := "failed to evaluate openterrascan policies"
 		zap.S().Errorf(msg, zap.Error(err))
 		return w.createResponseAdmissionReview(review, allowed, output, logMsg), fmt.Errorf(errMsg, msg, err)
 	}

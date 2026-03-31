@@ -18,7 +18,7 @@ package config
 
 import (
 	"github.com/awslabs/goformation/v7/cloudformation/config"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/functions"
 )
 
 // AWSConfigConfigRuleConfig holds config for aws_config_config_rule

@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: ingress-demo-disallowed
   annotations:
-    runterrascan.io/maxseverity: Low
+    runopenterrascan.io/maxseverity: Low
 spec:
   rules:
     - host: example-host.example.com

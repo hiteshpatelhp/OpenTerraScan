@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/results"
 )
 
 // test data

@@ -26,8 +26,8 @@ import (
 	"testing"
 
 	"github.com/hashicorp/go-multierror"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/utils"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

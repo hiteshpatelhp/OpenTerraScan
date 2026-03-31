@@ -25,7 +25,7 @@ import (
 
 // CreateTempFile creates a file with provided contents in the temp directory
 func CreateTempFile(content []byte, ext string) (*os.File, error) {
-	tempFile, err := os.CreateTemp("", fmt.Sprintf("terrascan-*.%s", ext))
+	tempFile, err := os.CreateTemp("", fmt.Sprintf("openterrascan-*.%s", ext))
 	if err != nil {
 		zap.S().Errorf("failed to create temp file: '%v'", err)
 		return nil, err

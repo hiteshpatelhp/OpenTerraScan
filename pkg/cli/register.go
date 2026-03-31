@@ -24,9 +24,9 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/logging"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/logging"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 )
 

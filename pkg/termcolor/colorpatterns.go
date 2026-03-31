@@ -68,7 +68,7 @@ var defaultColorPatterns = map[FieldSpec]FieldStyle{
 }
 
 func init() {
-	cf := os.Getenv("TERRASCAN_COLORS_FILE")
+	cf := os.Getenv("OPENTERRASCAN_COLORS_FILE")
 	if len(cf) > 0 {
 		patternFile = cf
 	}

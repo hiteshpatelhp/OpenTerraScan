@@ -24,11 +24,11 @@ import (
 	"time"
 
 	gorillaHandlers "github.com/gorilla/handlers"
-	httputils "github.com/tenable/terrascan/pkg/utils/http"
+	httputils "github.com/tenable/openterrascan/pkg/utils/http"
 	"go.uber.org/zap"
 
 	"github.com/gorilla/mux"
-	"github.com/tenable/terrascan/pkg/logging"
+	"github.com/tenable/openterrascan/pkg/logging"
 )
 
 // Start initializes api routes and starts http server
@@ -41,8 +41,8 @@ func Start(port, certFile, privateKeyFile string) {
 	routes := server.Routes()
 
 	// get port
-	if port == GatewayDefaultPort && os.Getenv(TerrascanServerPort) != "" {
-		port = os.Getenv(TerrascanServerPort)
+	if port == GatewayDefaultPort && os.Getenv(OpenTerraScanServerPort) != "" {
+		port = os.Getenv(OpenTerraScanServerPort)
 	}
 
 	// register routes and start the http server
@@ -81,8 +81,8 @@ func (g *APIServer) start(routes []*Route, port, certFile, privateKeyFile string
 	router.MethodNotAllowedHandler = gorillaHandlers.LoggingHandler(logWriter, http.HandlerFunc(httputils.NotAllowed))
 
 	// Add a route for all static templates / assets. Currently used for the Webhook logs views
-	// go/terrascan/asset is the path where the assets files are located inside the docker container
-	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("/go/terrascan/assets"))))
+	// go/openterrascan/asset is the path where the assets files are located inside the docker container
+	router.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("/go/openterrascan/assets"))))
 
 	// start http server
 	server := &http.Server{

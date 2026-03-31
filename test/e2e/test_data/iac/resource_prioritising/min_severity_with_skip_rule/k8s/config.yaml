@@ -3,8 +3,8 @@ kind: Service
 metadata:
   name: allowed-external-ip
   annotations:
-    runterrascan.io/minseverity: High
-    runterrascan.io/skip: "[{\"rule\": \"AC-K8-NS-SE-M-0188\", \"comment\": \"reason to skip the rule\"}]"
+    runopenterrascan.io/minseverity: High
+    runopenterrascan.io/skip: "[{\"rule\": \"AC-K8-NS-SE-M-0188\", \"comment\": \"reason to skip the rule\"}]"
 spec:
   type: ClusterIP
   selector:

@@ -20,7 +20,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 )
 
 // ---------------------- unit tests -------------------------------- //
@@ -317,21 +317,21 @@ func TestReadSkipRulesFromMap(t *testing.T) {
 		},
 		{
 			name:  "with valid aws rule",
-			input: map[string]interface{}{TerrascanSkip: "[{\"rule\":\"AWS.CloudFormation.Medium.0603\"}]"},
+			input: map[string]interface{}{OpenTerraScanSkip: "[{\"rule\":\"AWS.CloudFormation.Medium.0603\"}]"},
 			expected: []output.SkipRule{
 				{Rule: testRuleAWS1},
 			},
 		},
 		{
 			name:  "with valid k8s rule",
-			input: map[string]interface{}{TerrascanSkip: "[{\"rule\":\"accurics.kubernetes.IAM.109\"}]"},
+			input: map[string]interface{}{OpenTerraScanSkip: "[{\"rule\":\"accurics.kubernetes.IAM.109\"}]"},
 			expected: []output.SkipRule{
 				{Rule: testRuleK8s},
 			},
 		},
 		{
 			name:  "with invalid rule format",
-			input: map[string]interface{}{TerrascanSkip: "[{\"rule\"\"accurics.kubernetes.IAM.109\"}]"},
+			input: map[string]interface{}{OpenTerraScanSkip: "[{\"rule\"\"accurics.kubernetes.IAM.109\"}]"},
 			// expected would be empty
 		},
 	}

@@ -1,4 +1,4 @@
-module github.com/tenable/terrascan
+module github.com/tenable/openterrascan
 
 go 1.24.0
 

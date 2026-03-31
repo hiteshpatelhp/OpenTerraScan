@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/results"
-	"github.com/tenable/terrascan/pkg/writer"
+	"github.com/tenable/openterrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/writer"
 )
 
 var (

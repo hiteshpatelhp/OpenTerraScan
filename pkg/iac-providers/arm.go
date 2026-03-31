@@ -19,7 +19,7 @@ package iacprovider
 import (
 	"reflect"
 
-	armv1 "github.com/tenable/terrascan/pkg/iac-providers/arm/v1"
+	armv1 "github.com/tenable/openterrascan/pkg/iac-providers/arm/v1"
 )
 
 // terraform specific constants
@@ -29,7 +29,7 @@ const (
 	armDefaultIacVersion                     = armV1
 )
 
-// register arm as an IaC provider with terrascan
+// register arm as an IaC provider with openterrascan
 func init() {
 	// register iac provider
 	RegisterIacProvider(arm, armV1, armDefaultIacVersion, reflect.TypeOf(armv1.ARMV1{}))

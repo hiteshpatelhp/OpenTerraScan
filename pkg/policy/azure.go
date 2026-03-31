@@ -23,6 +23,6 @@ const (
 )
 
 func init() {
-	// Register azure as a cloud provider with terrascan
+	// Register azure as a cloud provider with openterrascan
 	RegisterCloudProvider(azure, defaultAzureIacType, defaultAzureIacVersion)
 }

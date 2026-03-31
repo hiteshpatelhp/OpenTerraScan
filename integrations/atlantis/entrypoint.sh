@@ -40,7 +40,7 @@ function fetch_configfile() {
 
 fetch_configfile "$@"
 if [[ ! -z $config_file ]]; then
-    export TERRASCAN_CONFIG=$config_file
+    export OPENTERRASCAN_CONFIG=$config_file
 fi
 
 if [[ -z $copy ]]; then

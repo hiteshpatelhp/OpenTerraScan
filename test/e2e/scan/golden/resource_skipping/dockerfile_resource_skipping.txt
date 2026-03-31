@@ -15,7 +15,7 @@
       }
     ],
     "scan_summary": {
-      "file/folder": "/Users/suvarna/go/src/github.com/rchanger/terrascan/test/e2e/test_data/iac/resource_skipping/docker",
+      "file/folder": "/Users/suvarna/go/src/github.com/rchanger/openterrascan/test/e2e/test_data/iac/resource_skipping/docker",
       "iac_type": "docker",
       "scanned_at": "2021-08-06 10:32:56.961838 +0000 UTC",
       "policies_validated": 9,

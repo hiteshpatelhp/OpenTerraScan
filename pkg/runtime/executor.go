@@ -20,19 +20,19 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/tenable/terrascan/pkg/notifications/webhook"
-	"github.com/tenable/terrascan/pkg/policy/opa"
-	"github.com/tenable/terrascan/pkg/vulnerability"
+	"github.com/tenable/openterrascan/pkg/notifications/webhook"
+	"github.com/tenable/openterrascan/pkg/policy/opa"
+	"github.com/tenable/openterrascan/pkg/vulnerability"
 
 	"go.uber.org/zap"
 
 	"github.com/hashicorp/go-multierror"
-	"github.com/tenable/terrascan/pkg/filters"
-	iacProvider "github.com/tenable/terrascan/pkg/iac-providers"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/notifications"
-	"github.com/tenable/terrascan/pkg/policy"
-	res "github.com/tenable/terrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/filters"
+	iacProvider "github.com/tenable/openterrascan/pkg/iac-providers"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/notifications"
+	"github.com/tenable/openterrascan/pkg/policy"
+	res "github.com/tenable/openterrascan/pkg/results"
 )
 
 const (
@@ -200,7 +200,7 @@ func (e *Executor) initPolicyEngines() (err error) {
 		// initialize the engine
 		if err := engine.Init(policyPath, preloadFilter); err != nil {
 			zap.S().Errorf("failed to initialize policy engine for path %s, error: %s", policyPath, err)
-			zap.S().Error("perform 'terrascan init' command and then try running the scan command again")
+			zap.S().Error("perform 'openterrascan init' command and then try running the scan command again")
 			return err
 		}
 		e.policyEngines = append(e.policyEngines, engine)

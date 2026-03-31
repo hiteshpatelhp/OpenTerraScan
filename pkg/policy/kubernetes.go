@@ -23,6 +23,6 @@ const (
 )
 
 func init() {
-	// Register kubernetes as a provider with terrascan
+	// Register kubernetes as a provider with openterrascan
 	RegisterCloudProvider(kubernetes, defaultKubernetesIacType, defaultKubernetesIacVersion)
 }

@@ -2,13 +2,13 @@
 # This file designates required PR reviewers for this repository
 # https://help.github.com/articles/about-codeowners/
 
-*       @tenable/terrascan-maintainers @bkizer-tenable
+*       @tenable/openterrascan-maintainers @bkizer-tenable
 
-*.rego  @tenable/terrascan-policy-maintainers
+*.rego  @tenable/openterrascan-policy-maintainers
 
-*.go    @tenable/terrascan-maintainers
+*.go    @tenable/openterrascan-maintainers
 
-/pkg/   @tenable/terrascan-maintainers
+/pkg/   @tenable/openterrascan-maintainers
 
-/pkg/policies/opa/rego/ @tenable/terrascan-policy-maintainers
+/pkg/policies/opa/rego/ @tenable/openterrascan-policy-maintainers
 /sonar-project.properties @tenable/infosec

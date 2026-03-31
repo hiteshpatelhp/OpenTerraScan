@@ -3,10 +3,10 @@ package iacprovider
 import (
 	"reflect"
 
-	tfv15 "github.com/tenable/terrascan/pkg/iac-providers/terraform/v15"
+	tfv15 "github.com/tenable/openterrascan/pkg/iac-providers/terraform/v15"
 
-	tfv12 "github.com/tenable/terrascan/pkg/iac-providers/terraform/v12"
-	tfv14 "github.com/tenable/terrascan/pkg/iac-providers/terraform/v14"
+	tfv12 "github.com/tenable/openterrascan/pkg/iac-providers/terraform/v12"
+	tfv14 "github.com/tenable/openterrascan/pkg/iac-providers/terraform/v14"
 )
 
 // terraform specific constants
@@ -19,7 +19,7 @@ const (
 	terraformDefaultVersion                     = terraformV15
 )
 
-// register terraform as an IaC provider with terrascan
+// register terraform as an IaC provider with openterrascan
 func init() {
 	// register iac provider
 	RegisterIacProvider(terraform, terraformV12, terraformDefaultVersion, reflect.TypeOf(tfv12.TfV12{}))

@@ -23,6 +23,6 @@ const (
 )
 
 func init() {
-	// Register aws as a cloud provider with terrascan
+	// Register aws as a cloud provider with openterrascan
 	RegisterCloudProvider(aws, defaultAWSIacType, defaultAWSIacVersion)
 }

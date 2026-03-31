@@ -1,21 +1,21 @@
-# Dockerfile with a script to use terrascan's validating webhook
+# Dockerfile with a script to use openterrascan's validating webhook
 # configured in the kubernetes cluster, to scan a repo for violations
 FROM alpine:3.19.3
 
-#curl to send request to terrascan validating webhook
+#curl to send request to openterrascan validating webhook
 RUN apk add --no-cache curl
 
-WORKDIR /home/terrascan
+WORKDIR /home/openterrascan
 
 RUN mkdir bin
 
-COPY scripts/argocd-terrascan-remote-scan.sh  bin/terrascan-remote-scan.sh
+COPY scripts/argocd-openterrascan-remote-scan.sh  bin/openterrascan-remote-scan.sh
 
 # create non root user
-RUN addgroup --gid 101 terrascan && \
-    adduser -S --uid 101 --ingroup terrascan terrascan && \
-    chown -R terrascan:terrascan bin && \
-    chmod u+x bin/terrascan-remote-scan.sh
+RUN addgroup --gid 101 openterrascan && \
+    adduser -S --uid 101 --ingroup openterrascan openterrascan && \
+    chown -R openterrascan:openterrascan bin && \
+    chmod u+x bin/openterrascan-remote-scan.sh
 
 USER 101
 

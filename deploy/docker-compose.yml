@@ -1,6 +1,6 @@
 version: "3"
 services:
-  terrascan:
-    image: tenable/terrascan:${TAG:-latest}
+  openterrascan:
+    image: tenable/openterrascan:${TAG:-latest}
     ports:
       - 9010:9010

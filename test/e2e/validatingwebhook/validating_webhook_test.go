@@ -29,11 +29,11 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/gexec"
-	"github.com/tenable/terrascan/pkg/config"
-	"github.com/tenable/terrascan/pkg/utils"
-	"github.com/tenable/terrascan/test/e2e/server"
-	"github.com/tenable/terrascan/test/e2e/validatingwebhook"
-	"github.com/tenable/terrascan/test/helper"
+	"github.com/tenable/openterrascan/pkg/config"
+	"github.com/tenable/openterrascan/pkg/utils"
+	"github.com/tenable/openterrascan/test/e2e/server"
+	"github.com/tenable/openterrascan/test/e2e/validatingwebhook"
+	"github.com/tenable/openterrascan/test/helper"
 	admissionv1 "k8s.io/api/admissionregistration/v1"
 	k8serr "k8s.io/apimachinery/pkg/api/errors"
 )
@@ -47,7 +47,7 @@ const (
 
 var (
 	kubeClient          *validatingwebhook.KubernetesClient
-	terrascanBinaryPath string
+	openterrascanBinaryPath string
 	certFileAbsPath     string
 	privKeyFileAbsPath  string
 	policyRootRelPath   = filepath.Join("..", "test_data", "policies")
@@ -81,8 +81,8 @@ var _ = Describe("ValidatingWebhook", func() {
 			Fail(errMessage)
 		}
 
-		// get terrascan binary path
-		terrascanBinaryPath = helper.GetTerrascanBinaryPath()
+		// get openterrascan binary path
+		openterrascanBinaryPath = helper.GetOpenTerraScanBinaryPath()
 
 		// create tls certificates for server
 		certFileAbsPath, privKeyFileAbsPath, err = validatingwebhook.CreateCertificate(certsFolder, "server.crt", "priv.key")
@@ -122,7 +122,7 @@ var _ = Describe("ValidatingWebhook", func() {
 	// log message to be asserted when sever starts
 	assertLogMessage := "https server listening at port %s"
 
-	Describe("terrascan server as validating webhook with various available config options", func() {
+	Describe("openterrascan server as validating webhook with various available config options", func() {
 
 		When("validating webhook with default 'k8s-admission-control' config", func() {
 
@@ -136,12 +136,12 @@ var _ = Describe("ValidatingWebhook", func() {
 				It("server should start running on port 9010", func() {
 					configFileName = "config1.toml"
 					// create a config file with default config values
-					err := validatingwebhook.CreateTerrascanConfigFile(configFileName, policyRootRelPath, nil)
+					err := validatingwebhook.CreateOpenTerraScanConfigFile(configFileName, policyRootRelPath, nil)
 					Expect(err).NotTo(HaveOccurred())
 
 					os.Setenv(k8sWebhookAPIKey, apiKeyValue)
 					args := []string{"server", "-c", configFileName, "--cert-path", certFileAbsPath, "--key-path", privKeyFileAbsPath, "-l", "debug"}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, args...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, args...)
 					Eventually(session.Err, defaultTimeout).Should(gbytes.Say(fmt.Sprintf(assertLogMessage, port)))
 				})
 
@@ -206,18 +206,18 @@ var _ = Describe("ValidatingWebhook", func() {
 				configFileName = "config2.toml"
 
 				// create a config file with 'dashboard' set to true
-				terrascanConfig := config.TerrascanConfig{
+				openterrascanConfig := config.OpenTerraScanConfig{
 					K8sAdmissionControl: config.K8sAdmissionControl{
 						Dashboard:    true,
 						SaveRequests: true,
 					},
 				}
-				err := validatingwebhook.CreateTerrascanConfigFile(configFileName, policyRootRelPath, &terrascanConfig)
+				err := validatingwebhook.CreateOpenTerraScanConfigFile(configFileName, policyRootRelPath, &openterrascanConfig)
 				Expect(err).NotTo(HaveOccurred())
 
 				os.Setenv(k8sWebhookAPIKey, apiKeyValue)
 				args := []string{"server", "-c", configFileName, "--cert-path", certFileAbsPath, "--key-path", privKeyFileAbsPath, "-p", port, "-l", "debug"}
-				session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, args...)
+				session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, args...)
 				Eventually(session.Err, defaultTimeout).Should(gbytes.Say(fmt.Sprintf(assertLogMessage, port)))
 			})
 
@@ -256,17 +256,17 @@ var _ = Describe("ValidatingWebhook", func() {
 					configFileName = "config3.toml"
 
 					// create a config file with desired severity specified
-					terrascanConfig := config.TerrascanConfig{
+					openterrascanConfig := config.OpenTerraScanConfig{
 						K8sAdmissionControl: config.K8sAdmissionControl{
 							DeniedSeverity: "MEDIUM",
 						},
 					}
-					err := validatingwebhook.CreateTerrascanConfigFile(configFileName, policyRootRelPath, &terrascanConfig)
+					err := validatingwebhook.CreateOpenTerraScanConfigFile(configFileName, policyRootRelPath, &openterrascanConfig)
 					Expect(err).NotTo(HaveOccurred())
 
 					os.Setenv(k8sWebhookAPIKey, apiKeyValue)
 					args := []string{"server", "-c", configFileName, "--cert-path", certFileAbsPath, "--key-path", privKeyFileAbsPath, "-p", port, "-l", "debug"}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, args...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, args...)
 					Eventually(session.Err, defaultTimeout).Should(gbytes.Say(fmt.Sprintf(assertLogMessage, port)))
 				})
 
@@ -303,17 +303,17 @@ var _ = Describe("ValidatingWebhook", func() {
 					configFileName = "config4.toml"
 
 					// create a config file with desired severity specified
-					terrascanConfig := config.TerrascanConfig{
+					openterrascanConfig := config.OpenTerraScanConfig{
 						K8sAdmissionControl: config.K8sAdmissionControl{
 							DeniedSeverity: "HIGH",
 						},
 					}
-					err := validatingwebhook.CreateTerrascanConfigFile(configFileName, policyRootRelPath, &terrascanConfig)
+					err := validatingwebhook.CreateOpenTerraScanConfigFile(configFileName, policyRootRelPath, &openterrascanConfig)
 					Expect(err).NotTo(HaveOccurred())
 
 					os.Setenv(k8sWebhookAPIKey, apiKeyValue)
 					args := []string{"server", "-c", configFileName, "--cert-path", certFileAbsPath, "--key-path", privKeyFileAbsPath, "-p", port, "-l", "debug"}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, args...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, args...)
 					Eventually(session.Err, defaultTimeout).Should(gbytes.Say(fmt.Sprintf(assertLogMessage, port)))
 				})
 
@@ -352,17 +352,17 @@ var _ = Describe("ValidatingWebhook", func() {
 					configFileName = "config5.toml"
 
 					// create a config file with desired severity specified
-					terrascanConfig := config.TerrascanConfig{
+					openterrascanConfig := config.OpenTerraScanConfig{
 						K8sAdmissionControl: config.K8sAdmissionControl{
 							Categories: []string{"Network Security"},
 						},
 					}
-					err := validatingwebhook.CreateTerrascanConfigFile(configFileName, policyRootRelPath, &terrascanConfig)
+					err := validatingwebhook.CreateOpenTerraScanConfigFile(configFileName, policyRootRelPath, &openterrascanConfig)
 					Expect(err).NotTo(HaveOccurred())
 
 					os.Setenv(k8sWebhookAPIKey, apiKeyValue)
 					args := []string{"server", "-c", configFileName, "--cert-path", certFileAbsPath, "--key-path", privKeyFileAbsPath, "-p", port, "-l", "debug"}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, args...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, args...)
 					Eventually(session.Err, defaultTimeout).Should(gbytes.Say(fmt.Sprintf(assertLogMessage, port)))
 				})
 
@@ -399,17 +399,17 @@ var _ = Describe("ValidatingWebhook", func() {
 					configFileName = "config6.toml"
 
 					// create a config file with desired severity specified
-					terrascanConfig := config.TerrascanConfig{
+					openterrascanConfig := config.OpenTerraScanConfig{
 						K8sAdmissionControl: config.K8sAdmissionControl{
 							Categories: []string{"Doesn't Exist"},
 						},
 					}
-					err := validatingwebhook.CreateTerrascanConfigFile(configFileName, policyRootRelPath, &terrascanConfig)
+					err := validatingwebhook.CreateOpenTerraScanConfigFile(configFileName, policyRootRelPath, &openterrascanConfig)
 					Expect(err).NotTo(HaveOccurred())
 
 					os.Setenv(k8sWebhookAPIKey, apiKeyValue)
 					args := []string{"server", "-c", configFileName, "--cert-path", certFileAbsPath, "--key-path", privKeyFileAbsPath, "-p", port, "-l", "debug"}
-					session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, args...)
+					session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, args...)
 					Eventually(session.Err, defaultTimeout).Should(gbytes.Say(fmt.Sprintf(assertLogMessage, port)))
 				})
 

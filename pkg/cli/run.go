@@ -24,10 +24,10 @@ import (
 	"strings"
 
 	"github.com/mattn/go-isatty"
-	"github.com/tenable/terrascan/pkg/downloader"
-	"github.com/tenable/terrascan/pkg/runtime"
-	"github.com/tenable/terrascan/pkg/utils"
-	"github.com/tenable/terrascan/pkg/writer"
+	"github.com/tenable/openterrascan/pkg/downloader"
+	"github.com/tenable/openterrascan/pkg/runtime"
+	"github.com/tenable/openterrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/writer"
 	"go.uber.org/zap"
 )
 
@@ -106,7 +106,7 @@ type ScanOptions struct {
 	// FindVulnerabilities gives option to scan container images for vulnerabilities
 	findVulnerabilities bool
 
-	// notificationWebhookURL is the URL where terrascan will send the scan report and normalized config json
+	// notificationWebhookURL is the URL where openterrascan will send the scan report and normalized config json
 	notificationWebhookURL string
 
 	// notificationWebhookToken is the auth token to call the notification webhook URL
@@ -130,7 +130,7 @@ func NewScanOptions() *ScanOptions {
 	return new(ScanOptions)
 }
 
-// Scan executes the terrascan scan command
+// Scan executes the openterrascan scan command
 func (s *ScanOptions) Scan() error {
 	if err := s.Init(); err != nil {
 		zap.S().Error("scan init failed", zap.Error(err))
@@ -192,7 +192,7 @@ func (s *ScanOptions) initColor() {
 	}
 }
 
-// Run executes terrascan in CLI mode
+// Run executes openterrascan in CLI mode
 func (s *ScanOptions) Run() error {
 
 	// temp dir to download the remote repo
@@ -289,7 +289,7 @@ func (s ScanOptions) writeResults(results runtime.Output) error {
 	return writer.Write(s.outputType, results.Violations, writers)
 }
 
-// getExitCode returns appropriate exit code for terrascan based on scan output
+// getExitCode returns appropriate exit code for openterrascan based on scan output
 func getExitCode(o runtime.Output) int {
 	if len(o.Violations.ViolationStore.DirScanErrors) > 0 {
 		if o.Violations.ViolationStore.Summary.ViolatedPolicies > 0 {

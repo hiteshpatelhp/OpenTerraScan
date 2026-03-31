@@ -42,7 +42,7 @@ func NewIacProvider(iacType, iacVersion string) (iacProvider IacProvider, err er
 }
 
 // IsIacSupported returns true/false depending on whether the IaC
-// provider is supported in terrascan or not
+// provider is supported in openterrascan or not
 func IsIacSupported(iacType, iacVersion string) bool {
 	if _, supported := supportedIacProviders[supportedIacType(iacType)]; !supported {
 		return false
@@ -53,7 +53,7 @@ func IsIacSupported(iacType, iacVersion string) bool {
 	return true
 }
 
-// SupportedIacProviders returns list of Iac Providers supported in terrascan
+// SupportedIacProviders returns list of Iac Providers supported in openterrascan
 func SupportedIacProviders() []string {
 	var iacTypes []string
 	for k := range supportedIacProviders {

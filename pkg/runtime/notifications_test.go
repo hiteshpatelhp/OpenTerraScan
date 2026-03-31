@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/notifications"
+	"github.com/tenable/openterrascan/pkg/notifications"
 )
 
 // MockNotifier mocks notifications.Notifier interface

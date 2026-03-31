@@ -21,15 +21,15 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/tenable/terrascan/pkg/policy"
-	"github.com/tenable/terrascan/pkg/results"
-	"github.com/tenable/terrascan/pkg/version"
+	"github.com/tenable/openterrascan/pkg/policy"
+	"github.com/tenable/openterrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/version"
 )
 
 const (
 	junitXMLFormat       supportedFormat = "junit-xml"
-	testSuiteName        string          = "TERRASCAN_POLICY_SUITE"
-	testSuitesName       string          = "TERRASCAN_POLICY_SUITES"
+	testSuiteName        string          = "OPENTERRASCAN_POLICY_SUITE"
+	testSuitesName       string          = "OPENTERRASCAN_POLICY_SUITES"
 	testNameFormatFailed string          = `[ERROR] resource: "%s" at line: %d, violates: RULE - %s`
 	testNameFormatPassed string          = "RULE - %s, CATEGORY - %s, DESCRIPTION - %s"
 )
@@ -107,7 +107,7 @@ func newJunitTestSuite(summary results.ScanSummary) JUnitTestSuite {
 		Branch:   summary.Branch,
 		Properties: []JUnitProperty{
 			{
-				Name:  "Terrascan Version",
+				Name:  "OpenTerraScan Version",
 				Value: version.Get(),
 			},
 		}}

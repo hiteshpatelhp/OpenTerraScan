@@ -18,7 +18,7 @@ package config
 
 import (
 	"github.com/awslabs/goformation/v7/cloudformation/rds"
-	"github.com/tenable/terrascan/pkg/mapper/iac-providers/cft/functions"
+	"github.com/tenable/openterrascan/pkg/mapper/iac-providers/cft/functions"
 )
 
 // ScalingConfig holds Scalingconfig for aws_rds_cluster

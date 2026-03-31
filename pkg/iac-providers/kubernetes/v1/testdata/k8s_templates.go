@@ -89,7 +89,7 @@ spec:
     spec:
       containers:
       - name: c
-        image: gcr.io/terrascan/job-wq-1
+        image: gcr.io/openterrascan/job-wq-1
         env:
         - name: BROKER_URL
           value: amqp://guest:guest@rabbitmq-service:5672

@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
- generateName: terrascan-hook-
+ generateName: openterrascan-hook-
  annotations:
    argocd.argoproj.io/hook: PreSync
 spec:
@@ -29,8 +29,8 @@ spec:
          configMap:
            name: known-hosts-config
      containers:
-     - name: terrascan-argocd
-       image: <terrascan-image>
+     - name: openterrascan-argocd
+       image: <openterrascan-image>
        resources:
          requests:
            cpu: "1"
@@ -41,11 +41,11 @@ spec:
        command: ["/bin/sh", "-c"]
        args:
        - >
-         cp /etc/secret-volume/ssh-private-key /home/terrascan/.ssh/id_ed25519_github &&
-         cp /etc/ssh-config-secret/ssh-config /home/terrascan/.ssh/config &&
-         cp /etc/ssh-known-hosts-secret/ssh-known-hosts /home/terrascan/.ssh/known_hosts &&
-         chmod -R 400 /home/terrascan/.ssh/* &&
-         /go/bin/terrascan scan -r git -u <YOUR REPOSITORY PATH>-i k8s -t k8s | /data/notify_slack.sh webhook-tests argo-cd https://hooks.slack.com/services/TXXXXXXXX/XXXXXXXXXXX/0XXXXXXXXXXXXXXXXXX
+         cp /etc/secret-volume/ssh-private-key /home/openterrascan/.ssh/id_ed25519_github &&
+         cp /etc/ssh-config-secret/ssh-config /home/openterrascan/.ssh/config &&
+         cp /etc/ssh-known-hosts-secret/ssh-known-hosts /home/openterrascan/.ssh/known_hosts &&
+         chmod -R 400 /home/openterrascan/.ssh/* &&
+         /go/bin/openterrascan scan -r git -u <YOUR REPOSITORY PATH>-i k8s -t k8s | /data/notify_slack.sh webhook-tests argo-cd https://hooks.slack.com/services/TXXXXXXXX/XXXXXXXXXXX/0XXXXXXXXXXXXXXXXXX
        securityContext:
          seccompProfile:
            type: RuntimeDefault
@@ -55,14 +55,14 @@ spec:
        livenessProbe:
          exec:
            command:
-           - /go/bin/terrascan
+           - /go/bin/openterrascan
            - version
          periodSeconds: 10
          initialDelaySeconds: 10
        readinessProbe:
          exec:
            command:
-           - /go/bin/terrascan
+           - /go/bin/openterrascan
            - version
          periodSeconds: 10 
        #if want to use private repo

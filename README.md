@@ -22,12 +22,12 @@ OpenTerraScan is a static code analyzer for Infrastructure as Code. OpenTerraSca
 
 ## Key features
 * 500+ Policies for security best practices
-* Scanning of [Terraform](https://runterrascan.io/docs/usage/command_line_mode/#scanning-current-directory-containing-terraform-files-for-aws-resources) (HCL2)
+* Scanning of [Terraform](https://runopenterrascan.io/docs/usage/command_line_mode/#scanning-current-directory-containing-terraform-files-for-aws-resources) (HCL2)
 * Scanning of AWS CloudFormation Templates (CFT)
 * Scanning of Azure Resource Manager (ARM)
-* Scanning of [Kubernetes](https://runterrascan.io/docs/usage/command_line_mode/#scanning-for-a-specific-iac-provider) (JSON/YAML), [Helm](https://runterrascan.io/docs/usage/command_line_mode/#scanning-a-helm-chart) v3, and [Kustomize](https://runterrascan.io/docs/usage/command_line_mode/#scanning-a-kustomize-chart)
-* Scanning of [Dockerfiles](https://runterrascan.io/docs/usage/command_line_mode/#scanning-a-dockerfile)
-* Support for [AWS](https://runterrascan.io/docs/policies/aws/), [Azure](https://runterrascan.io/docs/policies/azure/), [GCP](https://runterrascan.io/docs/policies/gcp/), [Kubernetes](https://runterrascan.io/docs/policies/k8s/), [Dockerfile](https://runterrascan.io/docs/policies/docker/), and [GitHub](https://runterrascan.io/docs/policies/github/)
+* Scanning of [Kubernetes](https://runopenterrascan.io/docs/usage/command_line_mode/#scanning-for-a-specific-iac-provider) (JSON/YAML), [Helm](https://runopenterrascan.io/docs/usage/command_line_mode/#scanning-a-helm-chart) v3, and [Kustomize](https://runopenterrascan.io/docs/usage/command_line_mode/#scanning-a-kustomize-chart)
+* Scanning of [Dockerfiles](https://runopenterrascan.io/docs/usage/command_line_mode/#scanning-a-dockerfile)
+* Support for [AWS](https://runopenterrascan.io/docs/policies/aws/), [Azure](https://runopenterrascan.io/docs/policies/azure/), [GCP](https://runopenterrascan.io/docs/policies/gcp/), [Kubernetes](https://runopenterrascan.io/docs/policies/k8s/), [Dockerfile](https://runopenterrascan.io/docs/policies/docker/), and [GitHub](https://runopenterrascan.io/docs/policies/github/)
 * Integrates with docker image vulnerability scanning for AWS, Azure, GCP, Harbor container registries.
 
 ## Quick Start
@@ -69,7 +69,7 @@ $ openterrascan scan
 ### Step 3: Integrate with CI\CD
 
 OpenTerraScan can be integrated into CI/CD pipelines to enforce security best practices.
-Please refer to our [documentation to integrate with your pipeline](https://runterrascan.io/docs/integrations/).
+Please refer to our [documentation to integrate with your pipeline](https://runopenterrascan.io/docs/integrations/).
 
 ## OpenTerraScan Commands
 You can use the `openterrascan` command with the following options:
@@ -100,7 +100,7 @@ Use "openterrascan [command] --help" for more information about a command.
 
 ## Policies
 OpenTerraScan policies are written using the [Rego policy language](https://www.openpolicyagent.org/docs/latest/policy-language/). Every rego includes a JSON "rule" file which defines metadata for the policy.
-By default, OpenTerraScan downloads policies from OpenTerraScan repositories while scanning for the first time. However, if you want to download the latest policies, you need to run the Initialization process. See [Usage](https://runterrascan.io/docs/usage/command_line_mode/) for information about the Initialization process.
+By default, OpenTerraScan downloads policies from OpenTerraScan repositories while scanning for the first time. However, if you want to download the latest policies, you need to run the Initialization process. See [Usage](https://runopenterrascan.io/docs/usage/command_line_mode/) for information about the Initialization process.
 
 Note: The scan command will implicitly run the initialization process if there are no policies found.
 
@@ -166,7 +166,7 @@ FROM golang:alpine AS build-env
 RUN apk add --update git
 
 RUN git clone https://github.com/OpenTerraScan/OpenTerraScan && cd OpenTerraScan \
-  && CGO_ENABLED=0 GO111MODULE=on go build -o /go/bin/openterrascan cmd/terrascan/main.go
+  && CGO_ENABLED=0 GO111MODULE=on go build -o /go/bin/openterrascan cmd/openterrascan/main.go
 
 ```
 

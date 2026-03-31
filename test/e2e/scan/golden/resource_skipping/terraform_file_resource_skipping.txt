@@ -190,7 +190,7 @@
       }
     ],
     "scan_summary": {
-      "file/folder": "/Users/apple/go/src/github.com/patilpankaj212/terrascan/test/e2e/test_data/iac/resource_skipping/terraform",
+      "file/folder": "/Users/apple/go/src/github.com/patilpankaj212/openterrascan/test/e2e/test_data/iac/resource_skipping/terraform",
       "iac_type": "terraform",
       "scanned_at": "2021-03-02 16:00:46.95002 +0000 UTC",
       "policies_validated": 8,

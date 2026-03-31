@@ -1,12 +1,12 @@
 apiVersion: v1
-name: terrascan
+name: openterrascan
 version: 1.0.0
 appVersion: v1.6.0
-description: A Helm chart for running terrascan in server mode
-icon: https://raw.githubusercontent.com/tenable/terrascan/master/docs/img/terrascan-icon-white.png
-home: https://github.com/tenable/terrascan
+description: A Helm chart for running openterrascan in server mode
+icon: https://raw.githubusercontent.com/tenable/openterrascan/master/docs/img/openterrascan-icon-white.png
+home: https://github.com/tenable/openterrascan
 keywords:
-  - terrascan
+  - openterrascan
   - opa
   - security
   - webhook
@@ -14,7 +14,7 @@ keywords:
   - admission-controller
   - admission
 sources:
-  - https://github.com/tenable/terrascan
+  - https://github.com/tenable/openterrascan
 maintainers:
-  - name: terrascan
-    email: terrascan@tenable.com
+  - name: openterrascan
+    email: openterrascan@tenable.com

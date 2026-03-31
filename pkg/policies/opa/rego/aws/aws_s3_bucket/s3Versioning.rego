@@ -34,7 +34,7 @@ package accurics
     retVal := getRetVal(s3Bucket.id, "edit", "attribute", traverse, "versioning.enabled", "bool", true, versionData.enabled)
 }
 
-#To satisfy specific s3 buckets which do not have versioning configuration resource for terrascan without tfplan
+#To satisfy specific s3 buckets which do not have versioning configuration resource for openterrascan without tfplan
 {{.prefix}}s3Versioning[retVal] {
     s3Bucket := input.aws_s3_bucket[_]
     object.get(input, "aws_s3_bucket_versioning", "undefined") != "undefined"

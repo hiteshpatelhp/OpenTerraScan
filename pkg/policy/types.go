@@ -4,8 +4,8 @@ import (
 	"encoding/xml"
 
 	"github.com/open-policy-agent/opa/rego"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/results"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/results"
 )
 
 const (

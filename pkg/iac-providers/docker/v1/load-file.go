@@ -25,8 +25,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 )
 

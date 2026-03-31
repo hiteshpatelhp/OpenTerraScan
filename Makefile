@@ -2,7 +2,7 @@ GIT_COMMIT := $(shell git rev-parse --short HEAD 2>/dev/null)
 BUILD_FLAGS := -v -ldflags "-w -s -X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=ignore"
 
 BUILD_DIR = ./bin
-BINARY_NAME = terrascan
+BINARY_NAME = openterrascan
 
 # default
 default: help
@@ -11,17 +11,17 @@ default: help
 # please keep the commands in lexicographical order
 help:
 	@echo "usage: make [command]\ncommands:"
-	@echo "build\n\tbuild terrascan binary"
+	@echo "build\n\tbuild openterrascan binary"
 	@echo "cicd\n\tsimulate CI/CD pipeline locally"
 	@echo "clean\n\tclean up build"
-	@echo "docker-build\n\tbuild terrascan docker image"
-	@echo "docker-push\n\tpush terrascan docker image"
-	@echo "docker-push-latest\n\tpush terrascan docker image with latest tag"
-	@echo "docker-push-latest-tag\n\tpush terrascan docker image with latest release tag"
-	@echo "docker-atlantis-build\n\tbuild terrascan_atlantis docker image"
-	@echo "docker-atlantis-push\n\tpush terrascan_atlantis docker image"
-	@echo "docker-atlantis-push-latest\n\tpush terrascan_atlantis docker image with latest tag"
-	@echo "docker-atlantis-push-latest-tag\n\tpush terrascan_atlantis docker image with latest release tag"
+	@echo "docker-build\n\tbuild openterrascan docker image"
+	@echo "docker-push\n\tpush openterrascan docker image"
+	@echo "docker-push-latest\n\tpush openterrascan docker image with latest tag"
+	@echo "docker-push-latest-tag\n\tpush openterrascan docker image with latest release tag"
+	@echo "docker-atlantis-build\n\tbuild openterrascan_atlantis docker image"
+	@echo "docker-atlantis-push\n\tpush openterrascan_atlantis docker image"
+	@echo "docker-atlantis-push-latest\n\tpush openterrascan_atlantis docker image with latest tag"
+	@echo "docker-atlantis-push-latest-tag\n\tpush openterrascan_atlantis docker image with latest release tag"
 	@echo "gofmt\n\tvalidate gofmt"
 	@echo "golint\n\tvalidate golint"
 	@echo "gomodverify\n\tverify go modules"
@@ -34,11 +34,11 @@ help:
 	@echo "e2e-vulnerability-tests\n\texecute e2e vulnerability tests"
 	@echo "validate\n\trun all validations"
 
-# build terrascan binary
+# build openterrascan binary
 build: clean
 	@mkdir -p $(BUILD_DIR) > /dev/null
 	@export GO111MODULE=on
-	go build ${BUILD_FLAGS} -o ${BUILD_DIR}/${BINARY_NAME} cmd/terrascan/main.go
+	go build ${BUILD_FLAGS} -o ${BUILD_DIR}/${BINARY_NAME} cmd/openterrascan/main.go
 	@echo "binary created at ${BUILD_DIR}/${BINARY_NAME}"
 
 
@@ -104,43 +104,43 @@ e2e-vulnerability-tests: build
 install-kind:
 	./scripts/install-kind.sh
 
-# build terrascan docker image
+# build openterrascan docker image
 docker-build:
 	./scripts/docker-build.sh
 
-# build and push latest terrascan docker image
+# build and push latest openterrascan docker image
 docker-build-push-latest:
 	./scripts/docker-build.sh latest
 
-# build and push release tag terrascan docker image
+# build and push release tag openterrascan docker image
 docker-build-push-latest-tag:
 	./scripts/docker-build.sh tag
 
 
-# push terrascan docker image
+# push openterrascan docker image
 docker-push:
 	./scripts/docker-push.sh
 
-# push latest terrascan docker image
+# push latest openterrascan docker image
 docker-push-latest:
 	./scripts/docker-push-latest.sh
 
-# push release tag terrascan docker image
+# push release tag openterrascan docker image
 docker-push-latest-tag:
 	./scripts/docker-push-latest-tag.sh
 
-# build terrascan_atlantis docker image
+# build openterrascan_atlantis docker image
 atlantis-docker-build:
 	./scripts/atlantis/docker-build.sh
 
-# push terrascan_atlantis docker image
+# push openterrascan_atlantis docker image
 atlantis-docker-push:
 	./scripts/atlantis/docker-push.sh
 
-# push latest terrascan_atlantis docker image
+# push latest openterrascan_atlantis docker image
 atlantis-docker-push-latest:
 	./scripts/atlantis/docker-push-latest.sh
 
-# push release tag terrascan_atlantis docker image
+# push release tag openterrascan_atlantis docker image
 atlantis-docker-push-latest-tag:
 	./scripts/atlantis/docker-push-latest-tag.sh

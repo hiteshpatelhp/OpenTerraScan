@@ -19,7 +19,7 @@ package commons
 import (
 	"fmt"
 
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 	"go.uber.org/zap"
 )
 

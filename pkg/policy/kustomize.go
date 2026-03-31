@@ -6,6 +6,6 @@ const (
 )
 
 func init() {
-	// Register kustomize as a provider with terrascan
+	// Register kustomize as a provider with openterrascan
 	RegisterCloudProvider(kubernetes, defaultKustomizeIacType, defaultKustomizeIacVersion)
 }

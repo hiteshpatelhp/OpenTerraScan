@@ -21,8 +21,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 var (
@@ -56,7 +56,7 @@ kind: Pod
 metadata:
   name: myapp-pod
   annotations:
-    runterrascan.io/skip: |
+    runopenterrascan.io/skip: |
       [{"rule": "accurics.kubernetes.IAM.109", "comment": "reason to skip the rule"}]
 spec:
   containers:
@@ -68,7 +68,7 @@ kind: CRD
 metadata:
   generateName: myapp-pod-prefix-
   annotations:
-    runterrascan.io/skip: |
+    runopenterrascan.io/skip: |
       [{"rule": "accurics.kubernetes.IAM.109", "comment": "reason to skip the rule"}]
 spec:
   containers:
@@ -124,7 +124,7 @@ func TestK8sV1ExtractResource(t *testing.T) {
 				Metadata: k8sMetadata{
 					Name: "myapp-pod",
 					Annotations: map[string]interface{}{
-						utils.TerrascanSkip: "[{\"rule\": \"accurics.kubernetes.IAM.109\", \"comment\": \"reason to skip the rule\"}]\n",
+						utils.OpenTerraScanSkip: "[{\"rule\": \"accurics.kubernetes.IAM.109\", \"comment\": \"reason to skip the rule\"}]\n",
 					},
 				},
 			},
@@ -224,7 +224,7 @@ func TestK8sV1Normalize(t *testing.T) {
 					"kind":       "Pod",
 					"metadata": map[string]interface{}{
 						"annotations": map[string]interface{}{
-							utils.TerrascanSkip: "[{\"rule\": \"accurics.kubernetes.IAM.109\", \"comment\": \"reason to skip the rule\"}]\n",
+							utils.OpenTerraScanSkip: "[{\"rule\": \"accurics.kubernetes.IAM.109\", \"comment\": \"reason to skip the rule\"}]\n",
 						},
 						"name": "myapp-pod",
 					},
@@ -260,7 +260,7 @@ func TestK8sV1Normalize(t *testing.T) {
 					"kind":       "CRD",
 					"metadata": map[string]interface{}{
 						"annotations": map[string]interface{}{
-							utils.TerrascanSkip: "[{\"rule\": \"accurics.kubernetes.IAM.109\", \"comment\": \"reason to skip the rule\"}]\n",
+							utils.OpenTerraScanSkip: "[{\"rule\": \"accurics.kubernetes.IAM.109\", \"comment\": \"reason to skip the rule\"}]\n",
 						},
 						"generateName": "myapp-pod-prefix-",
 					},
@@ -322,7 +322,7 @@ func TestReadSkipRulesFromAnnotations(t *testing.T) {
 			},
 		},
 		{
-			name: "annotations with no terrascanSkipRules",
+			name: "annotations with no openterrascanSkipRules",
 			args: args{
 				annotations: map[string]interface{}{
 					"test": "test",
@@ -330,10 +330,10 @@ func TestReadSkipRulesFromAnnotations(t *testing.T) {
 			},
 		},
 		{
-			name: "annotations with invalid terrascanSkipRules type",
+			name: "annotations with invalid openterrascanSkipRules type",
 			args: args{
 				annotations: map[string]interface{}{
-					utils.TerrascanSkip: "test",
+					utils.OpenTerraScanSkip: "test",
 				},
 			},
 			want: nil,
@@ -342,25 +342,25 @@ func TestReadSkipRulesFromAnnotations(t *testing.T) {
 			name: "annotations with invalid SkipRule object",
 			args: args{
 				annotations: map[string]interface{}{
-					utils.TerrascanSkip: []interface{}{1},
+					utils.OpenTerraScanSkip: []interface{}{1},
 				},
 			},
 			want: nil,
 		},
 		{
-			name: "annotations with invalid terrascanSkipRules rule value",
+			name: "annotations with invalid openterrascanSkipRules rule value",
 			args: args{
 				annotations: map[string]interface{}{
-					utils.TerrascanSkip: fmt.Sprintf(`{"%s":%d}`, utils.TerrascanSkipRule, 1),
+					utils.OpenTerraScanSkip: fmt.Sprintf(`{"%s":%d}`, utils.OpenTerraScanSkipRule, 1),
 				},
 			},
 			want: nil,
 		},
 		{
-			name: "annotations with one terrascanSkipRules",
+			name: "annotations with one openterrascanSkipRules",
 			args: args{
 				annotations: map[string]interface{}{
-					utils.TerrascanSkip: fmt.Sprintf(`[{"%s":"%s"}]`, utils.TerrascanSkipRule, testRuleA),
+					utils.OpenTerraScanSkip: fmt.Sprintf(`[{"%s":"%s"}]`, utils.OpenTerraScanSkipRule, testRuleA),
 				},
 			},
 			want: []output.SkipRule{
@@ -370,10 +370,10 @@ func TestReadSkipRulesFromAnnotations(t *testing.T) {
 			},
 		},
 		{
-			name: "annotations with multiple terrascanSkipRules",
+			name: "annotations with multiple openterrascanSkipRules",
 			args: args{
 				annotations: map[string]interface{}{
-					utils.TerrascanSkip: fmt.Sprintf(`[{"rule":"%s","comment":"%s"}, {"rule":"%s","comment":"%s"}, {"rule":"%s","comment":"%s"}]`, testRuleA, testCommentA, testRuleB, testCommentB, testRuleC, testCommentC),
+					utils.OpenTerraScanSkip: fmt.Sprintf(`[{"rule":"%s","comment":"%s"}, {"rule":"%s","comment":"%s"}, {"rule":"%s","comment":"%s"}]`, testRuleA, testCommentA, testRuleB, testCommentB, testRuleC, testCommentC),
 				},
 			},
 			want: []output.SkipRule{
@@ -392,19 +392,19 @@ func TestReadSkipRulesFromAnnotations(t *testing.T) {
 			},
 		},
 		{
-			name: "annotations with invalid rule key in terrascanSkipRules",
+			name: "annotations with invalid rule key in openterrascanSkipRules",
 			args: args{
 				annotations: map[string]interface{}{
-					utils.TerrascanSkip: fmt.Sprintf(`[{"skip":"%s","comment":"%s"}]`, testRuleA, testCommentA),
+					utils.OpenTerraScanSkip: fmt.Sprintf(`[{"skip":"%s","comment":"%s"}]`, testRuleA, testCommentA),
 				},
 			},
 			want: []output.SkipRule{{Comment: testCommentA}},
 		},
 		{
-			name: "annotations with no comment key in terrascanSkipRules",
+			name: "annotations with no comment key in openterrascanSkipRules",
 			args: args{
 				annotations: map[string]interface{}{
-					utils.TerrascanSkip: fmt.Sprintf(`[{"rule":"%s"}]`, testRuleA),
+					utils.OpenTerraScanSkip: fmt.Sprintf(`[{"rule":"%s"}]`, testRuleA),
 				},
 			},
 			want: []output.SkipRule{testSkipRule},
@@ -443,7 +443,7 @@ func TestReadMinMaxSeverityFromAnnotations(t *testing.T) {
 		{
 			name: "min severity set to high",
 			args: args{annotations: map[string]interface{}{
-				terrascanMinSeverity: "High",
+				openterrascanMinSeverity: "High",
 			}},
 			wantMinSeverity: "High",
 			wantMaxSeverity: "",
@@ -451,7 +451,7 @@ func TestReadMinMaxSeverityFromAnnotations(t *testing.T) {
 		{
 			name: "max severity set to low",
 			args: args{annotations: map[string]interface{}{
-				terrascanMaxSeverity: "Low",
+				openterrascanMaxSeverity: "Low",
 			}},
 			wantMinSeverity: "",
 			wantMaxSeverity: "Low",
@@ -459,15 +459,15 @@ func TestReadMinMaxSeverityFromAnnotations(t *testing.T) {
 		{
 			name: "max severity set to None",
 			args: args{annotations: map[string]interface{}{
-				terrascanMaxSeverity: "None"}},
+				openterrascanMaxSeverity: "None"}},
 			wantMinSeverity: "",
 			wantMaxSeverity: "None",
 		},
 		{
 			name: "max severity set to low and Min severity set to high",
 			args: args{annotations: map[string]interface{}{
-				terrascanMaxSeverity: "LOw",
-				terrascanMinSeverity: "hiGh",
+				openterrascanMaxSeverity: "LOw",
+				openterrascanMinSeverity: "hiGh",
 			}},
 			wantMinSeverity: "hiGh",
 			wantMaxSeverity: "LOw",
@@ -475,8 +475,8 @@ func TestReadMinMaxSeverityFromAnnotations(t *testing.T) {
 		{
 			name: "invalid min and max value",
 			args: args{annotations: map[string]interface{}{
-				terrascanMaxSeverity: 2,
-				terrascanMinSeverity: false,
+				openterrascanMaxSeverity: 2,
+				openterrascanMinSeverity: false,
 			}},
 			wantMinSeverity: "",
 			wantMaxSeverity: "",

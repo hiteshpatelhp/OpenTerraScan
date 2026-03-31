@@ -21,11 +21,11 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 func TestLoadGlobalConfig(t *testing.T) {
-	testConfigFile := filepath.Join(testDataDir, "terrascan-config-all-fields.toml")
+	testConfigFile := filepath.Join(testDataDir, "openterrascan-config-all-fields.toml")
 	absDefaultBasePolicyPath, absDefaultPolicyRepoPath, _ := utils.GetAbsPolicyConfigPaths(defaultBasePolicyPath, defaultPolicyRepoPath)
 	absCustomPath, absRegoSubdirPath, _ := utils.GetAbsPolicyConfigPaths("custom-path", "rego-subdir")
 

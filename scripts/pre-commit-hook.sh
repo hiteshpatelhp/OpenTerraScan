@@ -7,12 +7,12 @@ main() {
   parse_cmdline_ "$@"
 
   # propagate $FILES to custom function
-  terrascan_ "$ARGS" "$FILES"
+  openterrascan_ "$ARGS" "$FILES"
 }
 
-terrascan_() {
+openterrascan_() {
   # consume modified files passed from pre-commit so that
-  # terrascan runs against only those relevant directories
+  # openterrascan runs against only those relevant directories
   for file_with_path in $FILES; do
     file_with_path="${file_with_path// /__REPLACED__SPACE__}"
     paths[index]=$(dirname "$file_with_path")
@@ -28,7 +28,7 @@ terrascan_() {
   for path_uniq in $(echo "${paths[*]}" | tr ' ' '\n' | sort -u); do
     path_uniq="${path_uniq//__REPLACED__SPACE__/ }"
     pushd "$path_uniq" > /dev/null
-    terrascan $PARAMS
+    openterrascan $PARAMS
     popd > /dev/null
   done
 }
@@ -53,7 +53,7 @@ initialize_() {
 
 parse_cmdline_() {
   declare argv
-  argv=$(getopt -n Terrascan -o hi: --long help,iac-type: -- "$@") || return
+  argv=$(getopt -n OpenTerraScan -o hi: --long help,iac-type: -- "$@") || return
   eval "set -- $argv"
 
   for argv; do

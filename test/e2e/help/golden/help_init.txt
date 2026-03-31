@@ -1,9 +1,9 @@
-Terrascan
+OpenTerraScan
 
-Initializes Terrascan and clones policies from the Terrascan GitHub repository.
+Initializes OpenTerraScan and clones policies from the OpenTerraScan GitHub repository.
 
 Usage:
-  terrascan init [flags]
+  openterrascan init [flags]
 
 Flags:
   -h, --help   help for init

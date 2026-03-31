@@ -12,7 +12,7 @@ import (
 	"github.com/apparentlymart/go-versions/versions"
 	"github.com/hashicorp/terraform/addrs"
 	hclConfigs "github.com/hashicorp/terraform/configs"
-	httputils "github.com/tenable/terrascan/pkg/utils/http"
+	httputils "github.com/tenable/openterrascan/pkg/utils/http"
 	"go.uber.org/zap"
 )
 

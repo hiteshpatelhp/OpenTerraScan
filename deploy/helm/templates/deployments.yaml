@@ -20,19 +20,19 @@ spec:
             - clone
             - --single-branch
             - --branch=master
-            - https://github.com/tenable/terrascan.git
+            - https://github.com/tenable/openterrascan.git
             - /data
           volumeMounts:
             - mountPath: /data
-              name: terrascan-data-sync
+              name: openterrascan-data-sync
       containers:
-        - name: terrascan-server
+        - name: openterrascan-server
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: false
-          image: {{ .Values.terrascan_container_image }}
+          image: {{ .Values.openterrascan_container_image }}
           command:
-            - terrascan
+            - openterrascan
           args:
             - "server"
             - "--cert-path"
@@ -46,23 +46,23 @@ spec:
 {{- $globconfig := .Files.Glob "data/config.toml" }}
 {{- if $globconfig }}
             - "-c"
-            - "/etc/config/terrascan-config.toml"
+            - "/etc/config/openterrascan-config.toml"
 {{- end }}
           env:
             - name: "K8S_WEBHOOK_API_KEY"
-              value: {{ .Values.terrascan_webhook_key}}
+              value: {{ .Values.openterrascan_webhook_key}}
           volumeMounts:
             - name: cert-volume
               mountPath: /etc/certs
             - name: ssh-volume
-              mountPath: /home/terrascan/.ssh
+              mountPath: /home/openterrascan/.ssh
 {{- $globconfig := .Files.Glob "data/config.toml" }}
 {{- if $globconfig }}
             - name: config-volume
               mountPath: /etc/config
 {{- end }}
-            - name: terrascan-data-sync
-              mountPath: /home/terrascan/.terrascan
+            - name: openterrascan-data-sync
+              mountPath: /home/openterrascan/.openterrascan
       volumes:
         - name: cert-volume
           secret:
@@ -78,13 +78,13 @@ spec:
             name: {{ .Values.config_name }}
 {{- end }}
 {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
-        - name: terrascan-data-sync
+        - name: openterrascan-data-sync
           persistentVolumeClaim:
 {{- with .Values.persistence.existingClaim }}
             claimName: {{ tpl . $ }}
 {{- end }}
 {{- else }}
-        - name: terrascan-data-sync
+        - name: openterrascan-data-sync
           emptyDir: {}
 {{- end }}
 ---

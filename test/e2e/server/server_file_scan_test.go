@@ -28,10 +28,10 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
 	"github.com/onsi/gomega/gexec"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/policy"
-	serverUtils "github.com/tenable/terrascan/test/e2e/server"
-	"github.com/tenable/terrascan/test/helper"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/policy"
+	serverUtils "github.com/tenable/openterrascan/test/e2e/server"
+	"github.com/tenable/openterrascan/test/helper"
 )
 
 var _ = Describe("Server File Scan", func() {
@@ -43,15 +43,15 @@ var _ = Describe("Server File Scan", func() {
 	Context("file scan tests", func() {
 
 		JustBeforeEach(func() {
-			os.Setenv(terrascanServerPort, port)
+			os.Setenv(openterrascanServerPort, port)
 		})
 		JustAfterEach(func() {
-			os.Setenv(terrascanServerPort, "")
+			os.Setenv(openterrascanServerPort, "")
 		})
 
 		// launches a server session on port 9012
 		It("should start a new server session", func() {
-			session = helper.RunCommand(terrascanBinaryPath, outWriter, errWriter, serverUtils.ServerCommand)
+			session = helper.RunCommand(openterrascanBinaryPath, outWriter, errWriter, serverUtils.ServerCommand)
 			Eventually(session.Err, serverUtils.ServerCommandTimeout).Should(gbytes.Say(fmt.Sprintf("http server listening at port %s", port)))
 		})
 

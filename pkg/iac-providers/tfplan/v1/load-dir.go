@@ -19,7 +19,7 @@ package tfplan
 import (
 	"fmt"
 
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 )
 
 var (

@@ -21,8 +21,8 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	iacProvider "github.com/tenable/terrascan/pkg/iac-providers"
-	"github.com/tenable/terrascan/pkg/policy"
+	iacProvider "github.com/tenable/openterrascan/pkg/iac-providers"
+	"github.com/tenable/openterrascan/pkg/policy"
 	"go.uber.org/zap"
 )
 
@@ -31,7 +31,7 @@ var scanOptions = NewScanOptions()
 var scanCmd = &cobra.Command{
 	Use:   "scan",
 	Short: "Detect compliance and security violations across Infrastructure as Code.",
-	Long: `Terrascan
+	Long: `OpenTerraScan
 
 Detect compliance and security violations across Infrastructure as Code to mitigate risk before provisioning cloud native infrastructure.
 `,
@@ -48,7 +48,7 @@ Detect compliance and security violations across Infrastructure as Code to mitig
 }
 
 func scan(cmd *cobra.Command, args []string) error {
-	zap.S().Debug("running terrascan in cli mode")
+	zap.S().Debug("running openterrascan in cli mode")
 	scanOptions.configFile = ConfigFile
 	scanOptions.outputType = OutputType
 	scanOptions.logOutputDir = LogOutputDir
@@ -71,13 +71,13 @@ func init() {
 	scanCmd.Flags().BoolVarP(&scanOptions.verbose, "verbose", "v", false, "will show violations with details (applicable for default output)")
 	scanCmd.Flags().StringSliceVarP(&scanOptions.scanRules, "scan-rules", "", []string{}, "one or more rules to scan (example: --scan-rules=\"ruleID1,ruleID2\")")
 	scanCmd.Flags().StringSliceVarP(&scanOptions.skipRules, "skip-rules", "", []string{}, "one or more rules to skip while scanning (example: --skip-rules=\"ruleID1,ruleID2\")")
-	scanCmd.Flags().StringVar(&scanOptions.severity, "severity", "", "minimum severity level of the policy violations to be reported by terrascan")
-	scanCmd.Flags().StringSliceVarP(&scanOptions.categories, "categories", "", []string{}, "list of categories of violations to be reported by terrascan (example: --categories=\"category1,category2\")")
+	scanCmd.Flags().StringVar(&scanOptions.severity, "severity", "", "minimum severity level of the policy violations to be reported by openterrascan")
+	scanCmd.Flags().StringSliceVarP(&scanOptions.categories, "categories", "", []string{}, "list of categories of violations to be reported by openterrascan (example: --categories=\"category1,category2\")")
 	scanCmd.Flags().BoolVarP(&scanOptions.showPassedRules, "show-passed", "", false, "display passed rules, along with violations")
 	scanCmd.Flags().BoolVarP(&scanOptions.nonRecursive, "non-recursive", "", false, "do not scan directories and modules recursively")
 	scanCmd.Flags().BoolVarP(&scanOptions.useTerraformCache, "use-terraform-cache", "", false, "use terraform init cache for remote modules (when used directory scan will be non recursive, flag applicable only with terraform IaC provider)")
 	scanCmd.Flags().BoolVarP(&scanOptions.findVulnerabilities, "find-vuln", "", false, "fetches vulnerabilities identified in Docker images")
-	scanCmd.Flags().StringVarP(&scanOptions.notificationWebhookURL, "webhook-url", "", "", "webhook URL where Terrascan will send JSON scan report and normalized IaC JSON")
+	scanCmd.Flags().StringVarP(&scanOptions.notificationWebhookURL, "webhook-url", "", "", "webhook URL where OpenTerraScan will send JSON scan report and normalized IaC JSON")
 	scanCmd.Flags().StringVarP(&scanOptions.notificationWebhookToken, "webhook-token", "", "", "optional token used when sending authenticated requests to the notification webhook")
 	scanCmd.Flags().StringVarP(&scanOptions.repoURL, "repo-url", "", "", "URL of the repo being scanned, will be reflected in scan summary")
 	scanCmd.Flags().StringVarP(&scanOptions.repoRef, "repo-ref", "", "", "branch of the repo being scanned")

@@ -19,7 +19,7 @@ package iacprovider
 import (
 	"reflect"
 
-	dockerv1 "github.com/tenable/terrascan/pkg/iac-providers/docker/v1"
+	dockerv1 "github.com/tenable/openterrascan/pkg/iac-providers/docker/v1"
 )
 
 // docker specific constants
@@ -29,7 +29,7 @@ const (
 	dockerDefaultIacVersion                     = dockerV1
 )
 
-// register docker as an IaC provider with terrascan
+// register docker as an IaC provider with openterrascan
 func init() {
 	// register iac provider
 	RegisterIacProvider(docker, dockerV1, dockerDefaultIacVersion, reflect.TypeOf(dockerv1.DockerV1{}))

@@ -19,7 +19,7 @@ package commons
 import (
 	"testing"
 
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
 )
 
 func TestLoadIacFile(t *testing.T) {

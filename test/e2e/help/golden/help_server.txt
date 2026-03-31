@@ -1,9 +1,9 @@
-Terrascan
+OpenTerraScan
 
-Run Terrascan as an API server that inspects incoming IaC (Infrastructure-as-Code) files and returns the scan results.
+Run OpenTerraScan as an API server that inspects incoming IaC (Infrastructure-as-Code) files and returns the scan results.
 
 Usage:
-  terrascan server [flags]
+  openterrascan server [flags]
 
 Flags:
       --cert-path string   certificate file path

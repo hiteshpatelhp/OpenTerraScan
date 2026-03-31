@@ -16,7 +16,7 @@
 
 package main
 
-import "github.com/tenable/terrascan/pkg/cli"
+import "github.com/tenable/openterrascan/pkg/cli"
 
 func main() {
 	cli.Execute()

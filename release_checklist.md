@@ -1,5 +1,5 @@
 # Release Checklist
-This file provides a guideline on steps that need to be taken to properly release a new version of Terrascan:
+This file provides a guideline on steps that need to be taken to properly release a new version of OpenTerraScan:
 
 ### Run unit & integration tests
 The following command will kick off both unit tests and end-to-end tests. These tests should finish clean before a release is made:
@@ -17,7 +17,7 @@ Running the following command will generate new entries in `CHANGELOG.md` since 
 Before running this command, you'll need to have a GitHub [personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) set in the `GITHUB_TOKEN` OS environment variable.
 
 ```
-docker run -it --rm -v "$(pwd)":/usr/local/src/your-app ferrarimarco/github-changelog-generator -u tenable -p terrascan -t $GITHUB_TOKEN -b CHANGELOG.md --since-tag v1.4.0 --future-release v1.5.0
+docker run -it --rm -v "$(pwd)":/usr/local/src/your-app ferrarimarco/github-changelog-generator -u tenable -p openterrascan -t $GITHUB_TOKEN -b CHANGELOG.md --since-tag v1.4.0 --future-release v1.5.0
 ```
 
 Next, Review `CHANGELOG.md` to ensure there are notes for the new release
@@ -39,13 +39,13 @@ This will kick off the GitHub workflow to run goreleaser to perform the release.
 
 ### Brew PR
 
-Run the commands below to update Brew to the latest Terrascan version. If you are on macOS use `shasum -a 256` instead of `sha256sum` in below command. Release version number in below command for example should be v1.5.0
+Run the commands below to update Brew to the latest OpenTerraScan version. If you are on macOS use `shasum -a 256` instead of `sha256sum` in below command. Release version number in below command for example should be v1.5.0
 
 ```
-$ export TERRASCAN_VERSION=<release_version_number>
-$ brew bump-formula-pr --no-browse --url https://github.com/tenable/terrascan/archive/${TERRASCAN_VERSION}.tar.gz --sha256 $(curl -sL https://github.com/tenable/terrascan/archive/${TERRASCAN_VERSION}.tar.gz | sha256sum | awk '{print $1}') terrascan
+$ export OPENTERRASCAN_VERSION=<release_version_number>
+$ brew bump-formula-pr --no-browse --url https://github.com/tenable/openterrascan/archive/${OPENTERRASCAN_VERSION}.tar.gz --sha256 $(curl -sL https://github.com/tenable/openterrascan/archive/${OPENTERRASCAN_VERSION}.tar.gz | sha256sum | awk '{print $1}') openterrascan
 ```
 
 ### Update helm chart and kustomize directory
 
-Manually change the version for the terrascan container image in files `deploy/helm/values.yaml` and `deploy/kustomize/base/deployment.yaml`.
+Manually change the version for the openterrascan container image in files `deploy/helm/values.yaml` and `deploy/kustomize/base/deployment.yaml`.

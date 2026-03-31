@@ -4,5 +4,5 @@ RUN go build main.go
 
 # -------- prod stage -------- #
 FROM alpine:3.14
-COPY --from=builder /go/bin/terrascan /go/bin/terrascan
+COPY --from=builder /go/bin/openterrascan /go/bin/openterrascan
 ENTRYPOINT ["/go/bin/main"]

@@ -32,7 +32,7 @@
       }
     ],
     "scan_summary": {
-      "file/folder": "/Users/suvarna/go/src/github.com/rchanger/terrascan/test/e2e/test_data/iac/resource_prioritising/min_severity_with_skip_rule/terraform",
+      "file/folder": "/Users/suvarna/go/src/github.com/rchanger/openterrascan/test/e2e/test_data/iac/resource_prioritising/min_severity_with_skip_rule/terraform",
       "iac_type": "terraform",
       "scanned_at": "2021-05-28 07:38:52.873682 +0000 UTC",
       "policies_validated": 8,

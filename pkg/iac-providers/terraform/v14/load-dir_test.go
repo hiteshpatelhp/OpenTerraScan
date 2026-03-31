@@ -19,16 +19,16 @@ package tfv14
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/tenable/terrascan/pkg/iac-providers/terraform/commons"
+	"github.com/tenable/openterrascan/pkg/iac-providers/terraform/commons"
 	"os"
 	"path/filepath"
 	"syscall"
 	"testing"
 
 	"github.com/hashicorp/go-multierror"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	commons_test "github.com/tenable/terrascan/pkg/iac-providers/terraform/commons/test"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	commons_test "github.com/tenable/openterrascan/pkg/iac-providers/terraform/commons/test"
+	"github.com/tenable/openterrascan/pkg/utils"
 )
 
 func TestLoadIacDir(t *testing.T) {

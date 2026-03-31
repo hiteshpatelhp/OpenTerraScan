@@ -23,6 +23,6 @@ const (
 )
 
 func init() {
-	// Register helm as a provider with terrascan
+	// Register helm as a provider with openterrascan
 	RegisterCloudProvider(helm, defaultHelmIacType, defaultHelmIacVersion)
 }

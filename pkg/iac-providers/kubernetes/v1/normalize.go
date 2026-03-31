@@ -22,15 +22,15 @@ import (
 
 	yamltojson "github.com/ghodss/yaml"
 	"github.com/iancoleman/strcase"
-	"github.com/tenable/terrascan/pkg/iac-providers/output"
-	"github.com/tenable/terrascan/pkg/utils"
+	"github.com/tenable/openterrascan/pkg/iac-providers/output"
+	"github.com/tenable/openterrascan/pkg/utils"
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 )
 
 const (
-	terrascanMaxSeverity = "runterrascan.io/maxseverity"
-	terrascanMinSeverity = "runterrascan.io/minseverity"
+	openterrascanMaxSeverity = "runopenterrascan.io/maxseverity"
+	openterrascanMinSeverity = "runopenterrascan.io/minseverity"
 )
 
 var (
@@ -173,15 +173,15 @@ func readMinMaxSeverityFromAnnotations(annotations map[string]interface{}, resou
 		maxSeverityAnnotation interface{}
 		ok                    bool
 	)
-	if minSeverityAnnotation, ok = annotations[terrascanMinSeverity]; !ok {
-		zap.S().Debugf(infileInstructionNotPresentLog, terrascanMinSeverity, resourceID)
+	if minSeverityAnnotation, ok = annotations[openterrascanMinSeverity]; !ok {
+		zap.S().Debugf(infileInstructionNotPresentLog, openterrascanMinSeverity, resourceID)
 	} else if minSeverity, ok = minSeverityAnnotation.(string); !ok {
-		zap.S().Debugf("%s must be a string containing value as (High | Low| Medium)", terrascanMinSeverity)
+		zap.S().Debugf("%s must be a string containing value as (High | Low| Medium)", openterrascanMinSeverity)
 	}
-	if maxSeverityAnnotation, ok = annotations[terrascanMaxSeverity]; !ok {
-		zap.S().Debugf(infileInstructionNotPresentLog, terrascanMaxSeverity, resourceID)
+	if maxSeverityAnnotation, ok = annotations[openterrascanMaxSeverity]; !ok {
+		zap.S().Debugf(infileInstructionNotPresentLog, openterrascanMaxSeverity, resourceID)
 	} else if maxSeverity, ok = maxSeverityAnnotation.(string); !ok {
-		zap.S().Debugf("%s must be a string containing value as (High | Low| Medium)", terrascanMaxSeverity)
+		zap.S().Debugf("%s must be a string containing value as (High | Low| Medium)", openterrascanMaxSeverity)
 	}
 	return
 }
